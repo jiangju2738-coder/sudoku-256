@@ -15,10 +15,11 @@ import time
 import argparse
 
 # XLSX 文件名映射 (行字母 -> 文件名)
+# 注意: XLSX 檔案存放在 xlsx/ 子目錄中
 XLSX_MAP = {
     'A': 'A第一行符闔排列.xlsx',
     'B': 'B第二行符闔排列.xlsx',
-    'C': 'C第三行符闔排列.xlsx',
+    'C': 'C第三行符闔排列_補P10R.xlsx',  # 補P10R 有完整 656,777 排列
     'D': 'D第四行符闔排列.xlsx',
     'E': 'E第五行符闔排列.xlsx',
     'F': 'F第六行符闔排列.xlsx',
@@ -195,7 +196,11 @@ def main():
             print("\nRow %s: no XLSX mapping found, skipping" % label)
             continue
 
-        xlsx_path = os.path.join(base_dir, xlsx_name)
+        # XLSX 檔案存放在 xlsx/ 子目錄中
+        xlsx_dir = os.path.join(base_dir, "xlsx")
+        if not os.path.isdir(xlsx_dir):
+            xlsx_dir = base_dir  # fallback: 直接在 base_dir 找
+        xlsx_path = os.path.join(xlsx_dir, xlsx_name)
         if not os.path.exists(xlsx_path):
             print("\nRow %s: XLSX not found: %s" % (label, xlsx_name))
             continue
