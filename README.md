@@ -1,5 +1,7 @@
 # Sudoku 256 — 16×16 符闔超級數獨求解器
 
+[![CI](https://github.com/jiangju2738-coder/sudoku-256/actions/workflows/ci.yml/badge.svg)](https://github.com/jiangju2738-coder/sudoku-256/actions/workflows/ci.yml)
+
 一個針對 **16×16 符闔超級數獨**（256 格、4×4 宮格、值域 1–16）的統一求解框架。支援三種求解策略，內建解驗證器與符闔排列過濾引擎，可從命令行或 Python API 使用。
 
 ## 什麼是符闔超級數獨？
