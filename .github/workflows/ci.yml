@@ -1,0 +1,129 @@
+# .github/workflows/ci.yml
+# 256 數獨求解器 - CI 持續整合
+#
+# 測試策略:
+#   - cpsat_perm: 需要排列 JSON 檔案 (CI 環境跳過, 檔案在 .gitignore)
+#   - cpsat_plain: 需要 OR-Tools (主要測試)
+#   - backtrack: 純 Python (備用驗證)
+
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - 'sudoku256/**'
+      - 'solve256.py'
+      - 'extract_perms.py'
+      - 'tests/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [master, main]
+    paths:
+      - 'sudoku256/**'
+      - 'solve256.py'
+      - 'extract_perms.py'
+      - 'tests/**'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-timeout ortools
+
+      - name: Show environment
+        run: |
+          python --version
+          pip show ortools | grep -E "^(Name|Version)"
+          pip show pytest | grep -E "^(Name|Version)"
+          python solve256.py --info
+
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -v --tb=short -x \
+            --timeout=300 \
+            --junitxml=test-results.xml \
+            2>&1
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-py${{ matrix.python-version }}
+          path: test-results.xml
+
+  # 快速 smoke test: 不用矩陣, 只驗證核心功能
+  smoke:
+    name: Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install ortools
+
+      - name: Solve with CP-SAT plain
+        run: |
+          python solve256.py --strategy cpsat_plain --time-limit 60 --quiet \
+            --output /tmp/smoke_result.json
+          python -c "
+          import json
+          with open('/tmp/smoke_result.json') as f:
+              data = json.load(f)
+          v = data['verification']
+          assert data['status'] == 'SOLVED', f'Solve failed: {data[\"status\"]}'
+          assert v['row_ok'], 'Row constraint violated'
+          assert v['col_ok'], 'Column constraint violated'
+          assert v['anchor_ok'], 'Anchor constraint violated'
+          print(f'PASS: {data[\"status\"]} in {data[\"solve_time_sec\"]}s')
+          "
+
+      - name: Solve with backtracking
+        run: |
+          python solve256.py --strategy backtrack --time-limit 300 --quiet \
+            --output /tmp/smoke_bt_result.json
+          python -c "
+          import json
+          with open('/tmp/smoke_bt_result.json') as f:
+              data = json.load(f)
+          v = data['verification']
+          assert data['status'] == 'SOLVED', f'Backtrack failed: {data[\"status\"]}'
+          assert v['row_ok'], 'Row constraint violated'
+          assert v['anchor_ok'], 'Anchor constraint violated'
+          print(f'PASS (backtrack): {data[\"status\"]} in {data[\"solve_time_sec\"]}s')
+          "
