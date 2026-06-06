@@ -93,15 +93,28 @@ Sudoku_256/
 ├── solve256.py                 # CLI 入口
 ├── extract_perms.py            # XLSX 符闔排列提取腳本
 ├── sudoku256/                  # 核心套件
-│   ├── __init__.py             # 公開 API
 │   ├── constants.py            # 單一數據源（錨點、已知行、常量）
 │   ├── loader.py               # 數據加載（JSON / XLSX / 排列文件）
 │   ├── propagator.py           # 約束傳播（AC-3 + 符闔排列過濾）
 │   ├── solver.py               # 統一求解器（三策略自動選擇）
 │   └── verifier.py             # 解驗證（行/列/宮/錨點/符闔）
-├── A*_permutations.json        # 符闔排列文件（由 extract_perms.py 生成）
-├── *.xlsx                      # 符闔排列原始數據
-└── .gitignore
+├── experiments/                # 歷史實驗（按版本分組）
+│   ├── v30s/                   # V33–V39：增量採樣、密度搜索
+│   ├── v40s/                   # V40–V42：融合求解器
+│   ├── v60s/                   # V60–V63：錨點分析、閉包測試
+│   ├── v70s/                   # V74–V79：演化求解、基因指紋
+│   ├── v80s/                   # V80–V89：錨點求解、PDF 生成
+│   └── v90s/                   # V90–V91：最終版本求解器
+├── research/
+│   ├── scripts/                # 通用研究腳本
+│   └── data/                   # JSON 數據與結果
+├── reports/                    # 研究報告（md / html / pdf）
+├── viz/                        # 互動式視覺化（HTML / PNG）
+├── xlsx/                       # 符闔排列 XLSX 原始數據 (Git LFS)
+├── logs/                       # 執行日誌
+├── archive/                    # 早期版本腳本（V19–V31）
+├── src/                        # 五維思維系統原型
+└── docs/                       # 架構文檔
 ```
 
 ## 數據說明
