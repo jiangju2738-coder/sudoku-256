@@ -94,12 +94,15 @@ print(report)  # {"row_ok": True, "col_ok": True, "box_ok": True, ...}
 Sudoku_256/
 ├── solve256.py                 # CLI 入口
 ├── extract_perms.py            # XLSX 符闔排列提取腳本
+├── tests/                      # pytest 測試套件（74 項）
 ├── sudoku256/                  # 核心套件
 │   ├── constants.py            # 單一數據源（錨點、已知行、常量）
 │   ├── loader.py               # 數據加載（JSON / XLSX / 排列文件）
 │   ├── propagator.py           # 約束傳播（AC-3 + 符闔排列過濾）
 │   ├── solver.py               # 統一求解器（三策略自動選擇）
 │   └── verifier.py             # 解驗證（行/列/宮/錨點/符闔）
+├── .github/workflows/ci.yml    # GitHub Actions CI
+├── requirements.txt            # 開發依賴
 ├── experiments/                # 歷史實驗（按版本分組）
 │   ├── v30s/                   # V33–V39：增量採樣、密度搜索
 │   ├── v40s/                   # V40–V42：融合求解器
@@ -142,6 +145,30 @@ python extract_perms.py
 - **openpyxl** — `extract_perms.py` 提取 XLSX 時需要
 
 `backtrack` 策略為純 Python 實現，無需外部依賴。
+
+## CI 測試
+
+專案使用 GitHub Actions 進行持續整合，每次 push 或 PR 自動執行測試。
+
+### 本地執行
+
+```bash
+pip install -r requirements.txt
+python -m pytest tests/ -v --timeout=300
+```
+
+### 測試架構
+
+| Job | 說明 | Python | 耗時 |
+|-----|------|--------|------|
+| `test` | 矩陣測試，74 項 pytest | 3.11, 3.12 | ~22-28s |
+| `smoke` | CLI 端到端求解驗證 | 3.12 | ~21s |
+
+### 測試覆蓋（74 項）
+
+測試分為 10 大類別，涵蓋常數驗證、已知解校驗、完全固定行、輔助函數、數據加載、解驗證器、AC-3 約束傳播、三種求解策略、CLI 命令、以及邊界情況。
+
+CI 環境中排列 JSON 文件（`A*_permutations.json`）因體積過大而不在 Git 追蹤中，`cpsat_perm` 相關測試會自動跳過，求解器自動降級到 `cpsat_plain` 或 `backtrack` 策略。
 
 ## 授權
 
