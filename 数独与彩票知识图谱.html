@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数独与彩票知识图谱 — 完整分析报告</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 40px; color: white; }
+    .header h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+    .header p { font-size: 1.1rem; opacity: 0.9; }
+    .card { background: white; border-radius: 16px; padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+    .card h2 { font-size: 1.5rem; color: #2d3748; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 3px solid #667eea; display: inline-block; }
+    .card h3 { font-size: 1.2rem; color: #4a5568; margin: 20px 0 15px; }
+    .theory-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 20px 0; }
+    .theory-card { background: #f7fafc; border-radius: 12px; padding: 20px; border-left: 4px solid #667eea; }
+    .theory-card h4 { color: #2d3748; font-size: 1.1rem; margin-bottom: 10px; }
+    .theory-card p { color: #718096; font-size: 0.9rem; line-height: 1.6; }
+    .compare-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .compare-table th, .compare-table td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    .compare-table th { background: #667eea; color: white; font-weight: 600; }
+    .compare-table tr:hover { background: #f7fafc; }
+    .compare-table td:first-child { font-weight: 600; color: #4a5568; }
+    .highlight-box { background: linear-gradient(135deg, #667eea20, #764ba220); border-radius: 12px; padding: 20px; margin: 20px 0; border: 2px dashed #667eea; }
+    .highlight-box strong { color: #553c9a; }
+    .branch { display: flex; align-items: center; gap: 10px; margin: 15px 0; }
+    .branch-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+    .branch-text { color: #4a5568; }
+    .formula { background: #edf2f7; padding: 15px 20px; border-radius: 8px; font-family: "Courier New", monospace; overflow-x: auto; margin: 15px 0; }
+    .formula code { color: #2d3748; }
+    .interactive-mindmap { background: #f0f4ff; border-radius: 12px; padding: 25px; margin: 20px 0; }
+    .mindmap-node { display: inline-block; padding: 10px 20px; margin: 8px; border-radius: 25px; font-weight: 500; cursor: pointer; transition: all 0.3s; }
+    .mindmap-node:hover { transform: scale(1.1); }
+    .node-center { background: #667eea; color: white; }
+    .node-core { background: #48bb78; color: white; }
+    .node-app { background: #ed8936; color: white; }
+    .node-method { background: #e53e3e; color: white; }
+    .node-cross { background: #9f7aea; color: white; }
+    .mindmap-level { margin-bottom: 20px; }
+    .mindmap-level h4 { color: #4a5568; margin-bottom: 10px; }
+    .mindmap-connections { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
+    .conn-item { background: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .conn-arrow { color: #667eea; font-weight: bold; }
+    .insight-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0; }
+    .insight-card { background: white; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; }
+    .insight-card .insight-title { color: #667eea; font-weight: 600; margin-bottom: 10px; font-size: 1rem; }
+    .insight-card .insight-desc { color: #718096; font-size: 0.9rem; line-height: 1.6; }
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 500; margin-right: 8px; margin-bottom: 8px; }
+    .tag-blue { background: #bee3f8; color: #2c5282; }
+    .tag-green { background: #c6f6d5; color: #276749; }
+    .tag-purple { background: #e9d8fd; color: #553c9a; }
+    .tag-orange { background: #feebc8; color: #744210; }
+    .section-nav { position: sticky; top: 20px; background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 100; margin-bottom: 30px; }
+    .section-nav a { color: #4a5568; text-decoration: none; padding: 8px 16px; display: inline-block; border-radius: 8px; margin-right: 5px; transition: all 0.2s; }
+    .section-nav a:hover { background: #667eea; color: white; }
+    .math-diagram { display: flex; justify-content: center; gap: 40px; margin: 30px 0; flex-wrap: wrap; }
+    .math-box { text-align: center; padding: 20px; border-radius: 12px; min-width: 200px; }
+    .math-box-blue { background: #ebf8ff; border: 2px solid #4299e1; }
+    .math-box-orange { background: #fffaf0; border: 2px solid #ed8936; }
+    .math-box-label { font-weight: 600; color: #2d3748; margin-bottom: 8px; }
+    .math-box-content { font-size: 0.85rem; color: #718096; line-height: 1.5; }
+    .ancient-chinese { background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 12px; padding: 25px; margin: 25px 0; border: 3px solid #d97706; }
+    .ancient-chinese h3 { color: #92400e; margin-bottom: 15px; }
+    .ancient-chinese p { color: #78716c; line-height: 1.8; }
+    .footer { text-align: center; color: white; margin-top: 40px; padding: 20px; }
+    .footer a { color: #fbd38d; text-decoration: none; }
+    @media (max-width: 768px) {
+      .theory-grid, .insight-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🧮 数独与彩票知识图谱</h1>
+      <p>跨领域组合数学深度分析 · 理论脉络与思维框架</p>
+    </div>
+
+    <!-- Section Navigation -->
+    <div class="section-nav">
+      <a href="#theory">核心理论</a>
+      <a href="#compare">异同对比</a>
+      <a href="#connections">关联网络</a>
+      <a href="#ancient">古代筭灋</a>
+      <a href="#insights">深度洞察</a>
+    </div>
+
+    <!-- Core Theory Section -->
+    <div class="card" id="theory">
+      <h2>📐 核心理论基础</h2>
+      
+      <div class="theory-grid">
+        <div class="theory-card">
+          <h4>🎯 拉丁方 (Latin Square)</h4>
+          <p>n×n 矩阵，每行每列恰好包含 n 个不同元素各一次。数独 = 拉丁方 + 宫约束。9×9 数独要求每行、每列、每 3×3 宫均包含数字 1-9 各一次。</p>
+        </div>
+        <div class="theory-card">
+          <h4>🔗 精确覆盖 (Exact Cover)</h4>
+          <p>从集合族中选择互不相交的子集，使其并集等于全集。数独→精确覆盖映射：324 列约束，729 行选项，目标选择 81 行使 324 列每列恰有一个 1。</p>
+        </div>
+        <div class="theory-card">
+          <h4>📦 覆盖设计 (Covering Design)</h4>
+          <p>t-(v,k,λ) 覆盖设计：v 元集 X，k 元子集族 B，每个 t 元子集至少包含在 λ 个区组中。覆盖数 C(v,k,t) 为满足条件的最小区组数。</p>
+        </div>
+        <div class="theory-card">
+          <h4>⚡ 约束满足 (CSP)</h4>
+          <p>数独是典型的 CSP 实例：变量 81 个格子（可取 1-9），约束 324 个二元约束（行 9+ 列 9+ 宫 9+ 数字唯一 9）。求解方法：回溯搜索、约束传播、MRV 启发式。</p>
+        </div>
+      </div>
+
+      <div class="formula">
+        <code>核心公式对照：</code><br><br>
+        <code>📌 数独：选择 81 行 → 覆盖 324 列 恰一次 (精确覆盖)</code><br>
+        <code>📌 彩票：选择 m 注 → 覆盖 C(v,t) 组合 至少一次 (覆盖设计)</code><br><br>
+        <code>Schönheim 下界：C(v,k,t) ≥ ⌈v/k × ⌈(v-1)/(k-1) × ... × ⌈(v-t+1)/(k-t+1)⌉⌉⌉</code>
+      </div>
+    </div>
+
+    <!-- Comparison Section -->
+    <div class="card" id="compare">
+      <h2>⚖️ 数独 vs 彩票：根本异同</h2>
+      
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>🧩 数独</th>
+            <th>🎰 彩票</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>问题类型</td>
+            <td>确定性约束满足</td>
+            <td>概率性组合覆盖</td>
+          </tr>
+          <tr>
+            <td>核心目标</td>
+            <td>找到唯一解（81 个数字）</td>
+            <td>用最少注数保证命中条件</td>
+          </tr>
+          <tr>
+            <td>数学工具</td>
+            <td>精确覆盖 / DLX / CSP</td>
+            <td>覆盖设计 / C(v,k,t) 轮盘</td>
+          </tr>
+          <tr>
+            <td>约束性质</td>
+            <td>所有约束必须 100% 满足</td>
+            <td>t 元子集至少被覆盖一次</td>
+          </tr>
+          <tr>
+            <td>可解性</td>
+            <td>有确定性求解算法</td>
+            <td>最优解 NP-hard，常用近似</td>
+          </tr>
+          <tr>
+            <td>随机性</td>
+            <td>无随机性（谜题固定）</td>
+            <td>开奖结果完全随机</td>
+          </tr>
+          <tr>
+            <td>搜索空间</td>
+            <td>9^81 ≈ 10^77（极大但约束极紧）</td>
+            <td>C(v,k) 随 v 指数增长</td>
+          </tr>
+          <tr>
+            <td>典型算法</td>
+            <td>DLX Dancing Links、回溯 + 剪枝</td>
+            <td>贪心构造、整数规划、遗传算法</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="highlight-box">
+        <strong>💡 关键洞察：</strong> 数独是<strong>精确覆盖</strong>问题——求完整解集（每个约束恰满足一次）；<br>
+        彩票是<strong>覆盖设计</strong>问题——求最小区组集（每个 t 元子集至少满足一次）。
+      </div>
+    </div>
+
+    <!-- Connection Network -->
+    <div class="card" id="connections">
+      <h2>🌐 理论关联网络</h2>
+
+      <div class="interactive-mindmap">
+        <div class="mindmap-level">
+          <h4>🏛️ 中心理论</h4>
+          <div class="mindmap-connections">
+            <span class="mindmap-node node-center">组合设计理论</span>
+          </div>
+        </div>
+
+        <div class="mindmap-level">
+          <h4>📚 四大核心分支</h4>
+          <div class="mindmap-connections">
+            <span class="mindmap-node node-core">拉丁方</span>
+            <span class="mindmap-node node-core">精确覆盖</span>
+            <span class="mindmap-node node-core">覆盖设计</span>
+            <span class="mindmap-node node-core">约束满足</span>
+            <span class="mindmap-node node-core">t-设计</span>
+          </div>
+        </div>
+
+        <div class="mindmap-level">
+          <h4>🔗 分支映射关系</h4>
+          <div class="mindmap-connections">
+            <div class="conn-item">
+              <span class="node-core">拉丁方</span> 
+              <span class="conn-arrow">→</span> 
+              <span class="node-app">数独 · 实验设计</span>
+            </div>
+            <div class="conn-item">
+              <span class="node-core">精确覆盖</span> 
+              <span class="conn-arrow">→</span> 
+              <span class="node-app">数独求解 · N 皇后</span>
+            </div>
+            <div class="conn-item">
+              <span class="node-core">覆盖设计</span> 
+              <span class="conn-arrow">→</span> 
+              <span class="node-app">彩票轮盘 · 测试生成</span>
+            </div>
+            <div class="conn-item">
+              <span class="node-core">t-设计</span> 
+              <span class="conn-arrow">→</span> 
+              <span class="node-app">编码理论 · 有限几何</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mindmap-level">
+          <h4>🛠️ 方法支撑层</h4>
+          <div class="mindmap-connections">
+            <span class="mindmap-node node-method">回溯搜索</span>
+            <span class="mindmap-node node-method">蒙特卡洛</span>
+            <span class="mindmap-node node-method">遗传算法</span>
+            <span class="mindmap-node node-method">模拟退火</span>
+            <span class="mindmap-node node-method">整数规划</span>
+          </div>
+        </div>
+
+        <div class="mindmap-level">
+          <h4>🎯 跨域应用层</h4>
+          <div class="mindmap-connections">
+            <span class="mindmap-node node-app">🧩 数独</span>
+            <span class="mindmap-node node-app">🎰 彩票</span>
+            <span class="mindmap-node node-app">🔬 实验设计</span>
+            <span class="mindmap-node node-app">💻 编码理论</span>
+            <span class="mindmap-node node-app">🔐 密码学</span>
+            <span class="mindmap-node node-cross">🔀 交叉融合</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <strong>🔗 方法论连接：</strong><br>
+        CSP 回溯搜索 → Algorithm X → DLX<br>
+        组合优化 → 精确算法 (整数规划) / 近似算法 (贪心) / 元启发式 (GA/SA)<br>
+        概率方法 → 蒙特卡洛估算覆盖数 / 概率界估计
+      </div>
+    </div>
+
+    <!-- Ancient Chinese Mathematics -->
+    <div class="card" id="ancient">
+      <h2>📜 中国古代筭灋的智慧</h2>
+
+      <div class="ancient-chinese">
+        <h3>九章算术 · 算经之首</h3>
+        <p>
+          <strong>算筹</strong>：准十进制位值制记数法，可表示分数、小数、负数、高次方程<br><br>
+          <strong>算法化思想</strong>：数学问题 → 算法 → 程序化求解（吴文俊数学机械化理论）<br><br>
+          <strong>主要内容</strong>：方田（面积）· 粟米（比例）· 衰分（分配）· 少广（开方）· 商功（体积）· 均输（赋税）· 盈不足（盈亏）· 方程（线性方程组）· 勾股
+        </p>
+      </div>
+
+      <div class="ancient-chinese">
+        <h3>河图洛书与易经数理</h3>
+        <p>
+          <strong>"河出图，洛出书，圣人则之"</strong>（系辞传）<br><br>
+          <strong>数理哲学</strong>：形由象生，象由数设<br><br>
+          <strong>数字结构</strong>：蕴含五行生克、阴阳交感的宇宙观<br><br>
+          <strong>洛书 3×3 幻方</strong>：最早的拉丁方原型之一，纵横斜和均为 15
+        </p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>💡 历史呼应：</strong> 中国古代筭灋的<strong>算法化、程序化思想</strong>与当代计算数学有深刻共鸣。<br>
+        算筹的<strong>位值制思想</strong>是现代计算的基础，洛书的幻方结构预示了组合设计的萌芽。
+      </div>
+    </div>
+
+    <!-- Deep Insights -->
+    <div class="card" id="insights">
+      <h2>🔍 深度洞察与延伸</h2>
+
+      <div class="insight-grid">
+        <div class="insight-card">
+          <div class="insight-title">🎯 核心结论 1</div>
+          <div class="insight-desc">
+            <strong>数独与彩票看似迥异，实则同根</strong>：两者都源于组合设计理论，分别代表了该理论的"精确"与"覆盖"两个分支。
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-title">🎯 核心结论 2</div>
+          <div class="insight-desc">
+            <strong>DLX 与覆盖设计是互补工具</strong>：DLX 解决精确覆盖（求完整解），覆盖设计解决最小保证（求最优子集），二者都是 NP-hard 问题的不同应对策略。
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-title">🎯 核心结论 3</div>
+          <div class="insight-desc">
+            <strong>蒙特卡洛是连接确定性与概率性的桥梁</strong>：可用于估算覆盖数上界、验证设计有效性、优化组合策略。
+          </div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-title">🎯 核心结论 4</div>
+          <div class="insight-desc">
+            <strong>中国古代数学的智慧</strong>：九章算术的算法化、程序化思想与当代计算数学有深刻共鸣，算筹的位值制思想是现代计算的基础。
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background: linear-gradient(135deg, #667eea15, #764ba215);">
+        <h3>🚀 研究延伸方向</h3>
+        
+        <div class="theory-grid">
+          <div class="theory-card">
+            <span class="tag tag-blue">算法融合</span>
+            <p>能否用覆盖设计思想优化数独生成（最小提示数）？</p>
+          </div>
+          <div class="theory-card">
+            <span class="tag tag-green">跨域应用</span>
+            <p>数独的约束传播能否用于彩票组号优化？</p>
+          </div>
+          <div class="theory-card">
+            <span class="tag tag-purple">理论深化</span>
+            <p>精确覆盖与覆盖设计之间是否存在更深层的对偶关系？</p>
+          </div>
+          <div class="theory-card">
+            <span class="tag tag-orange">历史追溯</span>
+            <p>中国古代筭灋中是否隐含组合设计思想（如洛书的 3×3 幻方结构）？</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Diagram -->
+    <div class="card">
+      <h2>📊 概念对照速览</h2>
+      
+      <div class="math-diagram">
+        <div class="math-box math-box-blue">
+          <div class="math-box-label">🧩 数独问题</div>
+          <div class="math-box-content">
+            81 变量 · 324 约束<br>
+            精确覆盖 DLX<br>
+            确定性求解
+          </div>
+        </div>
+        <div class="math-box math-box-orange">
+          <div class="math-box-label">🎰 彩票问题</div>
+          <div class="math-box-content">
+            v 选 k · 保证 t 命中<br>
+            覆盖设计 C(v,k,t)<br>
+            概率性优化
+          </div>
+        </div>
+        <div class="math-box math-box-blue" style="border-color: #9f7aea;">
+          <div class="math-box-label">🔗 共同根基</div>
+          <div class="math-box-content">
+            组合设计理论<br>
+            拉丁方 · t 设计<br>
+            NP-hard 复杂性
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>📚 基于组合设计理论的跨领域知识图谱构建</p>
+      <p>🔬 数独 · 彩票 · 筭灋 · 概率 · 覆盖率 · 组合优化</p>
+      <p style="margin-top: 15px; font-size: 0.9rem;">
+        Generated by WorkBuddy AI | 
+        <a href="https://www.codebuddy.cn" target="_blank">CodeBuddy</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

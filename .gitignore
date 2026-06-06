@@ -10,6 +10,12 @@ __pycache__/
 *.pyc
 *.pyo
 
+# Tooling
+.workbuddy/
+
+# SAT encoding artifacts (too large)
+*.cnf
+
 # IDE
 .vscode/
 .idea/
@@ -17,3 +23,4 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+nul

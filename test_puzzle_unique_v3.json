@@ -1,0 +1,9 @@
+{
+  "id": "generated_unique_v3",
+  "grid_size": 16,
+  "box_size": 4,
+  "known_digits": [
+    {
+      "row": 1,
+      "col": 1,
+      "value": 

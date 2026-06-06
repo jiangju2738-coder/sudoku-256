@@ -1,0 +1,62 @@
+{
+  "verification_summary": {
+    "timestamp": "2026-05-18T01:14:00+08:00",
+    "config": "92 anchors original (unmodified)",
+    "verification_type": "constraint_conflict_pre_check"
+  },
+  "constraint_conflicts": {
+    "total_conflicts": 20,
+    "row_conflicts": 0,
+    "col_conflicts": 8,
+    "box_conflicts": 12,
+    "col_conflicts_detail": [
+      {"col": 3, "value": 3, "positions": ["行 1", "行 3"]},
+      {"col": 6, "value": 12, "positions": ["行 1", "行 3"]},
+      {"col": 8, "value": 5, "positions": ["行 1", "行 3"]},
+      {"col": 12, "value": 14, "positions": ["行 1", "行 3"]},
+      {"col": 14, "value": 16, "positions": ["行 3", "行 6"]},
+      {"col": 8, "value": 9, "positions": ["行 4", "行 8"]},
+      {"col": 9, "value": 3, "positions": ["行 4", "行 12"]},
+      {"col": 2, "value": 1, "positions": ["行 9", "行 15"]}
+    ],
+    "box_conflicts_detail": [
+      {"box": [0, 0], "value": 3, "positions": ["行 1 列 3", "行 3 列 3"]},
+      {"box": [0, 1], "value": 12, "positions": ["行 1 列 6", "行 3 列 6"]},
+      {"box": [0, 1], "value": 5, "positions": ["行 1 列 8", "行 3 列 8"]},
+      {"box": [0, 2], "value": 14, "positions": ["行 1 列 12", "行 3 列 12"]},
+      {"box": [0, 0], "value": 7, "positions": ["行 3 列 1", "行 4 列 4"]},
+      {"box": [0, 1], "value": 9, "positions": ["行 2 列 7", "行 4 列 8"]},
+      {"box": [0, 2], "value": 2, "positions": ["行 3 列 10", "行 4 列 11"]},
+      {"box": [0, 2], "value": 6, "positions": ["行 2 列 9", "行 4 列 12"]},
+      {"box": [2, 0], "value": 1, "positions": ["行 9 列 2", "行 11 列 1"]},
+      {"box": [2, 1], "value": 16, "positions": ["行 9 列 7", "行 12 列 6"]},
+      {"box": [2, 1], "value": 14, "positions": ["行 10 列 6", "行 12 列 7"]},
+      {"box": [2, 2], "value": 12, "positions": ["行 9 列 12", "行 12 列 11"]}
+    ]
+  },
+  "conclusion": {
+    "status": "DATA_LEVEL_CONFLICTS",
+    "summary": "92 锚点数据本身存在 20 个约束冲突（8 个列冲突 + 12 个宫冲突）",
+    "implications": [
+      "这是数据结构层面的硬冲突，不是搜索深度问题",
+      "无论 CP-SAT 搜索多久，必然是 INFEASIBLE",
+      "55 锚点与 92 锚点是完全不同的谜题配置",
+      "55 锚点的唯一解不能覆盖 92 锚点，两者具备不相关性"
+    ],
+    "analogy": "就像 9×9 数独中，如果 17 个提示数的配置本身有冲突，那么即使增加提示数到 25 个也找不到解——提示数数量不是问题的关键，数据内部一致性才是"
+  },
+  "relationship_between_55_and_92": {
+    "55_anchors": {
+      "anchor_count": 55,
+      "status": "OPTIMAL, unique solution",
+      "constraint_strength": "Moderate"
+    },
+    "92_anchors": {
+      "anchor_count": 92,
+      "status": "INFEASIBLE (data conflicts)",
+      "constraint_strength": "Over-constrained with internal conflicts"
+    },
+    "relationship": "INDEPENDENT",
+    "explanation": "55 锚点与 92 锚点是两码事。55 锚点存在唯一解证明该配置是"适度约束"；92 锚点存在内部冲突证明该配置是"过度约束且内部矛盾"。两者约束集合不同，解空间不同，不能从 55 推断 92 的任何性质。"
+  }
+}

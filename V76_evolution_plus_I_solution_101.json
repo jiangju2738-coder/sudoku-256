@@ -1,0 +1,993 @@
+{
+  "puzzle": {
+    "A": [
+      0,
+      0,
+      3,
+      0,
+      0,
+      12,
+      0,
+      5,
+      0,
+      0,
+      0,
+      14,
+      0,
+      16,
+      0,
+      8
+    ],
+    "B": [
+      0,
+      12,
+      0,
+      0,
+      3,
+      0,
+      9,
+      0,
+      6,
+      0,
+      5,
+      4,
+      2,
+      0,
+      1,
+      0
+    ],
+    "C": [
+      0,
+      0,
+      14,
+      0,
+      0,
+      2,
+      0,
+      8,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "D": [
+      0,
+      4,
+      0,
+      13,
+      7,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      11,
+      0,
+      12,
+      0,
+      0
+    ],
+    "E": [
+      0,
+      0,
+      0,
+      0,
+      13,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      4,
+      0,
+      0,
+      0
+    ],
+    "F": [
+      0,
+      8,
+      0,
+      0,
+      15,
+      0,
+      4,
+      3,
+      0,
+      9,
+      0,
+      0,
+      0,
+      13,
+      0,
+      12
+    ],
+    "G": [
+      14,
+      0,
+      4,
+      6,
+      0,
+      0,
+      12,
+      0,
+      2,
+      0,
+      0,
+      0,
+      0,
+      3,
+      0,
+      0
+    ],
+    "H": [
+      0,
+      13,
+      0,
+      0,
+      0,
+      5,
+      0,
+      9,
+      0,
+      0,
+      14,
+      6,
+      0,
+      0,
+      16,
+      0
+    ],
+    "I": [
+      13,
+      9,
+      16,
+      2,
+      6,
+      11,
+      8,
+      12,
+      14,
+      4,
+      1,
+      7,
+      10,
+      15,
+      5,
+      3
+    ],
+    "J": [
+      0,
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      16,
+      0,
+      8,
+      0,
+      7,
+      0
+    ],
+    "K": [
+      1,
+      0,
+      6,
+      0,
+      5,
+      0,
+      0,
+      2,
+      0,
+      3,
+      0,
+      0,
+      9,
+      0,
+      0,
+      0
+    ],
+    "L": [
+      0,
+      0,
+      0,
+      4,
+      0,
+      16,
+      14,
+      0,
+      0,
+      0,
+      12,
+      5,
+      0,
+      0,
+      0,
+      1
+    ],
+    "M": [
+      15,
+      0,
+      0,
+      0,
+      12,
+      0,
+      0,
+      0,
+      5,
+      1,
+      0,
+      3,
+      0,
+      6,
+      0,
+      7
+    ],
+    "N": [
+      0,
+      0,
+      9,
+      0,
+      0,
+      6,
+      0,
+      0,
+      13,
+      0,
+      0,
+      15,
+      0,
+      0,
+      3,
+      0
+    ],
+    "O": [
+      0,
+      1,
+      0,
+      0,
+      9,
+      0,
+      0,
+      15,
+      0,
+      0,
+      2,
+      8,
+      0,
+      5,
+      0,
+      0
+    ],
+    "P": [
+      0,
+      0,
+      2,
+      0,
+      0,
+      0,
+      5,
+      0,
+      0,
+      14,
+      0,
+      0,
+      1,
+      0,
+      10,
+      15
+    ]
+  },
+  "total_anchors": 101,
+  "anchor_breakdown": {
+    "initial_92": 92,
+    "i_row_added": 9,
+    "total": 101
+  },
+  "i_permutations_count": 164,
+  "zhonghe_analysis": {
+    "row_constraints": {
+      "A": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      },
+      "B": {
+        "known": 8,
+        "unknown": 8,
+        "constraint_strength": 0.5
+      },
+      "C": {
+        "known": 3,
+        "unknown": 13,
+        "constraint_strength": 0.1875
+      },
+      "D": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      },
+      "E": {
+        "known": 3,
+        "unknown": 13,
+        "constraint_strength": 0.1875
+      },
+      "F": {
+        "known": 7,
+        "unknown": 9,
+        "constraint_strength": 0.4375
+      },
+      "G": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      },
+      "H": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      },
+      "I": {
+        "known": 16,
+        "unknown": 0,
+        "constraint_strength": 1.0
+      },
+      "J": {
+        "known": 4,
+        "unknown": 12,
+        "constraint_strength": 0.25
+      },
+      "K": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      },
+      "L": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      },
+      "M": {
+        "known": 7,
+        "unknown": 9,
+        "constraint_strength": 0.4375
+      },
+      "N": {
+        "known": 5,
+        "unknown": 11,
+        "constraint_strength": 0.3125
+      },
+      "O": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      },
+      "P": {
+        "known": 6,
+        "unknown": 10,
+        "constraint_strength": 0.375
+      }
+    },
+    "anchor_distribution": {
+      "6": [
+        "A",
+        "D",
+        "G",
+        "H",
+        "K",
+        "L",
+        "O",
+        "P"
+      ],
+      "8": [
+        "B"
+      ],
+      "3": [
+        "C",
+        "E"
+      ],
+      "7": [
+        "F",
+        "M"
+      ],
+      "16": [
+        "I"
+      ],
+      "4": [
+        "J"
+      ],
+      "5": [
+        "N"
+      ]
+    },
+    "summary": {
+      "total_anchors": 101,
+      "avg_constraint": 0.39453125
+    }
+  },
+  "five_dim_analysis": {
+    "point": {
+      "total_cells": 256,
+      "filled_cells": 101,
+      "empty_cells": 155,
+      "fill_rate": 39.45
+    },
+    "line": {
+      "rows": {
+        "A": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        },
+        "B": {
+          "locked": false,
+          "known": 8,
+          "lock_rate": 50.0
+        },
+        "C": {
+          "locked": false,
+          "known": 3,
+          "lock_rate": 18.75
+        },
+        "D": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        },
+        "E": {
+          "locked": false,
+          "known": 3,
+          "lock_rate": 18.75
+        },
+        "F": {
+          "locked": false,
+          "known": 7,
+          "lock_rate": 43.75
+        },
+        "G": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        },
+        "H": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        },
+        "I": {
+          "locked": true,
+          "known": 16,
+          "lock_rate": 100.0
+        },
+        "J": {
+          "locked": false,
+          "known": 4,
+          "lock_rate": 25.0
+        },
+        "K": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        },
+        "L": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        },
+        "M": {
+          "locked": false,
+          "known": 7,
+          "lock_rate": 43.75
+        },
+        "N": {
+          "locked": false,
+          "known": 5,
+          "lock_rate": 31.25
+        },
+        "O": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        },
+        "P": {
+          "locked": false,
+          "known": 6,
+          "lock_rate": 37.5
+        }
+      }
+    },
+    "plane": {
+      "palaces": {
+        "P1": {
+          "filled": 5,
+          "empty": 11,
+          "fill_rate": 31.25
+        },
+        "P2": {
+          "filled": 8,
+          "empty": 8,
+          "fill_rate": 50.0
+        },
+        "P3": {
+          "filled": 5,
+          "empty": 11,
+          "fill_rate": 31.25
+        },
+        "P4": {
+          "filled": 5,
+          "empty": 11,
+          "fill_rate": 31.25
+        },
+        "P5": {
+          "filled": 5,
+          "empty": 11,
+          "fill_rate": 31.25
+        },
+        "P6": {
+          "filled": 7,
+          "empty": 9,
+          "fill_rate": 43.75
+        },
+        "P7": {
+          "filled": 5,
+          "empty": 11,
+          "fill_rate": 31.25
+        },
+        "P8": {
+          "filled": 5,
+          "empty": 11,
+          "fill_rate": 31.25
+        },
+        "P9": {
+          "filled": 8,
+          "empty": 8,
+          "fill_rate": 50.0
+        },
+        "P10": {
+          "filled": 8,
+          "empty": 8,
+          "fill_rate": 50.0
+        },
+        "P11": {
+          "filled": 8,
+          "empty": 8,
+          "fill_rate": 50.0
+        },
+        "P12": {
+          "filled": 8,
+          "empty": 8,
+          "fill_rate": 50.0
+        },
+        "P13": {
+          "filled": 4,
+          "empty": 12,
+          "fill_rate": 25.0
+        },
+        "P14": {
+          "filled": 5,
+          "empty": 11,
+          "fill_rate": 31.25
+        },
+        "P15": {
+          "filled": 8,
+          "empty": 8,
+          "fill_rate": 50.0
+        },
+        "P16": {
+          "filled": 7,
+          "empty": 9,
+          "fill_rate": 43.75
+        }
+      }
+    },
+    "body": {
+      "columns": {
+        "A": {
+          "known": 4,
+          "empty": 12,
+          "constraint_strength": 25.0
+        },
+        "B": {
+          "known": 7,
+          "empty": 9,
+          "constraint_strength": 43.75
+        },
+        "C": {
+          "known": 7,
+          "empty": 9,
+          "constraint_strength": 43.75
+        },
+        "D": {
+          "known": 4,
+          "empty": 12,
+          "constraint_strength": 25.0
+        },
+        "E": {
+          "known": 8,
+          "empty": 8,
+          "constraint_strength": 50.0
+        },
+        "F": {
+          "known": 6,
+          "empty": 10,
+          "constraint_strength": 37.5
+        },
+        "G": {
+          "known": 7,
+          "empty": 9,
+          "constraint_strength": 43.75
+        },
+        "H": {
+          "known": 7,
+          "empty": 9,
+          "constraint_strength": 43.75
+        },
+        "I": {
+          "known": 5,
+          "empty": 11,
+          "constraint_strength": 31.25
+        },
+        "J": {
+          "known": 6,
+          "empty": 10,
+          "constraint_strength": 37.5
+        },
+        "K": {
+          "known": 6,
+          "empty": 10,
+          "constraint_strength": 37.5
+        },
+        "L": {
+          "known": 9,
+          "empty": 7,
+          "constraint_strength": 56.25
+        },
+        "M": {
+          "known": 6,
+          "empty": 10,
+          "constraint_strength": 37.5
+        },
+        "N": {
+          "known": 7,
+          "empty": 9,
+          "constraint_strength": 43.75
+        },
+        "O": {
+          "known": 6,
+          "empty": 10,
+          "constraint_strength": 37.5
+        },
+        "P": {
+          "known": 6,
+          "empty": 10,
+          "constraint_strength": 37.5
+        }
+      }
+    },
+    "sphere": {
+      "description": "101锚点构成的约束网络",
+      "anchor_density": 39.45
+    },
+    "spacetime": {
+      "initial_state": "92锚点",
+      "evolution": "92 + I行9 = 101锚点",
+      "convergence_rate": "101/256 = 39.45%"
+    }
+  },
+  "chain_ring_analysis": {
+    "i_constraint": {
+      "i_row_complete": true,
+      "i_row_anchors": 16,
+      "chain_strength": 100.0,
+      "analysis": "I行完整锁定(16锚点)，通过列约束传递到所有其他行，形成全行约束网络"
+    },
+    "description": "I行完整排列锁定通过列约束传递，与所有15行形成链式关联，解空间收敛为唯一解"
+  },
+  "solution": [
+    [
+      7,
+      2,
+      3,
+      1,
+      4,
+      12,
+      10,
+      5,
+      15,
+      13,
+      9,
+      14,
+      6,
+      16,
+      11,
+      8
+    ],
+    [
+      11,
+      12,
+      8,
+      15,
+      3,
+      14,
+      9,
+      16,
+      6,
+      7,
+      5,
+      4,
+      2,
+      10,
+      1,
+      13
+    ],
+    [
+      5,
+      6,
+      14,
+      16,
+      11,
+      2,
+      13,
+      8,
+      1,
+      12,
+      3,
+      10,
+      7,
+      9,
+      15,
+      4
+    ],
+    [
+      9,
+      4,
+      10,
+      13,
+      7,
+      15,
+      1,
+      6,
+      16,
+      2,
+      8,
+      11,
+      3,
+      12,
+      14,
+      5
+    ],
+    [
+      10,
+      16,
+      7,
+      9,
+      13,
+      8,
+      6,
+      14,
+      3,
+      5,
+      15,
+      12,
+      4,
+      1,
+      2,
+      11
+    ],
+    [
+      2,
+      8,
+      5,
+      11,
+      15,
+      1,
+      4,
+      3,
+      7,
+      9,
+      10,
+      16,
+      14,
+      13,
+      6,
+      12
+    ],
+    [
+      14,
+      15,
+      4,
+      6,
+      16,
+      7,
+      12,
+      10,
+      2,
+      11,
+      13,
+      1,
+      5,
+      3,
+      8,
+      9
+    ],
+    [
+      3,
+      13,
+      1,
+      12,
+      2,
+      5,
+      11,
+      9,
+      4,
+      8,
+      14,
+      6,
+      15,
+      7,
+      16,
+      10
+    ],
+    [
+      13,
+      9,
+      16,
+      2,
+      6,
+      11,
+      8,
+      12,
+      14,
+      4,
+      1,
+      7,
+      10,
+      15,
+      5,
+      3
+    ],
+    [
+      12,
+      5,
+      11,
+      14,
+      1,
+      9,
+      3,
+      13,
+      10,
+      15,
+      16,
+      2,
+      8,
+      4,
+      7,
+      6
+    ],
+    [
+      1,
+      10,
+      6,
+      7,
+      5,
+      4,
+      15,
+      2,
+      8,
+      3,
+      11,
+      13,
+      9,
+      14,
+      12,
+      16
+    ],
+    [
+      8,
+      3,
+      15,
+      4,
+      10,
+      16,
+      14,
+      7,
+      9,
+      6,
+      12,
+      5,
+      11,
+      2,
+      13,
+      1
+    ],
+    [
+      15,
+      14,
+      13,
+      8,
+      12,
+      10,
+      2,
+      11,
+      5,
+      1,
+      4,
+      3,
+      16,
+      6,
+      9,
+      7
+    ],
+    [
+      4,
+      11,
+      9,
+      5,
+      14,
+      6,
+      16,
+      1,
+      13,
+      10,
+      7,
+      15,
+      12,
+      8,
+      3,
+      2
+    ],
+    [
+      6,
+      1,
+      12,
+      10,
+      9,
+      3,
+      7,
+      15,
+      11,
+      16,
+      2,
+      8,
+      13,
+      5,
+      4,
+      14
+    ],
+    [
+      16,
+      7,
+      2,
+      3,
+      8,
+      13,
+      5,
+      4,
+      12,
+      14,
+      6,
+      9,
+      1,
+      11,
+      10,
+      15
+    ]
+  ],
+  "verification": {
+    "i_match_final": true,
+    "matches_txt_final": false
+  },
+  "solver_time": 0.115376,
+  "timestamp": "2026-06-01T02:36:08.981605"
+}

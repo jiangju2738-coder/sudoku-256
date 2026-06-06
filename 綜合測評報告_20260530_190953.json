@@ -1,0 +1,285 @@
+{
+  "timestamp": "2026-05-30 19:09:53",
+  "elapsed_time": 104.58460235595703,
+  "constraint_analysis": {
+    "row": {
+      "1": {
+        "permutation_count": 8731,
+        "avg_uniformity": -1.447285293089304,
+        "density": 4.73308458398547e-16,
+        "entropy": 13.091931186216529
+      },
+      "2": {
+        "permutation_count": 902,
+        "avg_uniformity": -1.7294238325205495,
+        "density": 4.889751797909625e-17,
+        "entropy": 9.81698362325538
+      },
+      "3": {
+        "permutation_count": 407669,
+        "avg_uniformity": -0.8892512272375812,
+        "density": 2.2099780772749655e-14,
+        "entropy": 18.637038729897906
+      },
+      "4": {
+        "permutation_count": 1980,
+        "avg_uniformity": -1.5607646520639986,
+        "density": 1.0733601507606494e-16,
+        "entropy": 10.951284714966972
+      },
+      "5": {
+        "permutation_count": 633271,
+        "avg_uniformity": -0.8560853549906311,
+        "density": 3.4329689698603394e-14,
+        "entropy": 19.272463488606753
+      },
+      "6": {
+        "permutation_count": 359,
+        "avg_uniformity": -1.8403340205308316,
+        "density": 1.9461428996114805e-17,
+        "entropy": 8.487840033823051
+      },
+      "7": {
+        "permutation_count": 2356,
+        "avg_uniformity": -1.5323653365901981,
+        "density": 1.2771901591879242e-16,
+        "entropy": 11.20212382383046
+      },
+      "8": {
+        "permutation_count": 4782,
+        "avg_uniformity": -1.5294519488257325,
+        "density": 2.592327394412841e-16,
+        "entropy": 12.223398414711628
+      },
+      "9": {
+        "permutation_count": 164,
+        "avg_uniformity": -1.9092636112321593,
+        "density": 8.890457814381136e-18,
+        "entropy": 7.357552004618084
+      },
+      "10": {
+        "permutation_count": 28984,
+        "avg_uniformity": -1.1588211890906608,
+        "density": 1.571225788365993e-15,
+        "entropy": 14.822969090453288
+      },
+      "11": {
+        "permutation_count": 2972,
+        "avg_uniformity": -1.5421581759853105,
+        "density": 1.6111244283134596e-16,
+        "entropy": 11.537218400538595
+      },
+      "12": {
+        "permutation_count": 620,
+        "avg_uniformity": -1.7032204256391748,
+        "density": 3.361026734705064e-17,
+        "entropy": 9.276124405274238
+      },
+      "13": {
+        "permutation_count": 484,
+        "avg_uniformity": -1.7937943324104477,
+        "density": 2.6237692574149207e-17,
+        "entropy": 8.918863237274595
+      },
+      "14": {
+        "permutation_count": 10668,
+        "avg_uniformity": -1.416245300700428,
+        "density": 5.783134388037681e-16,
+        "entropy": 13.381002109550925
+      },
+      "15": {
+        "permutation_count": 5990,
+        "avg_uniformity": -1.4874383205188078,
+        "density": 3.247185506594086e-16,
+        "entropy": 12.548340287676147
+      },
+      "16": {
+        "permutation_count": 1562,
+        "avg_uniformity": -1.5821710012981733,
+        "density": 8.46761896711179e-17,
+        "entropy": 10.60917873814198
+      }
+    },
+    "column": {
+      "1": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "2": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "3": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "4": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "5": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "6": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "7": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "8": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "9": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "10": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "11": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "12": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "13": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "14": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "15": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      },
+      "16": {
+        "possible_count": 16,
+        "is_full_constraint": true,
+        "density": 1.0
+      }
+    },
+    "box": {
+      "0": {
+        "name": "Aa",
+        "entropy": -5.395871702843012,
+        "uniformity": -8.133785738562262,
+        "total_coverage": 1111494
+      },
+      "1": {
+        "name": "Ab",
+        "entropy": -9.536077060941292,
+        "uniformity": -13.605795698554724,
+        "total_coverage": 1111494
+      },
+      "2": {
+        "name": "Ac",
+        "entropy": -8.640837624077413,
+        "uniformity": -12.346194094470087,
+        "total_coverage": 1111494
+      },
+      "3": {
+        "name": "Ad",
+        "entropy": -6.879164359908785,
+        "uniformity": -11.829393105800124,
+        "total_coverage": 1111494
+      },
+      "4": {
+        "name": "Ba",
+        "entropy": -5.395871702843012,
+        "uniformity": -8.133785738562262,
+        "total_coverage": 1111494
+      },
+      "5": {
+        "name": "Bb",
+        "entropy": -9.536077060941292,
+        "uniformity": -13.605795698554724,
+        "total_coverage": 1111494
+      },
+      "6": {
+        "name": "Bc",
+        "entropy": -8.640837624077413,
+        "uniformity": -12.346194094470087,
+        "total_coverage": 1111494
+      },
+      "7": {
+        "name": "Bd",
+        "entropy": -6.879164359908785,
+        "uniformity": -11.829393105800124,
+        "total_coverage": 1111494
+      },
+      "8": {
+        "name": "Ca",
+        "entropy": -5.395871702843012,
+        "uniformity": -8.133785738562262,
+        "total_coverage": 1111494
+      },
+      "9": {
+        "name": "Cb",
+        "entropy": -9.536077060941292,
+        "uniformity": -13.605795698554724,
+        "total_coverage": 1111494
+      },
+      "10": {
+        "name": "Cc",
+        "entropy": -8.640837624077413,
+        "uniformity": -12.346194094470087,
+        "total_coverage": 1111494
+      },
+      "11": {
+        "name": "Cd",
+        "entropy": -6.879164359908785,
+        "uniformity": -11.829393105800124,
+        "total_coverage": 1111494
+      },
+      "12": {
+        "name": "Da",
+        "entropy": -5.395871702843012,
+        "uniformity": -8.133785738562262,
+        "total_coverage": 1111494
+      },
+      "13": {
+        "name": "Db",
+        "entropy": -9.536077060941292,
+        "uniformity": -13.605795698554724,
+        "total_coverage": 1111494
+      },
+      "14": {
+        "name": "Dc",
+        "entropy": -8.640837624077413,
+        "uniformity": -12.346194094470087,
+        "total_coverage": 1111494
+      },
+      "15": {
+        "name": "Dd",
+        "entropy": -6.879164359908785,
+        "uniformity": -11.829393105800124,
+        "total_coverage": 1111494
+      }
+    }
+  },
+  "five_dimensional_metrics": {
+    "point": {

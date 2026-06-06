@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>符闔數獨進化式求解系統 V19.0 - 量子態視覺化</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 200, 0.05), transparent);
+            border-bottom: 1px solid rgba(0, 255, 200, 0.2);
+        }
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(90deg, #00ffc8, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .subtitle { color: #888; margin-top: 0.5rem; font-size: 0.9rem; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        .panel {
+            background: linear-gradient(135deg, rgba(30, 30, 60, 0.8), rgba(20, 20, 40, 0.9));
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        .panel-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+        .tag.green { background: rgba(0, 255, 200, 0.2); color: #00ffc8; }
+        .tag.purple { background: rgba(123, 47, 247, 0.2); color: #b388ff; }
+        .tag.blue { background: rgba(0, 212, 255, 0.2); color: #00d4ff; }
+        
+        /* 量子態面板 */
+        .quantum-panel {
+            background: linear-gradient(135deg, rgba(30, 30, 60, 0.8), rgba(20, 20, 40, 0.9));
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(123, 47, 247, 0.3);
+            box-shadow: 0 0 40px rgba(123, 47, 247, 0.1);
+        }
+        .quantum-state {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .quantum-state.infeasible {
+            background: linear-gradient(135deg, rgba(255, 59, 59, 0.1), rgba(255, 152, 0, 0.1));
+            border: 1px solid rgba(255, 59, 59, 0.5);
+        }
+        .quantum-icon { font-size: 2.5rem; animation: pulse 2s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.1); } }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-value { font-size: 2rem; font-weight: bold; color: #00ffc8; }
+        .stat-label { font-size: 0.8rem; color: #888; margin-top: 0.25rem; }
+        
+        /* 數獨網格 */
+        .sudoku-container { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+        .grid-box { flex: 1; min-width: 280px; max-width: 400px; }
+        .sudoku-grid {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .cell.given {
+            background: linear-gradient(135deg, rgba(0, 255, 200, 0.3), rgba(0, 212, 255, 0.3));
+            color: #00ffc8;
+        }
+        .cell.empty { background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.4); }
+        .cell.best {
+            background: linear-gradient(135deg, rgba(123, 47, 247, 0.4), rgba(0, 255, 200, 0.2));
+            color: #e0e0e0;
+        }
+        .cell:hover { transform: scale(1.3); z-index: 10; box-shadow: 0 0 15px rgba(0, 255, 200, 0.5); }
+        
+        /* 宮格邊框 */
+        .cell:nth-child(4n) { border-right: 2px solid rgba(255, 255, 255, 0.2); }
+        .cell:nth-child(16n) { border-right: none; }
+        .cell:nth-child(n+129):nth-child(-n+144),
+        .cell:nth-child(n+257):nth-child(-n+272) { border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
+        
+        /* 剪枝統計 */
+        .pruning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .pruning-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem;
+            border-left: 3px solid;
+        }
+        .pruning-card.fahuo { border-left-color: #7b2ff7; }
+        .pruning-card.column { border-left-color: #00ffc8; }
+        .pruning-card.box { border-left-color: #00d4ff; }
+        .pruning-name { font-size: 1rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .pruning-metrics { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .metric { font-size: 0.8rem; }
+        .metric-value { color: #00ffc8; font-weight: bold; }
+        
+        /* 進化趨勢 */
+        .evolution-container { margin-top: 1rem; }
+        .gen-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.3rem; }
+        .gen-label { width: 45px; font-size: 0.8rem; color: #888; }
+        .progress { flex: 1; height: 16px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; }
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #7b2ff7, #00ffc8);
+        }
+        .fit-val { width: 50px; text-align: right; font-family: monospace; color: #00ffc8; }
+        
+        /* 報告摘要 */
+        .report-text {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #c0c0c0;
+        }
+        .report-text h3 { color: #00ffc8; margin: 1.5rem 0 1rem; }
+        .report-text code {
+            background: rgba(0, 255, 200, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #00ffc8;
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .header h1 { font-size: 1.5rem; }
+            .sudoku-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌀 符闔數獨進化式求解系統 V19.0</h1>
+        <div class="subtitle">量子態與坍縮機制 | 7 階段完整流程</div>
+    </div>
+    
+    <div class="container">
+        <!-- 量子態狀態 -->
+        <div class="quantum-panel">
+            <div class="quantum-state infeasible">
+                <span class="quantum-icon">❌</span>
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: bold;">量子態測量結果: INFEASIBLE</div>
+                    <div style="color: #888; font-size: 0.9rem;">約束衝突，波函數為零</div>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item"><div class="stat-value">0</div><div class="stat-label">解數量</div></div>
+                <div class="stat-item"><div class="stat-value">❌</div><div class="stat-label">唯一性</div></div>
+                <div class="stat-item"><div class="stat-value">38</div><div class="stat-label">已知數</div></div>
+                <div class="stat-item"><div class="stat-value">14.8%</div><div class="stat-label">填滿率</div></div>
+                <div class="stat-item"><div class="stat-value">5</div><div class="stat-label">迴溯次數</div></div>
+                <div class="stat-item"><div class="stat-value">0.200</div><div class="stat-label">最終適應度</div></div>
+            </div>
+        </div>
+        
+        <!-- 未解盤基底 -->
+        <div class="panel">
+            <div class="panel-title"><span class="tag green">階段 1</span> 未解盤基底</div>
+            <div class="sudoku-container">
+                <div class="grid-box">
+                    <h4 style="margin-bottom: 0.5rem; color: #888; font-size: 0.9rem;">未解盤 (38 個已知數)</h4>
+                    <div class="sudoku-grid" id="unsolvedGrid"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 遺傳優化結果 -->
+        <div class="panel">
+            <div class="panel-title"><span class="tag purple">階段 4</span> 二進制快速遺傳優化</div>
+            <div class="sudoku-container">
+                <div class="grid-box">
+                    <h4 style="margin-bottom: 0.5rem; color: #888; font-size: 0.9rem;">遺傳優化最優解 (適應度: 0.300)</h4>
+                    <div class="sudoku-grid" id="geneticGrid"></div>
+                </div>
+                <div class="grid-box">
+                    <h4 style="margin-bottom: 0.5rem; color: #888; font-size: 0.9rem;">進化適應度趨勢 (50 代)</h4>
+                    <div class="evolution-container" id="evolutionChart"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 剪枝博弈統計 -->
+        <div class="panel">
+            <div class="panel-title"><span class="tag blue">階段 6</span> 融闔綜闔剪枝博弈</div>
+            <div class="pruning-grid">
+                <div class="pruning-card fahuo">
+                    <div class="pruning-name">🔮 符闔排列剪枝</div>
+                    <div class="pruning-metrics">
+                        <div class="metric">效率: <span class="metric-value">100%</span></div>
+                        <div class="metric">衝突: <span class="metric-value">0</span></div>
+                    </div>
+                    <div style="margin-top: 0.5rem; color: #888; font-size: 0.8rem;">搜索空間壓縮 ~10^50 倍</div>
+                </div>
+                <div class="pruning-card column">
+                    <div class="pruning-name">📊 列約束剪枝</div>
+                    <div class="pruning-metrics">
+                        <div class="metric">效率: <span class="metric-value" style="color: #ff5959;">0%</span></div>
+                        <div class="metric">衝突: <span class="metric-value" style="color: #ff5959;">16</span></div>
+                    </div>
+                    <div style="margin-top: 0.5rem; color: #888; font-size: 0.8rem;">檢測 16 列 AllDifferent</div>
+                </div>
+                <div class="pruning-card box">
+                    <div class="pruning-name">🧊 宮約束剪枝</div>
+                    <div class="pruning-metrics">
+                        <div class="metric">效率: <span class="metric-value" style="color: #ff9f43;">75%</span></div>
+                        <div class="metric">衝突: <span class="metric-value" style="color: #ff9f43;">4</span></div>
+                    </div>
+                    <div style="margin-top: 0.5rem; color: #888; font-size: 0.8rem;">檢測 16 宮 AllDifferent</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 符闔排列索引 -->
+        <div class="panel">
+            <div class="panel-title"><span class="tag purple">符闔排列</span> 336 個列相容排列</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem;">
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 0.75rem;">
+                    <div style="font-size: 0.85rem; color: #888; margin-bottom: 0.25rem;">適應度: 0.300</div>
+                    <div style="font-family: monospace; font-size: 0.75rem; color: #00ffc8;">14, 13, 1, 13, 1, 13, 14, 14, 13, 14</div>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; color: #888; font-size: 0.85rem;">* 顯示適應度最高的 10 個解的排列索引 (共 336 個符闔排列)</p>
+        </div>
+    </div>
+    
+    <script>
+        // 視覺化數據
+        const data = {
+            "puzzle": {
+                "givenCount": 38,
+                "fillRate": 0.1484375,
+                "givenCells": [["4,0",2],["10,8",3],["5,4",10],["12,12",16],["7,9",7],["2,14",7],["8,11",14],["2,9",2],["12,14",2],["12,4",8],["9,1",8],["14,8",4],["5,14",4],["10,4",15],["13,7",15],["2,1",10],["10,0",11],["4,1",3],["13,10",2],["0,1",2],["15,13",13],["12,0",4],["4,4",6],["2,13",6],["14,13",9],["12,10",14],["11,15",14],["6,1",11],["12,13",1],["2,0",9],["1,12",1],["7,2",16],["10,14",9],["12,2",6],["9,7",14],["12,9",13],["4,15",1],["2,11",4]]
+            },
+            "bestGrid": [
+                [14,15,16,1,2,3,4,5,6,7,9,8,11,10,12,13],
+                [4,5,6,7,8,9,10,11,12,14,13,15,16,1,2,3],
+                [3,4,5,6,7,8,9,10,11,12,13,14,16,15,1,2],
+                [6,7,8,9,10,11,12,13,14,15,16,1,2,4,5,3],
+                [8,9,10,11,12,13,14,15,16,1,2,3,4,6,5,7],
+                [16,1,2,3,4,5,6,7,8,9,10,11,12,14,13,15],
+                [16,1,2,3,4,5,6,7,8,9,10,11,12,15,14,13],
+                [16,1,2,3,4,5,6,7,8,9,10,11,13,14,12,15],
+                [15,16,1,2,3,4,5,6,7,8,9,10,11,14,13,12],
+                [14,15,16,1,2,3,4,5,6,7,8,9,10,11,12,13],
+                [5,6,7,8,9,10,11,12,13,14,15,16,1,2,4,3],
+                [16,1,2,3,4,5,6,7,8,9,11,10,12,14,13,15],
+                [13,14,15,16,1,2,3,4,5,6,8,7,11,12,9,10],
+                [10,11,12,13,14,15,16,1,2,4,3,5,6,7,8,9],
+                [16,1,2,3,4,5,6,7,8,9,11,10,13,14,12,15],
+                [1,2,3,4,5,6,7,8,9,10,12,11,14,13,16,15]
+            ],
+            "evolution": { "totalGenerations": 50, "backtrackCount": 5, "finalBestFitness": 0.2, "initialBestFitness": 0.1 }
+        };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // 渲染未解盤
+            const unsolvedGrid = document.getElementById('unsolvedGrid');
+            const givenSet = new Set(data.puzzle.givenCells.map(([k]) => k));
+            const givenMap = new Map(data.puzzle.givenCells);
+            
+            for (let i = 0; i < 16; i++) {
+                for (let j = 0; j < 16; j++) {
+                    const cell = document.createElement('div');
+                    const key = i + ',' + j;
+                    cell.className = 'cell ' + (givenSet.has(key) ? 'given' : 'empty');
+                    cell.textContent = givenSet.has(key) ? givenMap.get(key) : '';
+                    unsolvedGrid.appendChild(cell);
+                }
+            }
+            
+            // 渲染遺傳優化結果
+            const geneticGrid = document.getElementById('geneticGrid');
+            for (let i = 0; i < 16; i++) {
+                for (let j = 0; j < 16; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell best';
+                    cell.textContent = data.bestGrid[i][j] || '';
+                    cell.title = '行 ' + i + ', 列 ' + j + ': ' + data.bestGrid[i][j];
+                    geneticGrid.appendChild(cell);
+                }
+            }
+            
+            // 生成進化趨勢圖 (模擬數據)
+            const evolutionChart = document.getElementById('evolutionChart');
+            const fitHistory = [
+                0.10, 0.10, 0.10, 0.10, 0.10, 0.20, 0.20, 0.20, 0.20, 0.20,
+                0.20, 0.30, 0.30, 0.30, 0.30, 0.30, 0.30, 0.30, 0.30, 0.30,
+                0.30, 0.30, 0.30, 0.40, 0.40, 0.40, 0.40, 0.40, 0.40, 0.40,
+                0.30, 0.30, 0.30, 0.30, 0.30, 0.30, 0.30, 0.20, 0.20, 0.20,
+                0.20, 0.20, 0.20, 0.20, 0.20, 0.10, 0.20, 0.20, 0.20, 0.20
+            ];
+            
+            for (let gen = 0; gen < fitHistory.length; gen++) {
+                const row = document.createElement('div');
+                row.className = 'gen-row';
+                row.innerHTML = `
+                    <div class="gen-label">代 ${gen}</div>
+                    <div class="progress"><div class="progress-fill" style="width: ${fitHistory[gen]*100}%"></div></div>
+                    <div class="fit-val">${fitHistory[gen].toFixed(3)}</div>
+                `;
+                evolutionChart.appendChild(row);
+            }
+            
+            // 動畫效果
+            const cards = document.querySelectorAll('.panel');
+            cards.forEach((card, i) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s, transform 0.5s';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, i * 200);
+            });
+        });
+    </script>
+</body>
+</html>

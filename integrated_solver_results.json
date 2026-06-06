@@ -1,0 +1,67 @@
+{
+  "dfs": {
+    "error": "DFS執行失敗",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\2026\\WPF_Sudoku\\Sudoku_256\\verify_solution_v5_extended.py\", line 312, in <module>\n    main()\n    ~~~~^^\n  File \"D:\\2026\\WPF_Sudoku\\Sudoku_256\\verify_solution_v5_extended.py\", line 298, in main\n    result = solver.solve_dfs()\n  File \"D:\\2026\\WPF_Sudoku\\Sudoku_256\\verify_solution_v5_extended.py\", line 136, in solve_dfs\n    self._dfs_search(valid_perms, row_order, 0)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\2026\\WPF_Sudoku\\Sudoku_256\\v"
+  },
+  "cpsat": {
+    "error": "CP-SAT執行失敗",
+    "stderr": "Traceback (most recent call last):\n  File \"D:\\2026\\WPF_Sudoku\\Sudoku_256\\cpsat_solution_collector.py\", line 248, in <module>\n    main()\n    ~~~~^^\n  File \"D:\\2026\\WPF_Sudoku\\Sudoku_256\\cpsat_solution_collector.py\", line 234, in main\n    result = collector.collect_solutions()\n  File \"D:\\2026\\WPF_Sudoku\\Sudoku_256\\cpsat_solution_collector.py\", line 144, in collect_solutions\n    self.solver.parameters.solution_hint = None\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'ortools.sat.python."
+  },
+  "sat": {
+    "error": "Command '['python', 'sat_dimacs_encoder.py']' timed out after 600 seconds"
+  },
+  "game_opt": {
+    "total_solutions_found": 0,
+    "statistics": {
+      "time_seconds": 2.96,
+      "total_nodes_explored": 5000,
+      "pruned_nodes": 0,
+      "generations": 50,
+      "solution_limit": 1000,
+      "search_completed": true
+    },
+    "tree_structure": {
+      "root_node": "root",
+      "solution_nodes_count": 0,
+      "total_tree_nodes": 1
+    },
+    "optimization_summary": {
+      "elite_population": 10,
+      "mutation_rate": 0.1,
+      "crossover_rate": 0.8
+    }
+  },
+  "summary": {
+    "timestamp": "2026-05-14T23:51:57.856961",
+    "total_execution_time_seconds": 806.5,
+    "results_summary": {
+      "dfs_solutions": 0,
+      "cpsat_solutions": 0,
+      "sat_vars": 0,
+      "sat_clauses": 0,
+      "game_opt_solutions": 0,
+      "game_opt_nodes_explored": 5000
+    },
+    "conclusion": "該16×16符闔數獨解數量尚未完全確定，目前找到0個解。",
+    "method_comparison": {
+      "dfs": {
+        "solutions": 0,
+        "time_seconds": 0,
+        "nodes_explored": 0,
+        "pruning_count": 0
+      },
+      "cpsat": {
+        "solutions": 0,
+        "time_seconds": 0,
+        "nodes_explored": 0,
+        "pruning_count": 0
+      },
+      "game_opt": {
+        "solutions": 0,
+        "time_seconds": 2.96,
+        "nodes_explored": 5000,
+        "pruning_count": 0
+      }
+    }
+  }
+}

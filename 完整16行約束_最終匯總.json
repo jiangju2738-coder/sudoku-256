@@ -1,0 +1,106 @@
+{
+  "project": "超級大數獨 16×16 约束排列提取",
+  "status": "完成",
+  "completion_date": "2026-05-13",
+  "total_rows": 16,
+  "total_patterns": 1131747,
+  "total_size_mb": 61.53,
+  "rows": {
+    "A1": {
+      "permutations": 28984,
+      "file_size_mb": 1.58,
+      "file": "A1_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A2": {
+      "permutations": 902,
+      "file_size_mb": 0.05,
+      "file": "A2_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A3": {
+      "permutations": 407669,
+      "file_size_mb": 22.16,
+      "file": "A3_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A4": {
+      "permutations": 1980,
+      "file_size_mb": 0.11,
+      "file": "A4_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A5": {
+      "permutations": 633271,
+      "file_size_mb": 34.42,
+      "file": "A5_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A6": {
+      "permutations": 359,
+      "file_size_mb": 0.02,
+      "file": "A6_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A7": {
+      "permutations": 2356,
+      "file_size_mb": 0.13,
+      "file": "A7_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A8": {
+      "permutations": 4782,
+      "file_size_mb": 0.26,
+      "file": "A8_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A9": {
+      "permutations": 164,
+      "file_size_mb": 0.01,
+      "file": "A9_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A10": {
+      "permutations": 28984,
+      "file_size_mb": 1.58,
+      "file": "A10_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A11": {
+      "permutations": 2972,
+      "file_size_mb": 0.16,
+      "file": "A11_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A12": {
+      "permutations": 620,
+      "file_size_mb": 0.03,
+      "file": "A12_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A13": {
+      "permutations": 484,
+      "file_size_mb": 0.03,
+      "file": "A13_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A14": {
+      "permutations": 10668,
+      "file_size_mb": 0.58,
+      "file": "A14_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A15": {
+      "permutations": 5990,
+      "file_size_mb": 0.33,
+      "file": "A15_permutations.json",
+      "status": "✓ 完成"
+    },
+    "A16": {
+      "permutations": 1562,
+      "file_size_mb": 0.08,
+      "file": "A16_permutations.json",
+      "status": "✓ 完成"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "method": "Game Optimization Analysis",
+  "timestamp": "2026-05-15T00:29:50.933657",
+  "execution_time_seconds": 3.08,
+  "parameters": {
+    "population_size": 200,
+    "elite_count": 20,
+    "mutation_rate": 0.15,
+    "crossover_rate": 0.85
+  },
+  "statistics": {
+    "generations_run": 30,
+    "nodes_explored": 6000,
+    "solutions_found": 0,
+    "final_avg_fitness": 0.7948,
+    "final_max_fitness": 0.8441
+  },
+  "solution_space_structure": {
+    "solution_count": 0,
+    "avg_inter_solution_distance": 0,
+    "min_inter_solution_distance": 0,
+    "max_inter_solution_distance": 0,
+    "solution_clusters": []
+  },
+  "constraint_analysis": {
+    "min_valid_perms": 164,
+    "max_valid_perms": 633271,
+    "avg_valid_perms": 69468.4,
+    "tightest_rows": [
+      [
+        8,
+        164
+      ],
+      [
+        5,
+        359
+      ],
+      [
+        12,
+        484
+      ]
+    ],
+    "loosest_rows": [
+      [
+        4,
+        633271
+      ],
+      [
+        2,
+        407669
+      ],
+      [
+        9,
+        28984
+      ]
+    ],
+    "constraint_density": 0.9999999999999397
+  },
+  "tree_structure": {
+    "total_nodes": 1,
+    "solution_leafs": 0,
+    "branch_depth": 16
+  }
+}

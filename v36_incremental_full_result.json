@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "version": "V36.2",
+    "timestamp": "2026-05-17T17:17:15.496323",
+    "anchors_count": 56,
+    "sequence": "7 15 3 9",
+    "target_samples": 100,
+    "method": "增量CP-SAT采样",
+    "phase_1_anchor_build": "COMPLETE",
+    "phase_2_incremental_loop": "COMPLETE",
+    "phase_3_space_exploration": "COMPLETE"
+  },
+  "summary": {
+    "total_solutions": 0,
+    "total_time_seconds": 0.0,
+    "avg_time_per_solution": 0.0,
+    "sampling_efficiency": 0.0,
+    "unknown_cells": 200,
+    "known_density": 0.2188
+  },
+  "solutions": []
+}

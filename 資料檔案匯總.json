@@ -1,0 +1,16 @@
+{
+  "P第十六行符闔排列": {
+    "total_permutations": 1809,
+    "columns": 20,
+    "description": "第16行符闔排列，共1809個排列"
+  },
+  "遺傳傳遞概率": {
+    "rows": 37,
+    "columns": 10,
+    "description": "遺傳演算法中的傳遞概率資料"
+  },
+  "超級大數獨_box_size4": {
+    "file_size_bytes": 6493,
+    "description": "box_size=4的超級大數獨配置資料"
+  }
+}

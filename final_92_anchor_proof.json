@@ -1,0 +1,64 @@
+{
+  "verification_type": "CP-SAT 正式验证 + 约束冲突预检查",
+  "timestamp": "2026-05-18T01:19:00+08:00",
+  "config": "92 anchors original (unmodified)",
+  
+  "column_conflicts": {
+    "total_conflicting_columns": 7,
+    "total_conflict_instances": 8,
+    "details": [
+      {"col": 2, "value": 1, "rows": [9, 15]},
+      {"col": 3, "value": 3, "rows": [1, 3]},
+      {"col": 6, "value": 12, "rows": [1, 3]},
+      {"col": 8, "value": 5, "rows": [1, 3]},
+      {"col": 8, "value": 9, "rows": [4, 8]},
+      {"col": 9, "value": 3, "rows": [4, 12]},
+      {"col": 12, "value": 14, "rows": [1, 3]},
+      {"col": 14, "value": 16, "rows": [3, 6]}
+    ]
+  },
+  
+  "box_conflicts": {
+    "total_conflicts": 12,
+    "details_summary": "多个宫中存在相同值，见 verify_92_anchors_conflicts_result.json"
+  },
+  
+  "cp_sat_verification": {
+    "test_1_row_col_only": {
+      "constraints": "行 + 列 AllDifferent, 无宫约束",
+      "result": "INFEASIBLE",
+      "time": "0.00秒",
+      "interpretation": "列冲突本身即不可满足，宫约束未参与"
+    },
+    "test_2_full_constraints": {
+      "constraints": "行 + 列 + 宫 AllDifferent",
+      "result": "INFEASIBLE (预检查确认)",
+      "interpretation": "列冲突 + 宫冲突双重不可满足"
+    }
+  },
+  
+  "conclusion": {
+    "nature_of_infeasibility": "数据结构层面的硬冲突",
+    "search_depth_relevant": false,
+    "explanation": "列 AllDifferent 要求同一列中所有值互不相同。92 锚点中 7 列存在重复值（共 8 个冲突实例），这是约束定义层面的硬冲突，与搜索算法、搜索时间、搜索深度无关。",
+    "analogy": "就像在 9×9 数独中，如果 17 个提示数中有两个在同一列都是 5，那么无论增加多少提示数、无论搜索多久，都永远找不到解。"
+  },
+  
+  "55_vs_92_relationship": {
+    "status": "INDEPENDENT puzzles",
+    "55_anchors": {
+      "count": 55,
+      "coverage": "21.5%",
+      "result": "OPTIMAL, unique solution, 0.142秒",
+      "constraint_strength": "Moderate - sufficient for uniqueness"
+    },
+    "92_anchors": {
+      "count": 92,
+      "coverage": "35.9%",
+      "result": "INFEASIBLE (data conflicts)",
+      "constraint_strength": "Over-constrained with internal conflicts"
+    },
+    "relationship": "55 与 92 是完全独立的谜题配置（两码事）",
+    "why_independent": "55 锚点配置通过移除冲突锚点（如列 3 中的行 3 锚点）消除了硬冲突；92 锚点保留所有冲突。两者约束集合互斥。"
+  }
+}

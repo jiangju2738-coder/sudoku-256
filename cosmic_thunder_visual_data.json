@@ -1,0 +1,267 @@
+{
+  "puzzle": {
+    "givenCount": 38,
+    "fillRate": 0.1484375,
+    "givenCells": [
+      [
+        "4,0",
+        2
+      ],
+      [
+        "10,8",
+        3
+      ],
+      [
+        "5,4",
+        10
+      ],
+      [
+        "12,12",
+        16
+      ],
+      [
+        "7,9",
+        7
+      ],
+      [
+        "2,14",
+        7
+      ],
+      [
+        "8,11",
+        14
+      ],
+      [
+        "2,9",
+        2
+      ],
+      [
+        "12,14",
+        2
+      ],
+      [
+        "12,4",
+        8
+      ],
+      [
+        "9,1",
+        8
+      ],
+      [
+        "14,8",
+        4
+      ],
+      [
+        "5,14",
+        4
+      ],
+      [
+        "10,4",
+        15
+      ],
+      [
+        "13,7",
+        15
+      ],
+      [
+        "2,1",
+        10
+      ],
+      [
+        "10,0",
+        11
+      ],
+      [
+        "4,1",
+        3
+      ],
+      [
+        "13,10",
+        2
+      ],
+      [
+        "0,1",
+        2
+      ],
+      [
+        "15,13",
+        13
+      ],
+      [
+        "12,0",
+        4
+      ],
+      [
+        "4,4",
+        6
+      ],
+      [
+        "2,13",
+        6
+      ],
+      [
+        "14,13",
+        9
+      ],
+      [
+        "12,10",
+        14
+      ],
+      [
+        "11,15",
+        14
+      ],
+      [
+        "6,1",
+        11
+      ],
+      [
+        "12,13",
+        1
+      ],
+      [
+        "2,0",
+        9
+      ],
+      [
+        "1,12",
+        1
+      ],
+      [
+        "7,2",
+        16
+      ],
+      [
+        "10,14",
+        9
+      ],
+      [
+        "12,2",
+        6
+      ],
+      [
+        "9,7",
+        14
+      ],
+      [
+        "12,9",
+        13
+      ],
+      [
+        "4,15",
+        1
+      ],
+      [
+        "2,11",
+        4
+      ]
+    ]
+  },
+  "tree": {
+    "totalNodes": 1,
+    "maxDepth": 0,
+    "feasibleNodes": 1,
+    "prunedNodes": 0,
+    "leafNodes": 0,
+    "averageBranching": 1
+  },
+  "genetic": {
+    "bestFitness": 0.30000000000000004,
+    "top10": [
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          14
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          14
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          13
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          13
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          1
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          13
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          14
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          14
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          13
+        ]
+      },
+      {
+        "fitness": 0.30000000000000004,
+        "permutationChoices": [
+          14
+        ]
+      }
+    ]
+  },
+  "evolution": {
+    "totalGenerations": 50,
+    "backtrackCount": 5,
+    "finalBestFitness": 0.2,
+    "initialBestFitness": 0.1,
+    "fitnessImprovement": 0.1
+  },
+  "pruning": [
+    {
+      "strategy": "fahuo",
+      "efficiency": 1,
+      "violations": 0
+    },
+    {
+      "strategy": "column",
+      "efficiency": 0,
+      "violations": 16
+    },
+    {
+      "strategy": "box",
+      "efficiency": 0.75,
+      "violations": 4
+    }
+  ],
+  "collapse": {
+    "state": "infeasible",
+    "isUnique": false,
+    "solutionCount": 0,
+    "details": {
+      "rowConstraint": "✅",
+      "columnConstraint": "❌",
+      "boxConstraint": "❌"
+    }
+  }
+}

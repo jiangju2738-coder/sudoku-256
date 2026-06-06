@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>數獨三約束規則與種類變體 詞雲</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(135deg, #0f0c29 0%, #1a1a3e 50%, #24243e 100%);
+    color: #e0e0e0;
+    font-family: 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans TC', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .header { text-align: center; padding: 32px 20px 12px; }
+  .header h1 {
+    font-size: 2rem;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f7dc6f);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 8px;
+  }
+  .header p { color: #8899aa; font-size: 0.95rem; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 40px; }
+  .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 16px 0 24px; }
+  .legend-item {
+    display: flex; align-items: center; gap: 6px; padding: 5px 14px;
+    border-radius: 20px; background: rgba(255,255,255,0.06);
+    cursor: pointer; transition: all 0.3s; font-size: 0.85rem; user-select: none;
+  }
+  .legend-item:hover { background: rgba(255,255,255,0.14); }
+  .legend-item.dimmed { opacity: 0.3; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  #wordcloud {
+    position: relative; width: 100%; min-height: 520px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: 4px 10px; padding: 20px; border-radius: 16px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  }
+  .word {
+    display: inline-block; padding: 3px 8px; border-radius: 6px;
+    cursor: default; transition: all 0.35s cubic-bezier(.25,.8,.25,1);
+    line-height: 1.2; white-space: nowrap;
+  }
+  .word:hover {
+    transform: scale(1.25); background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.15); z-index: 10; position: relative;
+  }
+  .word.dimmed { opacity: 0.08; transform: scale(0.9); }
+  .tooltip {
+    position: fixed; pointer-events: none;
+    background: rgba(20,20,40,0.95); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 10px; padding: 10px 16px; font-size: 0.85rem; color: #e0e0e0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5); z-index: 1000;
+    opacity: 0; transition: opacity 0.2s; max-width: 280px;
+  }
+  .tooltip.show { opacity: 1; }
+  .tooltip .tt-word { font-weight: bold; font-size: 1.1rem; margin-bottom: 4px; }
+  .tooltip .tt-cat { color: #88aacc; font-size: 0.8rem; }
+  .tooltip .tt-weight { color: #aaa; font-size: 0.78rem; margin-top: 2px; }
+  .info-panel {
+    margin-top: 28px; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;
+  }
+  .info-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 20px;
+  }
+  .info-card h3 { font-size: 1rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .info-card h3 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .info-card ul { list-style: none; padding: 0; }
+  .info-card li {
+    padding: 3px 0; font-size: 0.85rem; color: #aabbcc;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .info-card li:last-child { border-bottom: none; }
+  .stats { text-align: center; margin: 16px 0 8px; color: #667788; font-size: 0.82rem; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>數獨三約束規則 &amp; 種類變體 詞雲解析</h1>
+  <p>Sudoku Constraints (Row / Column / Box) &amp; Variants (Standard / Free / Diagonal / Killer ...)</p>
+</div>
+<div class="container">
+  <div class="legend" id="legend"></div>
+  <div class="stats" id="stats"></div>
+  <div id="wordcloud"></div>
+  <div class="info-panel" id="infoPanel"></div>
+</div>
+<div class="tooltip" id="tooltip">
+  <div class="tt-word" id="ttWord"></div>
+  <div class="tt-cat" id="ttCat"></div>
+  <div class="tt-weight" id="ttWeight"></div>
+</div>
+<script>
+const WORDS = [{"text": "行約束", "weight": 100, "category": "三大核心約束", "color": "#FF4444"}, {"text": "列約束", "weight": 100, "category": "三大核心約束", "color": "#FF4444"}, {"text": "宮約束", "weight": 100, "category": "三大核心約束", "color": "#FF4444"}, {"text": "標準數獨", "weight": 90, "category": "標準數獨", "color": "#44BB44"}, {"text": "Row Constraint", "weight": 85, "category": "三大核心約束", "color": "#FF4444"}, {"text": "Column Constraint", "weight": 85, "category": "三大核心約束", "color": "#FF4444"}, {"text": "Box Constraint", "weight": 85, "category": "三大核心約束", "color": "#FF4444"}, {"text": "Classic Sudoku", "weight": 80, "category": "標準數獨", "color": "#44BB44"}, {"text": "候選數", "weight": 78, "category": "解題技巧", "color": "#4488FF"}, {"text": "唯一性", "weight": 75, "category": "三大核心約束", "color": "#FF4444"}, {"text": "不重複", "weight": 72, "category": "三大核心約束", "color": "#FF4444"}, {"text": "九宮格", "weight": 70, "category": "解題技巧", "color": "#4488FF"}, {"text": "摒除法", "weight": 70, "category": "解題技巧", "color": "#4488FF"}, {"text": "9x9", "weight": 70, "category": "標準數獨", "color": "#44BB44"}, {"text": "全填充", "weight": 68, "category": "三大核心約束", "color": "#FF4444"}, {"text": "唯一候選數", "weight": 68, "category": "解題技巧", "color": "#4488FF"}, {"text": "殺手數獨", "weight": 68, "category": "算術變體", "color": "#44DDDD"}, {"text": "行排除法", "weight": 65, "category": "解題技巧", "color": "#4488FF"}, {"text": "列排除法", "weight": 65, "category": "解題技巧", "color": "#4488FF"}, {"text": "宮排除法", "weight": 65, "category": "解題技巧", "color": "#4488FF"}, {"text": "邏輯推理", "weight": 65, "category": "解題技巧", "color": "#4488FF"}, {"text": "Killer Sudoku", "weight": 65, "category": "算術變體", "color": "#44DDDD"}, {"text": "宮摒除", "weight": 62, "category": "解題技巧", "color": "#4488FF"}, {"text": "數對", "weight": 62, "category": "解題技巧", "color": "#4488FF"}, {"text": "不規則數獨", "weight": 62, "category": "自由/不規則變體", "color": "#AA44FF"}, {"text": "唯一解", "weight": 60, "category": "解題技巧", "color": "#4488FF"}, {"text": "拉丁方陣", "weight": 60, "category": "標準數獨", "color": "#44BB44"}, {"text": "自由數獨", "weight": 60, "category": "自由/不規則變體", "color": "#AA44FF"}, {"text": "對角線數獨", "weight": 60, "category": "對角線變體", "color": "#FF44AA"}, {"text": "行唯一餘數", "weight": 58, "category": "解題技巧", "color": "#4488FF"}, {"text": "列唯一餘數", "weight": 58, "category": "解題技巧", "color": "#4488FF"}, {"text": "宮唯一餘數", "weight": 58, "category": "解題技巧", "color": "#4488FF"}, {"text": "隱藏數對", "weight": 58, "category": "解題技巧", "color": "#4488FF"}, {"text": "Jigsaw Sudoku", "weight": 58, "category": "自由/不規則變體", "color": "#AA44FF"}, {"text": "Sudoku X", "weight": 58, "category": "對角線變體", "color": "#FF44AA"}, {"text": "顯性數對", "weight": 56, "category": "解題技巧", "color": "#4488FF"}, {"text": "宮內排除", "weight": 55, "category": "解題技巧", "color": "#4488FF"}, {"text": "X-Wing", "weight": 55, "category": "解題技巧", "color": "#4488FF"}, {"text": "約束滿足問題", "weight": 55, "category": "解題技巧", "color": "#4488FF"}, {"text": "81格", "weight": 55, "category": "標準數獨", "color": "#44BB44"}, {"text": "16x16超級數獨", "weight": 55, "category": "尺寸變體", "color": "#FF8800"}, {"text": "鋸齒數獨", "weight": 55, "category": "自由/不規則變體", "color": "#AA44FF"}, {"text": "X-Sudoku", "weight": 55, "category": "對角線變體", "color": "#FF44AA"}, {"text": "Hyper Sudoku", "weight": 55, "category": "其他變體", "color": "#FFAA00"}, {"text": "行隱藏數", "weight": 52, "category": "解題技巧", "color": "#4488FF"}, {"text": "列隱藏數", "weight": 52, "category": "解題技巧", "color": "#4488FF"}, {"text": "Swordfish", "weight": 52, "category": "解題技巧", "color": "#4488FF"}, {"text": "數字1-9", "weight": 52, "category": "標準數獨", "color": "#44BB44"}, {"text": "不規則宮", "weight": 52, "category": "自由/不規則變體", "color": "#AA44FF"}, {"text": "籠約束", "weight": 52, "category": "算術變體", "color": "#44DDDD"}, {"text": "Windoku", "weight": 52, "category": "其他變體", "color": "#FFAA00"}, {"text": "行顯性數", "weight": 50, "category": "解題技巧", "color": "#4488FF"}, {"text": "列顯性數", "weight": 50, "category": "解題技巧", "color": "#4488FF"}, {"text": "三鏈數", "weight": 50, "category": "解題技巧", "color": "#4488FF"}, {"text": "XY-Wing", "weight": 50, "category": "解題技巧", "color": "#4488FF"}, {"text": "雙對角線約束", "weight": 50, "category": "對角線變體", "color": "#FF44AA"}, {"text": "武士數獨", "weight": 50, "category": "複合變體", "color": "#88AA44"}, {"text": "行區塊摒除", "weight": 48, "category": "解題技巧", "color": "#4488FF"}, {"text": "列區塊摒除", "weight": 48, "category": "解題技巧", "color": "#4488FF"}, {"text": "四鏈數", "weight": 48, "category": "解題技巧", "color": "#4488FF"}, {"text": "回溯法", "weight": 48, "category": "解題技巧", "color": "#4488FF"}, {"text": "Super Sudoku", "weight": 48, "category": "尺寸變體", "color": "#FF8800"}, {"text": "和值提示", "weight": 48, "category": "算術變體", "color": "#44DDDD"}, {"text": "窗口數獨", "weight": 48, "category": "其他變體", "color": "#FFAA00"}, {"text": "Samurai Sudoku", "weight": 48, "category": "複合變體", "color": "#88AA44"}, {"text": "強鏈", "weight": 45, "category": "解題技巧", "color": "#4488FF"}, {"text": "DLX", "weight": 45, "category": "解題技巧", "color": "#4488FF"}, {"text": "迷你數獨 4x4", "weight": 45, "category": "尺寸變體", "color": "#FF8800"}, {"text": "加法數獨", "weight": 45, "category": "算術變體", "color": "#44DDDD"}, {"text": "額外區域", "weight": 45, "category": "其他變體", "color": "#FFAA00"}, {"text": "Thermo Sudoku", "weight": 45, "category": "其他變體", "color": "#FFAA00"}, {"text": "Arrow Sudoku", "weight": 45, "category": "其他變體", "color": "#FFAA00"}, {"text": "唯一解判定", "weight": 45, "category": "標準數獨", "color": "#44BB44"}, {"text": "弱鏈", "weight": 43, "category": "解題技巧", "color": "#4488FF"}, {"text": "候選數矩陣", "weight": 42, "category": "解題技巧", "color": "#4488FF"}, {"text": "AC-3", "weight": 42, "category": "解題技巧", "color": "#4488FF"}, {"text": "6x6數獨", "weight": 42, "category": "尺寸變體", "color": "#FF8800"}, {"text": "溫度計", "weight": 42, "category": "其他變體", "color": "#FFAA00"}, {"text": "箭頭數獨", "weight": 42, "category": "其他變體", "color": "#FFAA00"}, {"text": "連續數獨", "weight": 42, "category": "其他變體", "color": "#FFAA00"}, {"text": "大小數獨", "weight": 42, "category": "其他變體", "color": "#FFAA00"}, {"text": "摩天樓數獨", "weight": 42, "category": "其他變體", "color": "#FFAA00"}, {"text": "五連盤", "weight": 42, "category": "複合變體", "color": "#88AA44"}, {"text": "數獨生成", "weight": 42, "category": "標準數獨", "color": "#44BB44"}, {"text": "難度分級", "weight": 42, "category": "標準數獨", "color": "#44BB44"}, {"text": "CSP", "weight": 40, "category": "解題技巧", "color": "#4488FF"}, {"text": "12x12數獨", "weight": 40, "category": "尺寸變體", "color": "#FF8800"}, {"text": "小九九數獨", "weight": 40, "category": "算術變體", "color": "#44DDDD"}, {"text": "遞增約束", "weight": 40, "category": "其他變體", "color": "#FFAA00"}, {"text": "Consecutive Sudoku", "weight": 40, "category": "其他變體", "color": "#FFAA00"}, {"text": "Greater-Than Sudoku", "weight": 40, "category": "其他變體", "color": "#FFAA00"}, {"text": "奇偶數獨", "weight": 40, "category": "其他變體", "color": "#FFAA00"}, {"text": "Skyscraper Sudoku", "weight": 40, "category": "其他變體", "color": "#FFAA00"}, {"text": "對稱性", "weight": 40, "category": "標準數獨", "color": "#44BB44"}, {"text": "25x25巨型數獨", "weight": 38, "category": "尺寸變體", "color": "#FF8800"}, {"text": "不等號數獨", "weight": 38, "category": "其他變體", "color": "#FFAA00"}, {"text": "Even-Odd Sudoku", "weight": 38, "category": "其他變體", "color": "#FFAA00"}, {"text": "三明治數獨", "weight": 38, "category": "其他變體", "color": "#FFAA00"}, {"text": "Little Killer", "weight": 38, "category": "算術變體", "color": "#44DDDD"}, {"text": "Anti-Knight", "weight": 38, "category": "其他變體", "color": "#FFAA00"}, {"text": "Anti-King", "weight": 38, "category": "其他變體", "color": "#FFAA00"}, {"text": "德國耳語", "weight": 38, "category": "其他變體", "color": "#FFAA00"}, {"text": "Kropki", "weight": 38, "category": "其他變體", "color": "#FFAA00"}, {"text": "文字數獨", "weight": 38, "category": "複合變體", "color": "#88AA44"}, {"text": "顏色數獨", "weight": 38, "category": "複合變體", "color": "#88AA44"}, {"text": "挖洞法", "weight": 38, "category": "標準數獨", "color": "#44BB44"}, {"text": "線索數", "weight": 38, "category": "標準數獨", "color": "#44BB44"}, {"text": "Sandwich Sudoku", "weight": 36, "category": "其他變體", "color": "#FFAA00"}, {"text": "不連續數獨", "weight": 36, "category": "其他變體", "color": "#FFAA00"}, {"text": "German Whispers", "weight": 36, "category": "其他變體", "color": "#FFAA00"}, {"text": "Wordoku", "weight": 36, "category": "複合變體", "color": "#88AA44"}, {"text": "反數獨", "weight": 35, "category": "其他變體", "color": "#FFAA00"}, {"text": "No Consecutive", "weight": 35, "category": "其他變體", "color": "#FFAA00"}, {"text": "Renban", "weight": 35, "category": "其他變體", "color": "#FFAA00"}, {"text": "Nabner", "weight": 35, "category": "其他變體", "color": "#FFAA00"}];
+const CATEGORY_DESCRIPTIONS = {"三大核心約束": "數獨的基礎規則：每行、每列、每宮內的數字必須唯一且不重複，構成數獨求解的三重約束體系。", "解題技巧": "基於三約束衍生的邏輯推理方法，包括摒除法、候選數分析、鏈式推理等進階技術。", "標準數獨": "經典 9x9 數獨，填入 1-9 使每行、每列、每 3x3 宮格內數字不重複。", "尺寸變體": "改變網格大小的數獨變體，從 4x4 迷你版到 16x16 超級版。", "自由/不規則變體": "用不規則形狀區域替代標準 3x3 宮格，又稱 Jigsaw / 鋸齒數獨。", "對角線變體": "在標準規則基礎上，增加兩條主對角線也必須包含 1-9 的額外約束。", "算術變體": "引入數學運算約束，如殺手數獨的「籠」要求和值，或乘法數獨等。", "其他變體": "溫度計、箭頭、連續數、大小比較、奇偶限制等多種特色規則變體。", "複合變體": "融合多種規則或特殊結構的數獨，如武士數獨的五連盤、文字數獨等。"};
+const catNames = ["三大核心約束", "解題技巧", "標準數獨", "尺寸變體", "自由/不規則變體", "對角線變體", "算術變體", "其他變體", "複合變體"];
+const catColors = {"三大核心約束": "#FF4444", "解題技巧": "#4488FF", "標準數獨": "#44BB44", "尺寸變體": "#FF8800", "自由/不規則變體": "#AA44FF", "對角線變體": "#FF44AA", "算術變體": "#44DDDD", "其他變體": "#FFAA00", "複合變體": "#88AA44"};
+
+let activeCategories = new Set(catNames);
+
+// Build legend
+const legend = document.getElementById('legend');
+catNames.forEach(function(cat) {
+  const item = document.createElement('div');
+  item.className = 'legend-item';
+  item.dataset.cat = cat;
+  const dot = document.createElement('span');
+  dot.className = 'legend-dot';
+  dot.style.background = catColors[cat];
+  item.appendChild(dot);
+  item.appendChild(document.createTextNode(cat));
+  item.addEventListener('click', function() { toggleCategory(cat); });
+  legend.appendChild(item);
+});
+
+function toggleCategory(cat) {
+  if (activeCategories.has(cat)) {
+    if (activeCategories.size === 1) {
+      activeCategories = new Set(catNames);
+    } else {
+      activeCategories.delete(cat);
+    }
+  } else {
+    activeCategories.add(cat);
+  }
+  updateDisplay();
+}
+
+function updateDisplay() {
+  document.querySelectorAll('.legend-item').forEach(function(el) {
+    el.classList.toggle('dimmed', !activeCategories.has(el.dataset.cat));
+  });
+  document.querySelectorAll('.word').forEach(function(el) {
+    el.classList.toggle('dimmed', !activeCategories.has(el.dataset.category));
+  });
+}
+
+// Build word cloud
+const wc = document.getElementById('wordcloud');
+const maxW = Math.max.apply(null, WORDS.map(function(w) { return w.weight; }));
+const minW = Math.min.apply(null, WORDS.map(function(w) { return w.weight; }));
+
+WORDS.forEach(function(w) {
+  const span = document.createElement('span');
+  span.className = 'word';
+  span.textContent = w.text;
+  span.dataset.category = w.category;
+  var ratio = (w.weight - minW) / (maxW - minW || 1);
+  var fontSize = 12 + ratio * 52;
+  var opacity = 0.5 + ratio * 0.5;
+  span.style.fontSize = fontSize + 'px';
+  span.style.color = w.color;
+  span.style.opacity = opacity;
+  span.style.fontWeight = ratio > 0.6 ? 'bold' : (ratio > 0.3 ? '600' : 'normal');
+  span.addEventListener('mouseenter', function(e) { showTooltip(e, w); });
+  span.addEventListener('mousemove', moveTooltip);
+  span.addEventListener('mouseleave', hideTooltip);
+  wc.appendChild(span);
+});
+
+// Stats
+document.getElementById('stats').textContent =
+  '共收錄 ' + WORDS.length + ' 個關鍵詞 · 涵蓋 ' + catNames.length + ' 大分類 · 覆蓋三約束規則與 ' +
+  WORDS.filter(function(w) { return w.category !== '三大核心約束' && w.category !== '解題技巧'; }).length +
+  ' 種數獨變體';
+
+// Tooltip
+var tooltip = document.getElementById('tooltip');
+var ttWord = document.getElementById('ttWord');
+var ttCat = document.getElementById('ttCat');
+var ttWeight = document.getElementById('ttWeight');
+
+function showTooltip(e, w) {
+  ttWord.textContent = w.text;
+  ttWord.style.color = w.color;
+  ttCat.textContent = '分類：' + w.category;
+  ttWeight.textContent = '權重：' + w.weight + ' / ' + maxW;
+  tooltip.classList.add('show');
+  moveTooltip(e);
+}
+function moveTooltip(e) {
+  var x = e.clientX + 16, y = e.clientY + 16;
+  if (x + 280 > window.innerWidth) x = e.clientX - 296;
+  if (y + 100 > window.innerHeight) y = e.clientY - 116;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+function hideTooltip() { tooltip.classList.remove('show'); }
+
+// Info panel
+var infoPanel = document.getElementById('infoPanel');
+catNames.forEach(function(cat) {
+  var words = WORDS.filter(function(w) { return w.category === cat; });
+  var card = document.createElement('div');
+  card.className = 'info-card';
+  var h3 = document.createElement('h3');
+  var dot = document.createElement('span');
+  dot.className = 'dot';
+  dot.style.background = catColors[cat];
+  h3.appendChild(dot);
+  h3.appendChild(document.createTextNode(cat + '（' + words.length + ' 詞）'));
+  card.appendChild(h3);
+  var desc = document.createElement('p');
+  desc.style.cssText = 'font-size:0.82rem;color:#8899aa;margin-bottom:8px';
+  desc.textContent = CATEGORY_DESCRIPTIONS[cat];
+  card.appendChild(desc);
+  var ul = document.createElement('ul');
+  words.forEach(function(w) {
+    var li = document.createElement('li');
+    li.innerHTML = w.text + ' <span style="color:#556;font-size:0.75rem">(' + w.weight + ')</span>';
+    ul.appendChild(li);
+  });
+  card.appendChild(ul);
+  infoPanel.appendChild(card);
+});
+</script>
+</body>
+</html>

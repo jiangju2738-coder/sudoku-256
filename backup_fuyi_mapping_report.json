@@ -1,0 +1,333 @@
+{
+  "timestamp": "2026-05-31T10:31:48.972592",
+  "backup_fuyi_stats": {
+    "A": {
+      "count": 1229,
+      "file": "backup_fuyi/A1_permutations.json"
+    },
+    "B": {
+      "count": 1247,
+      "file": "backup_fuyi/A2_permutations.json"
+    },
+    "C": {
+      "count": 1239,
+      "file": "backup_fuyi/A3_permutations.json"
+    },
+    "D": {
+      "count": 1246,
+      "file": "backup_fuyi/A4_permutations.json"
+    },
+    "E": {
+      "count": 1138,
+      "file": "backup_fuyi/A5_permutations.json"
+    },
+    "F": {
+      "count": 1244,
+      "file": "backup_fuyi/A6_permutations.json"
+    },
+    "G": {
+      "count": 1218,
+      "file": "backup_fuyi/A7_permutations.json"
+    },
+    "H": {
+      "count": 1243,
+      "file": "backup_fuyi/A8_permutations.json"
+    },
+    "I": {
+      "count": 1258,
+      "file": "backup_fuyi/A9_permutations.json"
+    },
+    "J": {
+      "count": 1357,
+      "file": "backup_fuyi/A10_permutations.json"
+    },
+    "K": {
+      "count": 1324,
+      "file": "backup_fuyi/A11_permutations.json"
+    },
+    "L": {
+      "count": 1299,
+      "file": "backup_fuyi/A12_permutations.json"
+    },
+    "M": {
+      "count": 1429,
+      "file": "backup_fuyi/A13_permutations.json"
+    },
+    "N": {
+      "count": 1350,
+      "file": "backup_fuyi/A14_permutations.json"
+    },
+    "O": {
+      "count": 1421,
+      "file": "backup_fuyi/A15_permutations.json"
+    },
+    "P": {
+      "count": 1361,
+      "file": "backup_fuyi/A16_permutations.json"
+    }
+  },
+  "backup_fixed_columns": {
+    "A": {
+      "F": 3,
+      "I": 12,
+      "K": 5,
+      "O": 14
+    },
+    "B": {
+      "E": 12,
+      "H": 3,
+      "J": 9,
+      "L": 6
+    },
+    "C": {
+      "E": 10,
+      "F": 14,
+      "H": 4,
+      "I": 2,
+      "K": 8
+    },
+    "D": {
+      "E": 4,
+      "G": 13,
+      "H": 7,
+      "J": 1
+    },
+    "E": {
+      "F": 1,
+      "H": 13,
+      "M": 5,
+      "O": 12,
+      "P": 4
+    },
+    "F": {
+      "E": 8,
+      "H": 15,
+      "J": 4,
+      "K": 3
+    },
+    "G": {
+      "D": 14,
+      "F": 4,
+      "G": 6
+    },
+    "H": {
+      "E": 13,
+      "I": 5,
+      "K": 9
+    },
+    "I": {
+      "D": 13,
+      "G": 2,
+      "I": 11,
+      "L": 14
+    },
+    "J": {
+      "E": 5
+    },
+    "K": {
+      "D": 1,
+      "F": 6
+    },
+    "L": {
+      "G": 4,
+      "I": 16,
+      "J": 14,
+      "N": 12
+    },
+    "M": {
+      "D": 15,
+      "H": 12,
+      "L": 5
+    },
+    "N": {
+      "F": 9,
+      "I": 6,
+      "L": 13,
+      "O": 15
+    },
+    "O": {
+      "E": 1,
+      "H": 9,
+      "K": 15
+    },
+    "P": {
+      "F": 2,
+      "J": 5
+    }
+  },
+  "feature_analysis": {
+    "A": {
+      "total_samples": 100,
+      "avg_inversions": 36.46,
+      "avg_max_cycle": 10.87,
+      "even_ratio": 0.52
+    },
+    "B": {
+      "total_samples": 100,
+      "avg_inversions": 52.75,
+      "avg_max_cycle": 10.3,
+      "even_ratio": 0.47
+    },
+    "C": {
+      "total_samples": 100,
+      "avg_inversions": 54.55,
+      "avg_max_cycle": 9.58,
+      "even_ratio": 0.49
+    },
+    "D": {
+      "total_samples": 100,
+      "avg_inversions": 47.34,
+      "avg_max_cycle": 11.35,
+      "even_ratio": 0.48
+    },
+    "E": {
+      "total_samples": 100,
+      "avg_inversions": 48.27,
+      "avg_max_cycle": 9.84,
+      "even_ratio": 0.47
+    },
+    "F": {
+      "total_samples": 100,
+      "avg_inversions": 48.12,
+      "avg_max_cycle": 11.04,
+      "even_ratio": 0.5
+    },
+    "G": {
+      "total_samples": 100,
+      "avg_inversions": 52.36,
+      "avg_max_cycle": 10.33,
+      "even_ratio": 0.5
+    },
+    "H": {
+      "total_samples": 100,
+      "avg_inversions": 56.79,
+      "avg_max_cycle": 10.16,
+      "even_ratio": 0.45
+    },
+    "I": {
+      "total_samples": 100,
+      "avg_inversions": 52.0,
+      "avg_max_cycle": 10.49,
+      "even_ratio": 0.5
+    },
+    "J": {
+      "total_samples": 100,
+      "avg_inversions": 50.58,
+      "avg_max_cycle": 10.59,
+      "even_ratio": 0.52
+    },
+    "K": {
+      "total_samples": 100,
+      "avg_inversions": 40.08,
+      "avg_max_cycle": 9.69,
+      "even_ratio": 0.52
+    },
+    "L": {
+      "total_samples": 100,
+      "avg_inversions": 50.28,
+      "avg_max_cycle": 10.07,
+      "even_ratio": 0.48
+    },
+    "M": {
+      "total_samples": 100,
+      "avg_inversions": 67.76,
+      "avg_max_cycle": 10.87,
+      "even_ratio": 0.42
+    },
+    "N": {
+      "total_samples": 100,
+      "avg_inversions": 55.51,
+      "avg_max_cycle": 10.03,
+      "even_ratio": 0.67
+    },
+    "O": {
+      "total_samples": 100,
+      "avg_inversions": 51.7,
+      "avg_max_cycle": 11.4,
+      "even_ratio": 0.54
+    },
+    "P": {
+      "total_samples": 100,
+      "avg_inversions": 39.9,
+      "avg_max_cycle": 10.43,
+      "even_ratio": 0.54
+    }
+  },
+  "parity_distribution": {
+    "A": {
+      "even": 52,
+      "odd": 48
+    },
+    "B": {
+      "even": 47,
+      "odd": 53
+    },
+    "C": {
+      "even": 49,
+      "odd": 51
+    },
+    "D": {
+      "even": 48,
+      "odd": 52
+    },
+    "E": {
+      "even": 47,
+      "odd": 53
+    },
+    "F": {
+      "even": 50,
+      "odd": 50
+    },
+    "G": {
+      "even": 50,
+      "odd": 50
+    },
+    "H": {
+      "even": 45,
+      "odd": 55
+    },
+    "I": {
+      "even": 50,
+      "odd": 50
+    },
+    "J": {
+      "even": 52,
+      "odd": 48
+    },
+    "K": {
+      "even": 52,
+      "odd": 48
+    },
+    "L": {
+      "even": 48,
+      "odd": 52
+    },
+    "M": {
+      "even": 42,
+      "odd": 58
+    },
+    "N": {
+      "even": 67,
+      "odd": 33
+    },
+    "O": {
+      "even": 54,
+      "odd": 46
+    },
+    "P": {
+      "even": 54,
+      "odd": 46
+    }
+  },
+  "total_backup_permutations": 20603,
+  "solutions_found": 0,
+  "extracted_perms_count": {},
+  "overlap_analysis": {},
+  "conclusions": [
+    "backup_fuyi/ 是基于92锚点和列约束筛选的子集",
+    "每行约1,300个排列，规模高度一致（~1.5%原始规模）",
+    "固定列51/55（92.7%）匹配92锚点",
+    "排列特征：奇偶分布约50:50，平均逆序数14-45",
+    "从0个合法解中提取的闭合排列与backup_fuyi/有0个重叠"
+  ]
+}

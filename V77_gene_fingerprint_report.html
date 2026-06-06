@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V77 符闔數獨基因指紋100D 融闔三大架構深度研究報告</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #666;
+        }
+        
+        .header .meta {
+            margin-top: 20px;
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        .disc-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .disc-card.puzzle {
+            border-left-color: #378ADD;
+        }
+        
+        .disc-card.solution {
+            border-left-color: #1D9E75;
+        }
+        
+        .disc-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .disc-card .anchors {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .disc-card .stats {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .disc-card .stats div {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .gene-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .gene-table th,
+        .gene-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .gene-table th {
+            background: #667eea;
+            color: white;
+        }
+        
+        .gene-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .gene-category {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .framework-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        .framework-zhonghe { background: #E6F1FB; color: #185FA5; }
+        .framework-five { background: #EAF3DE; color: #3B6D11; }
+        .framework-chain { background: #FAEEDA; color: #854F0B; }
+        
+        .heatmap-container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 2px;
+            margin: 20px 0;
+        }
+        
+        .heatmap-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        
+        .heatmap-cell:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+        
+        .framework-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .framework-section h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .stat-box {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+        }
+        
+        .stat-box .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-box .label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .evolution-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .evolution-node {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .evolution-node .stage {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .evolution-node .count {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .evolution-arrow {
+            font-size: 2em;
+            color: #667eea;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+        }
+        
+        .score-bar {
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: width 1s ease;
+        }
+        
+        .insight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .insight-box h4 {
+            margin-bottom: 15px;
+        }
+        
+        .insight-box ul {
+            margin-left: 20px;
+        }
+        
+        .insight-box li {
+            margin: 10px 0;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-4, .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>V77 符闔數獨基因指紋100D</h1>
+            <div class="subtitle">融闔三大架構深度研究報告</div>
+            <div class="meta">
+                项目：數獨初始盤 / 終局盤 / 演进加E盤 / 演进加I盤 (共8盤)<br>
+                三大架構：综闔博弈框架 + 五維思維框架 + 鏈式環式原理<br>
+                生成时间：2026-06-01
+            </div>
+        </div>
+        
+        <!-- 基因指纹总览 -->
+        <div class="section">
+            <div class="section-title">🧬 基因指纹100D 总览</div>
+            
+            <div class="insight-box">
+                <h4>📊 100D基因维度分类</h4>
+                <ul>
+                    <li><strong>D1-D16</strong>：每行锚点密度特征</li>
+                    <li><strong>D17-D25</strong>：行排列复杂度指标</li>
+                    <li><strong>D26-D41</strong>：每列锚点密度特征</li>
+                    <li><strong>D42-D50</strong>：列值分布熵特征</li>
+                    <li><strong>D51-D66</strong>：每宫锚点密度特征</li>
+                    <li><strong>D67-D75</strong>：宫值集中度与关联度</li>
+                    <li><strong>D76-D90</strong>：全局统计特征</li>
+                    <li><strong>D91-D100</strong>：三大架構綜合指標</li>
+                </ul>
+            </div>
+            
+            <div class="grid-4">
+                <div class="disc-card puzzle">
+                    <h3>初始盘（92锚点）</h3>
+                    <div class="anchors">92</div>
+                    <div class="stats">
+                        <div><span>填充率</span><span>35.94%</span></div>
+                        <div><span>综合评分</span><span>63.67</span></div>
+                        <div><span>行方差</span><span>1.81</span></div>
+                        <div><span>时空阶段</span><span>初始态</span></div>
+                    </div>
+                </div>
+                
+                <div class="disc-card puzzle">
+                    <h3>演进加I盘（101锚点）</h3>
+                    <div class="anchors">101</div>
+                    <div class="stats">
+                        <div><span>填充率</span><span>39.45%</span></div>
+                        <div><span>综合评分</span><span>58.60</span></div>
+                        <div><span>行方差</span><span>7.96</span></div>
+                        <div><span>时空阶段</span><span>演进态II</span></div>
+                    </div>
+                </div>
+                
+                <div class="disc-card puzzle">
+                    <h3>演进加E盘（105锚点）</h3>
+                    <div class="anchors">105</div>
+                    <div class="stats">
+                        <div><span>填充率</span><span>41.02%</span></div>
+                        <div><span>综合评分</span><span>59.89</span></div>
+                        <div><span>行方差</span><span>7.25</span></div>
+                        <div><span>时空阶段</span><span>演进态II</span></div>
+                    </div>
+                </div>
+                
+                <div class="disc-card puzzle">
+                    <h3>演进算盘（113锚点）</h3>
+                    <div class="anchors">113</div>
+                    <div class="stats">
+                        <div><span>填充率</span><span>44.14%</span></div>
+                        <div><span>综合评分</span><span>62.15</span></div>
+                        <div><span>行方差</span><span>6.68</span></div>
+                        <div><span>时空阶段</span><span>终局态</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 8盘基因对比 -->
+        <div class="section">
+            <div class="section-title">📊 8盘基因指纹对比矩阵</div>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>盘名</th>
+                        <th>锚点数</th>
+                        <th>填充率</th>
+                        <th>行方差</th>
+                        <th>行极差</th>
+                        <th>传递链</th>
+                        <th>闭环度</th>
+                        <th>均衡度</th>
+                        <th>综合评分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>初始盘</td>
+                        <td>92</td>
+                        <td>35.94%</td>
+                        <td>1.81</td>
+                        <td>5</td>
+                        <td>1,380</td>
+                        <td>0%</td>
+                        <td>0.36</td>
+                        <td>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 63.67%;">63.67</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>演进加I盘</td>
+                        <td>101</td>
+                        <td>39.45%</td>
+                        <td>7.96</td>
+                        <td>13</td>
+                        <td>1,515</td>
+                        <td>6.25%</td>
+                        <td>0.11</td>
+                        <td>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 58.6%;">58.60</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>演进加E盘</td>
+                        <td>105</td>
+                        <td>41.02%</td>
+                        <td>7.25</td>
+                        <td>13</td>
+                        <td>1,575</td>
+                        <td>6.25%</td>
+                        <td>0.12</td>
+                        <td>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 59.89%;">59.89</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>演进算盘(C锁)</td>
+                        <td>113</td>
+                        <td>44.14%</td>
+                        <td>6.68</td>
+                        <td>13</td>
+                        <td>1,695</td>
+                        <td>6.25%</td>
+                        <td>0.13</td>
+                        <td>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 62.15%;">62.15</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="background: #e8f5e9;">
+                        <td><strong>終局盤</strong></td>
+                        <td><strong>256</strong></td>
+                        <td><strong>100%</strong></td>
+                        <td><strong>0</strong></td>
+                        <td><strong>0</strong></td>
+                        <td><strong>3,840</strong></td>
+                        <td><strong>100%</strong></td>
+                        <td><strong>1.00</strong></td>
+                        <td>
+                            <div class="score-bar">
+                                <div class="score-fill" style="width: 100%; background: linear-gradient(90deg, #1D9E75, #0F6E56);">100.00</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 三大架构分析 -->
+        <div class="section">
+            <div class="section-title">🏛️ 融闔三大架構深度分析</div>
+            
+            <!-- 综闔博弈框架 -->
+            <div class="framework-section">
+                <h4>🎮 综闔博弈框架</h4>
+                <div class="grid-4">
+                    <div class="stat-box">
+                        <div class="value">4</div>
+                        <div class="label">主导者行数</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">3</div>
+                        <div class="label">演进谜题主导行</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">16</div>
+                        <div class="label">解盘全锁定</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">41.02%</div>
+                        <div class="label">最高谜题约束</div>
+                    </div>
+                </div>
+                
+                <table class="gene-table">
+                    <thead>
+                        <tr>
+                            <th>盘名</th>
+                            <th>主导者</th>
+                            <th>平均约束强度</th>
+                            <th>博弈均衡度</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>初始盘</td>
+                            <td>无主导者</td>
+                            <td>35.94%</td>
+                            <td>0.36</td>
+                        </tr>
+                        <tr>
+                            <td>演进加I盘</td>
+                            <td>I行 (100%)</td>
+                            <td>39.45%</td>
+                            <td>0.11</td>
+                        </tr>
+                        <tr>
+                            <td>演进加E盘</td>
+                            <td>E行 (100%)</td>
+                            <td>41.02%</td>
+                            <td>0.12</td>
+                        </tr>
+                        <tr>
+                            <td>演进算盘</td>
+                            <td>C行 (100%)</td>
+                            <td>44.14%</td>
+                            <td>0.13</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 五维思维框架 -->
+            <div class="framework-section">
+                <h4>🔮 五維思維框架</h4>
+                <div class="grid-2">
+                    <div>
+                        <h5>点维度（256单元格）</h5>
+                        <canvas id="pointChart"></canvas>
+                    </div>
+                    <div>
+                        <h5>线维度（16行锁定）</h5>
+                        <canvas id="lineChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="grid-4" style="margin-top: 20px;">
+                    <div class="stat-box">
+                        <div class="value">624</div>
+                        <div class="label">总空单元格(谜题)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">3</div>
+                        <div class="label">谜题锁定行数</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">48</div>
+                        <div class="label">解盘锁定行数</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="value">61.5%</div>
+                        <div class="label">平均约束传递</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 链式环式原理 -->
+            <div class="framework-section">
+                <h4>🔗 鏈式環式原理</h4>
+                
+                <div class="evolution-diagram">
+                    <div class="evolution-node">
+                        <div class="stage">初始盘</div>
+                        <div class="count">1,380链</div>
+                    </div>
+                    <div class="evolution-arrow">→</div>
+                    <div class="evolution-node">
+                        <div class="stage">演进加I</div>
+                        <div class="count">1,515链</div>
+                    </div>
+                    <div class="evolution-arrow">→</div>
+                    <div class="evolution-node">
+                        <div class="stage">演进加E</div>
+                        <div class="count">1,575链</div>
+                    </div>
+                    <div class="evolution-arrow">→</div>
+                    <div class="evolution-node">
+                        <div class="stage">演进算盘</div>
+                        <div class="count">1,695链</div>
+                    </div>
+                    <div class="evolution-arrow">→</div>
+                    <div class="evolution-node" style="background: #e8f5e9;">
+                        <div class="stage" style="color: #1D9E75;">終局盤</div>
+                        <div class="count">3,840链</div>
+                    </div>
+                </div>
+                
+                <table class="gene-table">
+                    <thead>
+                        <tr>
+                            <th>盘名</th>
+                            <th>总传递链数</th>
+                            <th>闭环完整度</th>
+                            <th>行-列关联对</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>初始盘</td>
+                            <td>1,380</td>
+                            <td>0%</td>
+                            <td>120对</td>
+                        </tr>
+                        <tr>
+                            <td>演进加I盘</td>
+                            <td>1,515</td>
+                            <td>6.25%</td>
+                            <td>120对</td>
+                        </tr>
+                        <tr>
+                            <td>演进加E盘</td>
+                            <td>1,575</td>
+                            <td>6.25%</td>
+                            <td>120对</td>
+                        </tr>
+                        <tr>
+                            <td>演进算盘</td>
+                            <td>1,695</td>
+                            <td>6.25%</td>
+                            <td>120对</td>
+                        </tr>
+                        <tr style="background: #e8f5e9;">
+                            <td><strong>終局盤</strong></td>
+                            <td><strong>3,840</strong></td>
+                            <td><strong>100%</strong></td>
+                            <td><strong>120对</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 关键发现与深化探讨 -->
+        <div class="section">
+            <div class="section-title">🔍 关键发现与深化探讨</div>
+            
+            <div class="insight-box">
+                <h4>💡 核心发现</h4>
+                <ul>
+                    <li><strong>初始盘92锚点存在多解</strong>：基因方差1.81，表明解空间分支>1</li>
+                    <li><strong>单行锁定即可唯一收敛</strong>：I/E/C任意一行16锚点锁定 → 唯一解</li>
+                    <li><strong>传递链数与锚点线性相关</strong>：每增加1锚点 ≈ 增加15条传递链</li>
+                    <li><strong>解盘基因指纹完全一致</strong>：4个解盘基因评分均为100.0</li>
+                    <li><strong>演进加I盘基因评分最低</strong>：58.60，反映I行164排列约束最强</li>
+                </ul>
+            </div>
+            
+            <h4 style="margin: 30px 0 15px;">🚀 进一步深化研究方向</h4>
+            
+            <div class="grid-4">
+                <div class="disc-card">
+                    <h5>方向一：基因聚类</h5>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                        对100D基因进行PCA降维，识别解空间簇群，预测未知谜题的可解性。
+                    </p>
+                </div>
+                
+                <div class="disc-card">
+                    <h5>方向二：基因编辑</h5>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                        基于基因指纹逆向设计谜题，通过调整锚点分布控制解空间大小。
+                    </p>
+                </div>
+                
+                <div class="disc-card">
+                    <h5>方向三：基因进化</h5>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                        研究基因指纹随锚点增加的演化轨迹，建立收敛预测模型。
+                    </p>
+                </div>
+                
+                <div class="disc-card">
+                    <h5>方向四：跨域映射</h5>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">
+                        将基因指纹映射到其他约束满足问题(CSP)，验证普适性。
+                    </p>
+                </div>
+            </div>
+            
+            <div class="insight-box" style="background: linear-gradient(135deg, #1D9E75 0%, #0F6E56 100%); margin-top: 30px;">
+                <h4>🎯 理论贡献</h4>
+                <ul>
+                    <li>建立了符闔數獨的100D基因指纹体系</li>
+                    <li>验证了三大架構在数独分析中的有效性</li>
+                    <li>揭示了初始盘多解与行锁定的收敛机制</li>
+                    <li>为1,360,849解空间的上限提供了实证支撑</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="text-align: center; color: white; padding: 30px; opacity: 0.8;">
+            <p>V77 符闔數獨基因指紋100D 融闔三大架構深度研究報告</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                数据源：V74/V75/V76求解器 | 基因提取：V77_gene_fingerprint_100D.py<br>
+                记忆文件：D:\2026\WPF_Sudoku\Sudoku_256\.workbuddy\memory\
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // 点维度填充率图表
+        const pointCtx = document.getElementById('pointChart').getContext('2d');
+        new Chart(pointCtx, {
+            type: 'bar',
+            data: {
+                labels: ['初始盘', '演进加I', '演进加E', '演进算盘', '終局盤'],
+                datasets: [{
+                    label: '填充率 (%)',
+                    data: [35.94, 39.45, 41.02, 44.14, 100],
+                    backgroundColor: [
+                        'rgba(55, 138, 221, 0.7)',
+                        'rgba(55, 138, 221, 0.7)',
+                        'rgba(55, 138, 221, 0.7)',
+                        'rgba(55, 138, 221, 0.7)',
+                        'rgba(29, 158, 117, 0.9)'
+                    ],
+                    borderColor: [
+                        'rgba(55, 138, 221, 1)',
+                        'rgba(55, 138, 221, 1)',
+                        'rgba(55, 138, 221, 1)',
+                        'rgba(55, 138, 221, 1)',
+                        'rgba(29, 158, 117, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
+        
+        // 线维度锁定图表
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['初始盘', '演进加I', '演进加E', '演进算盘', '終局盤'],
+                datasets: [{
+                    label: '锁定行数',
+                    data: [0, 1, 1, 1, 16],
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 6,
+                    pointBackgroundColor: 'rgba(102, 126, 234, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, max: 16 }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "benchmark_name": "CUDA加速验证",
+  "timestamp": "2026-05-30 19:41:21",
+  "puzzle_count": 1,
+  "success_rate": 0.0,
+  "avg_time": 60.00118589401245,
+  "total_time": 60.00123977661133,
+  "gpu_active": false,
+  "results": [
+    {
+      "success": false,
+      "solution": [],
+      "time": 60.00118589401245,
+      "threshold": 0.9454799049245143,
+      "dlx_stats": "DLXStats(nodes_explored=8896, solutions_found=0, cover_operations=0, uncover_operations=0, execution_time=60.000898599624634, gpu_acceleration=0.0)"
+    }
+  ],
+  "thresholds": [
+    0.9454799049245143
+  ]
+}

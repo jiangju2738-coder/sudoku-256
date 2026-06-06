@@ -1,0 +1,27 @@
+{
+  "config": {
+    "num_puzzles": 1,
+    "parallel_workers": 1,
+    "gpu_enabled": false,
+    "timeout_per_puzzle": 60.0
+  },
+  "summary": {
+    "total_time": 60.00312685966492,
+    "success_rate": 0.0,
+    "success_count": 0,
+    "avg_time": 60.00308084487915,
+    "total_nodes": 9890,
+    "min_time": 60.00308084487915,
+    "max_time": 60.00308084487915
+  },
+  "results": [
+    {
+      "puzzle_id": "initial_puzzle",
+      "success": false,
+      "time": 60.00308084487915,
+      "threshold": 0.944073145909126,
+      "nodes": 9890,
+      "gpu_active": false
+    }
+  ]
+}

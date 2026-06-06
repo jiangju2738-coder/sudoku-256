@@ -1,0 +1,4 @@
+  File "D:\2026\WPF_Sudoku\Sudoku_256\v36_v36_3.py", line 169
+    print(f'
+          ^
+SyntaxError: unterminated f-string literal (detected at line 169)

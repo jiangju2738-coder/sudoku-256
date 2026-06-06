@@ -1,0 +1,36 @@
+{
+  "solver": "MRV + Backtrack + Forward Pruning",
+  "grid_size": 16,
+  "box_size": 4,
+  "test_cases": [
+    {
+      "case": "easy",
+      "clues": 48,
+      "solutions": 2,
+      "time_sec": 0.0157,
+      "nodes": 611,
+      "nodes_per_sec": 38886.0,
+      "matches_ref": false
+    },
+    {
+      "case": "medium",
+      "clues": 32,
+      "solutions": 0,
+      "time_sec": 30.0004,
+      "nodes": 285944,
+      "nodes_per_sec": 9531.0,
+      "matches_ref": false
+    },
+    {
+      "case": "hard",
+      "clues": 24,
+      "solutions": 2,
+      "time_sec": 0.0244,
+      "nodes": 675,
+      "nodes_per_sec": 27620.0,
+      "matches_ref": false
+    }
+  ],
+  "hardware": "Intel Iris Xe Graphics",
+  "timestamp": "2026-05-30 20:03:59"
+}

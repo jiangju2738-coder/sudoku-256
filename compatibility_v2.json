@@ -1,0 +1,192 @@
+{
+  "results": {
+    "A": {
+      "given_count": 6,
+      "pool_size": 8731,
+      "compatible_count": 8731,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ]
+    },
+    "B": {
+      "given_count": 8,
+      "pool_size": 902,
+      "compatible_count": 902,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5"
+      ]
+    },
+    "C": {
+      "given_count": 16,
+      "pool_size": 407669,
+      "compatible_count": 0,
+      "status": "FULLY_KNOWN",
+      "compatible_sample": []
+    },
+    "D": {
+      "given_count": 16,
+      "pool_size": 1980,
+      "compatible_count": 0,
+      "status": "FULLY_KNOWN",
+      "compatible_sample": []
+    },
+    "E": {
+      "given_count": 3,
+      "pool_size": 633271,
+      "compatible_count": 633271,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5"
+      ]
+    },
+    "F": {
+      "given_count": 7,
+      "pool_size": 359,
+      "compatible_count": 359,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ]
+    },
+    "G": {
+      "given_count": 6,
+      "pool_size": 2356,
+      "compatible_count": 2356,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ]
+    },
+    "H": {
+      "given_count": 6,
+      "pool_size": 4782,
+      "compatible_count": 4782,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "H1",
+        "H2",
+        "H3",
+        "H4",
+        "H5"
+      ]
+    },
+    "I": {
+      "given_count": 16,
+      "pool_size": 164,
+      "compatible_count": 1,
+      "status": "FULLY_KNOWN",
+      "compatible_sample": [
+        "I66"
+      ]
+    },
+    "J": {
+      "given_count": 4,
+      "pool_size": 28984,
+      "compatible_count": 28984,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "J1",
+        "J2",
+        "J3",
+        "J4",
+        "J5"
+      ]
+    },
+    "K": {
+      "given_count": 6,
+      "pool_size": 2972,
+      "compatible_count": 2972,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "K1",
+        "K2",
+        "K3",
+        "K4",
+        "K5"
+      ]
+    },
+    "L": {
+      "given_count": 6,
+      "pool_size": 620,
+      "compatible_count": 620,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    "M": {
+      "given_count": 7,
+      "pool_size": 484,
+      "compatible_count": 484,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "M5"
+      ]
+    },
+    "N": {
+      "given_count": 5,
+      "pool_size": 10668,
+      "compatible_count": 10668,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "N1",
+        "N2",
+        "N3",
+        "N4",
+        "N5"
+      ]
+    },
+    "O": {
+      "given_count": 6,
+      "pool_size": 5990,
+      "compatible_count": 5990,
+      "status": "MULTIPLE_COMPATIBLE",
+      "compatible_sample": [
+        "O1",
+        "O2",
+        "O3",
+        "O4",
+        "O5"
+      ]
+    },
+    "P": {
+      "given_count": 16,
+      "pool_size": 1809,
+      "compatible_count": 1,
+      "status": "FULLY_KNOWN",
+      "compatible_sample": [
+        "P1294"
+      ]
+    }
+  }
+}

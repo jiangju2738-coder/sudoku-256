@@ -1,0 +1,67 @@
+{
+  "status": "completed",
+  "A3": {
+    "file": "A3_permutations.json",
+    "count": 407669
+  },
+  "A1": {
+    "count": 28984,
+    "status": "completed"
+  },
+  "A2": {
+    "count": 902,
+    "status": "completed"
+  },
+  "A4": {
+    "count": 1980,
+    "status": "completed"
+  },
+  "A5": {
+    "count": 633271,
+    "status": "completed"
+  },
+  "A6": {
+    "count": 359,
+    "status": "completed"
+  },
+  "A7": {
+    "count": 2356,
+    "status": "completed"
+  },
+  "A8": {
+    "count": 4782,
+    "status": "completed"
+  },
+  "A9": {
+    "count": 164,
+    "status": "completed"
+  },
+  "A10": {
+    "count": 28984,
+    "status": "completed"
+  },
+  "A11": {
+    "count": 2972,
+    "status": "completed"
+  },
+  "A12": {
+    "count": 620,
+    "status": "completed"
+  },
+  "A13": {
+    "count": 484,
+    "status": "completed"
+  },
+  "A14": {
+    "count": 10668,
+    "status": "completed"
+  },
+  "A15": {
+    "count": 5990,
+    "status": "completed"
+  },
+  "A16": {
+    "count": 1562,
+    "status": "completed"
+  }
+}

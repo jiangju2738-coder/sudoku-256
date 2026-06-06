@@ -1,0 +1,302 @@
+{
+  "timestamp": "2026-05-17 00:35:54",
+  "results": [
+    {
+      "fill_rate": 10,
+      "n_givens": 25,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.132,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.12904970000000002
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.17,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.16652270000000002
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.159,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1560632
+        }
+      ]
+    },
+    {
+      "fill_rate": 20,
+      "n_givens": 51,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.173,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1691272
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.133,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1276914
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.141,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1380657
+        }
+      ]
+    },
+    {
+      "fill_rate": 30,
+      "n_givens": 76,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.17,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1658031
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.124,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.12024850000000001
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.19,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.185875
+        }
+      ]
+    },
+    {
+      "fill_rate": 40,
+      "n_givens": 102,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.186,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.18428460000000002
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.128,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.12683350000000002
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.203,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.201685
+        }
+      ]
+    },
+    {
+      "fill_rate": 45,
+      "n_givens": 115,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.125,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1236938
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.114,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.11274970000000001
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.114,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.11313920000000001
+        }
+      ]
+    },
+    {
+      "fill_rate": 50,
+      "n_givens": 128,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.131,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1298148
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.117,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1162485
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.111,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1096965
+        }
+      ]
+    },
+    {
+      "fill_rate": 60,
+      "n_givens": 153,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.198,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.1965077
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.21,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.2087187
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.135,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.13244430000000001
+        }
+      ]
+    },
+    {
+      "fill_rate": 70,
+      "n_givens": 179,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.091,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.08982820000000001
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.09,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.08938940000000001
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.104,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.10270230000000001
+        }
+      ]
+    },
+    {
+      "fill_rate": 80,
+      "n_givens": 204,
+      "feasibility_rate": 0.0,
+      "avg_solve_time": 0,
+      "avg_conflicts": 0,
+      "iterations": [
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.076,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.0748275
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.097,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.09547860000000001
+        },
+        {
+          "status": "INFEASIBLE",
+          "elapsed_time": 0.09,
+          "is_feasible": false,
+          "conflicts": 0,
+          "branches": 0,
+          "wall_time": 0.0892135
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "arbitration_framework": {
+    "scheme": "D-E 混合仲裁",
+    "level1_anchors": "最高優先級（不可變更）",
+    "level2_fummel_perm": "符闔排列優先",
+    "level3_row": "行約束（所有行）",
+    "level4_col": "列約束（非符闔行優先，符闔行鬆綁）",
+    "level5_box": "宮約束（非符闔行標準，符闔行鬆綁）",
+    "fummel_rows": [
+      3,
+      4,
+      9,
+      16
+    ],
+    "column_conflicts_exempted": [
+      {
+        "col": 3,
+        "value": 3,
+        "rows": [
+          1,
+          3
+        ]
+      },
+      {
+        "col": 6,
+        "value": 12,
+        "rows": [
+          1,
+          3
+        ]
+      },
+      {
+        "col": 8,
+        "value": 5,
+        "rows": [
+          1,
+          3
+        ]
+      },
+      {
+        "col": 8,
+        "value": 9,
+        "rows": [
+          4,
+          8
+        ]
+      },
+      {
+        "col": 12,
+        "value": 14,
+        "rows": [
+          1,
+          3
+        ]
+      },
+      {
+        "col": 2,
+        "value": 1,
+        "rows": [
+          9,
+          15
+        ]
+      },
+      {
+        "col": 9,
+        "value": 3,
+        "rows": [
+          4,
+          12
+        ]
+      },
+      {
+        "col": 14,
+        "value": 16,
+        "rows": [
+          3,
+          6
+        ]
+      }
+    ]
+  },
+  "test_results": {
+    "scenario1_standard": {
+      "status": "INFEASIBLE",
+      "time": 0.0010672000000000001
+    },
+    "scenario2_arbitrated": {
+      "status": "INFEASIBLE",
+      "time": 0.0005872000000000001,
+      "solution_count": 0
+    }
+  }
+}

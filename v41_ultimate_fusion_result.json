@@ -1,0 +1,81 @@
+{
+  "ga": {
+    "generations": 1,
+    "best_fitness": 0.0,
+    "time_seconds": 0.011225461959838867,
+    "history": [
+      {
+        "avg_fitness": 0.0,
+        "best_fitness": 0.0,
+        "gen": 0
+      }
+    ]
+  },
+  "cp_sat": {
+    "status": "CpSolverStatus.OPTIMAL",
+    "time_seconds": 0.896,
+    "nash_detected": false
+  },
+  "fusion": {
+    "POINT": {
+      "activation": 1.0,
+      "neighbors": {
+        "LINE": 0.85,
+        "PLANE": 0.7,
+        "VOLUME": 0.55,
+        "SPHERE": 0.4,
+        "SPACETIME": 0.25
+      }
+    },
+    "LINE": {
+      "activation": 0.85,
+      "neighbors": {
+        "POINT": 0.85,
+        "PLANE": 0.88,
+        "VOLUME": 0.72,
+        "SPHERE": 0.58,
+        "SPACETIME": 0.43
+      }
+    },
+    "PLANE": {
+      "activation": 0.748,
+      "neighbors": {
+        "POINT": 0.7,
+        "LINE": 0.88,
+        "VOLUME": 0.92,
+        "SPHERE": 0.78,
+        "SPACETIME": 0.63
+      }
+    },
+    "VOLUME": {
+      "activation": 0.68816,
+      "neighbors": {
+        "POINT": 0.55,
+        "LINE": 0.72,
+        "PLANE": 0.92,
+        "SPHERE": 0.95,
+        "SPACETIME": 0.8
+      }
+    },
+    "SPHERE": {
+      "activation": 0.653752,
+      "neighbors": {
+        "POINT": 0.4,
+        "LINE": 0.58,
+        "PLANE": 0.78,
+        "VOLUME": 0.95,
+        "SPACETIME": 0.98
+      }
+    },
+    "SPACETIME": {
+      "activation": 0.64067696,
+      "neighbors": {
+        "POINT": 0.25,
+        "LINE": 0.43,
+        "PLANE": 0.63,
+        "VOLUME": 0.8,
+        "SPHERE": 0.98
+      }
+    }
+  }
+}

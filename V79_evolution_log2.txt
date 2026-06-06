@@ -1,0 +1,18 @@
+======================================================================
+V79 演进行序完整解盘推演 - 16行全量分析
+======================================================================
+
+[1] 加载初始盘92锚点...
+[2] 加载所有16行符闔排列...
+  加载 A行...Traceback (most recent call last):
+  File "D:\2026\WPF_Sudoku\Sudoku_256\V79_all_row_evolution_fixed.py", line 425, in <module>
+    main()
+    ~~~~^^
+  File "D:\2026\WPF_Sudoku\Sudoku_256\V79_all_row_evolution_fixed.py", line 238, in main
+    all_permutations, perm_stats = load_all_permutations()
+                                   ~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\2026\WPF_Sudoku\Sudoku_256\V79_all_row_evolution_fixed.py", line 80, in load_all_permutations
+    perms = load_permutations_from_xlsx_safe(base_path, row)
+  File "D:\2026\WPF_Sudoku\Sudoku_256\V79_all_row_evolution_fixed.py", line 55, in load_permutations_from_xlsx_safe
+    raise FileNotFoundError(f"文件不存在: {file_path}")
+FileNotFoundError: 文件不存在: D:\2026\WPF_Sudoku\Sudoku_256\A第1行符闔排列.xlsx

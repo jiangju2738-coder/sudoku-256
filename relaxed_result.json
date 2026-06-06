@@ -1,0 +1,32 @@
+{
+  "original_single_source": 93,
+  "relaxed_single_source": 93,
+  "removed": [
+    [
+      12,
+      2
+    ],
+    [
+      14,
+      6
+    ]
+  ],
+  "row_load": {
+    "Row 1": 5,
+    "Row 2": 8,
+    "Row 3": 3,
+    "Row 4": 6,
+    "Row 5": 3,
+    "Row 6": 6,
+    "Row 7": 6,
+    "Row 8": 7,
+    "Row 9": 7,
+    "Row 10": 7,
+    "Row 11": 6,
+    "Row 12": 6,
+    "Row 13": 7,
+    "Row 14": 6,
+    "Row 15": 6,
+    "Row 16": 4
+  }
+}

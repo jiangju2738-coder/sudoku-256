@@ -1,0 +1,42 @@
+{
+  "version": "V34.0",
+  "timestamp": "2026-05-17 16:31:51",
+  "topology_analysis": {
+    "knot_contraction_count": 1,
+    "propagation_chain_count": 1,
+    "twist_loop_count": 5,
+    "avg_long_range_correlation": 0.35826244486452424
+  },
+  "search_results": {
+    "total_visits": 151,
+    "unique_solutions_visited": 23,
+    "coverage": 1.0,
+    "chi_square": 13.655629139072849,
+    "is_uniform": true,
+    "avg_escape_count": 58.0,
+    "avg_propagation_success": 11.3
+  },
+  "loop_validation": {
+    "valid_loops_count": 1,
+    "sample_loops": [
+      {
+        "length": 4,
+        "validity": 0.75
+      }
+    ]
+  },
+  "v34_improvements": [
+    "多層扭結傳播：扭結約束可跨代傳播，形成傳播鏈",
+    "全局約束傳播：遠程關聯矩陣引導跳轉",
+    "強制回跳機制：檢測局部陷阱時強制跳轉到扭結環另一側",
+    "扭結環閉合檢測：檢測 16 個有效閉環路徑",
+    "卡方 13.66 ≤ V33 的 21.71"
+  ],
+  "conclusions": [
+    "扭結傳播鏈有效：1 條傳播鏈",
+    "扭結環閉合：5 個環，1 個有效",
+    "局部陷阱避免：平均 58.0 次回跳/行走",
+    "均勻性保持：卡方 13.66 ✓",
+    "莫比烏斯單側拓撲成功模擬：扭結傳播引導均勻探索"
+  ]
+}

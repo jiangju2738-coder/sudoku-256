@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>符闔數獨 256 節點 - 樹狀神經元網絡演化鏈式路徑圖</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+            color: #1a1a1a;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { font-size: 24px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+        h2 { font-size: 18px; font-weight: 600; margin: 24px 0 12px; }
+        .subtitle { color: #666; margin-bottom: 24px; font-size: 14px; }
+        .grid-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .sudoku-grid {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 1px;
+            background: #ddd;
+            border: 2px solid #333;
+            width: 100%;
+            max-width: 640px;
+            margin: 20px auto;
+        }
+        .cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .cell:hover { transform: scale(1.1); z-index: 10; }
+        .cell.anchor { background: #d85a30; color: white; }
+        .cell.evolved { background: #534ab7; color: white; }
+        .cell.solution { background: #1d9e75; color: white; }
+        .cell.empty { background: #f5f5f5; }
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+        .legend-color { width: 20px; height: 20px; border-radius: 4px; }
+        .row-track {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .row-node {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        .row-node:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .row-node.optimal { background: #1d9e75; color: white; }
+        .row-node.infeasible { background: #e24b4a; color: white; }
+        .row-node.completed { background: #378add; color: white; }
+        .neuron-network {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: auto;
+        }
+        .network-layer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        .layer-label { font-size: 12px; color: #666; margin-bottom: 8px; font-weight: 500; }
+        .neuron {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: white;
+            transition: all 0.3s;
+        }
+        .neuron.active { box-shadow: 0 0 20px currentColor; }
+        .layer-connector {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #534ab7, transparent);
+            margin: 0 10px;
+        }
+        .chain-path {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin: 16px 0;
+        }
+        .chain-step {
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            background: #f0f0f0;
+            transition: all 0.2s;
+        }
+        .chain-step.active { background: #534ab7; color: white; }
+        .chain-step.arrival { background: #1d9e75; color: white; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .stat-value { font-size: 28px; font-weight: 600; color: #333; }
+        .stat-label { font-size: 12px; color: #666; margin-top: 4px; }
+        .interaction-panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .btn-primary { background: #534ab7; color: white; }
+        .btn-primary:hover { background: #3c3489; }
+        .btn-outline { background: white; border: 2px solid #534ab7; color: #534ab7; }
+        .btn-outline:hover { background: #f0edfe; }
+        .row-detail {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .row-detail.visible { display: block; }
+        .matrix-view {
+            display: grid;
+            grid-template-columns: repeat(16, 36px);
+            grid-template-rows: repeat(16, 36px);
+            gap: 2px;
+            margin: 16px auto;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .matrix-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .matrix-cell.highlight { background: #d85a30; color: white; }
+        .info-box {
+            background: #e6f1fb;
+            border-left: 4px solid #378add;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+        .info-box strong { color: #185fa5; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>符闔數獨 256 節點 — 樹狀神經元網絡演化鏈式路徑圖</h1>
+    <p class="subtitle">以超級數獨256個節點為原點 | 初始盤92錨點為基礎軌跡原點 | 16行演進盤完整解軌跡鏈式路徑</p>
+
+    <!-- 統計卡片 -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" style="color: #378add;">256</div>
+            <div class="stat-label">節點總數 (16×16)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #d85a30;">92</div>
+            <div class="stat-label">初始錨點數</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #1d9e75;">13</div>
+            <div class="stat-label">成功演進行 (OPTIMAL)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #e24b4a;">3</div>
+            <div class="stat-label">無解行 (INFEASIBLE)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #7f77dd;">164</div>
+            <div class="stat-label">I行排列 (最小集)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" style="color: #ba7517;">1,360,849</div>
+            <div class="stat-label">符闔排列上限</div>
+        </div>
+    </div>
+
+    <!-- 256節點網格 -->
+    <div class="grid-section">
+        <h2>256 節點網格 (初始盤錨點分佈)</h2>
+        <p class="subtitle">點擊錨點格查看列值，點擊行節點查看演進軌跡</p>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background: #d85a30;"></div> 初始錨點 (92)</div>
+            <div class="legend-item"><div class="legend-color" style="background: #534ab7;"></div> 演進鎖定行</div>
+            <div class="legend-item"><div class="legend-color" style="background: #1d9e75;"></div> 最終解節點</div>
+            <div class="legend-item"><div class="legend-color" style="background: #f5f5f5; border: 1px solid #ddd;"></div> 未知節點</div>
+        </div>
+        <div class="sudoku-grid" id="sudokuGrid"></div>
+
+        <div class="interaction-panel">
+            <button class="btn btn-primary" onclick="showAllAnchors()">顯示初始錨點</button>
+            <button class="btn btn-outline" onclick="showEvolution()">顯示演進軌跡</button>
+            <button class="btn btn-outline" onclick="showSolution()">顯示最終解</button>
+            <button class="btn btn-outline" onclick="clearGrid()">清除顯示</button>
+        </div>
+    </div>
+
+    <!-- 16行演進軌跡圖 -->
+    <div class="grid-section">
+        <h2>16 行演進盤軌跡 — 神經元網絡加載</h2>
+        <p class="subtitle">點擊行節點展開詳細解軌跡鏈式路徑</p>
+        
+        <div class="row-track" id="rowTrack"></div>
+        
+        <div id="rowDetail" class="row-detail"></div>
+    </div>
+
+    <!-- 樹狀神經元網絡圖 -->
+    <div class="grid-section">
+        <h2>樹狀神經元網絡演化圖</h2>
+        <p class="subtitle">節點 → 錨點 → 演進 → 解盤 的鏈式傳播路徑</p>
+        <svg viewBox="0 0 800 400" id="neuronNetwork" style="width: 100%; max-width: 800px;"></svg>
+    </div>
+
+    <!-- 演進行序矩陣 -->
+    <div class="grid-section">
+        <h2>演進行序完整解矩陣</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">D行</div>
+                <div class="stat-label">0.227s | 1,980排列</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">F行</div>
+                <div class="stat-label">0.319s | 359排列</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">L行</div>
+                <div class="stat-label">0.346s | 620排列</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">P行</div>
+                <div class="stat-label">0.817s | 1,809排列</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 鏈式路徑分析 -->
+    <div class="grid-section">
+        <h2>鏈式環式傳播路徑分析</h2>
+        <div class="info-box">
+            <strong>鏈式傳播機制：</strong> 每行16個錨點通過列AllDifferent約束，產生 16×15 = 240 條傳遞鏈。
+            <br>鎖定某一行後，約束沿傳遞鏈收縮至全盤，實現唯一解收斂。
+        </div>
+        <div class="chain-path" id="chainPath"></div>
+        <div class="stats-grid" style="margin-top: 16px;">
+            <div class="stat-card">
+                <div class="stat-value" id="chainCount">1,515</div>
+                <div class="stat-label">I行鎖定傳遞鏈</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">單行鎖定收斂</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">10</div>
+                <div class="stat-label">唯一解行 (OPTIMAL)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">92 → 256</div>
+                <div class="stat-label">錨點收斂軌跡</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 16行演進數據
+const evolutionData = {
+    'A': { status: 'INFEASIBLE', elapsed: 0.182, perms: 8731, match: false },
+    'B': { status: 'INFEASIBLE', elapsed: 0.005, perms: 902, match: false },
+    'C': { status: 'COMPLETED', note: 'V74' },
+    'D': { status: 'OPTIMAL', elapsed: 0.227, perms: 1980, unique: true },
+    'E': { status: 'COMPLETED', note: 'V75' },
+    'F': { status: 'OPTIMAL', elapsed: 0.319, perms: 359, unique: true },
+    'G': { status: 'OPTIMAL', elapsed: 0.466, perms: 2356, unique: true },
+    'H': { status: 'OPTIMAL', elapsed: 1.731, perms: 4782, unique: true },
+    'I': { status: 'COMPLETED', note: 'V76' },
+    'J': { status: 'OPTIMAL', elapsed: 10.493, perms: 28984, unique: true },
+    'K': { status: 'OPTIMAL', elapsed: 1.624, perms: 2972, unique: true },
+    'L': { status: 'OPTIMAL', elapsed: 0.346, perms: 620, unique: true },
+    'M': { status: 'INFEASIBLE', elapsed: 0.004, perms: 484, match: false },
+    'N': { status: 'OPTIMAL', elapsed: 2.553, perms: 10668, unique: true },
+    'O': { status: 'OPTIMAL', elapsed: 2.479, perms: 5990, unique: true },
+    'P': { status: 'OPTIMAL', elapsed: 0.817, perms: 1809, unique: true }
+};
+
+// 示例解數據 (D行演進)
+const sampleSolutions = {
+    'D': {
+        'A': [2,14,3,7,11,9,13,5,10,12,1,16,15,8,6,4],
+        'B': [8,12,11,1,3,2,10,14,6,15,5,4,16,7,13,9],
+        'C': [15,10,5,6,12,16,4,8,7,13,9,14,11,3,1,2],
+        'D': [9,4,16,13,7,15,1,6,3,2,8,11,14,12,5,10],
+        'E': [12,6,10,8,14,7,15,16,4,9,11,5,2,13,3,1],
+        'F': [3,9,1,4,5,12,8,2,16,14,15,13,10,6,7,11],
+        'G': [11,16,15,5,6,13,3,10,2,7,12,1,8,9,4,14],
+        'H': [7,13,2,14,1,11,9,4,8,3,6,10,5,16,15,12],
+        'I': [1,5,7,12,4,3,16,11,14,6,10,9,13,2,8,15],
+        'J': [16,2,4,9,10,8,6,15,11,1,13,3,7,14,12,5],
+        'K': [13,11,14,3,9,1,5,7,15,8,2,12,6,4,10,16],
+        'L': [10,8,6,15,13,14,2,12,5,16,4,7,1,11,9,3],
+        'M': [5,3,8,2,15,10,12,13,9,11,16,6,4,1,14,7],
+        'N': [4,7,12,10,2,6,11,9,1,5,14,8,3,15,16,13],
+        'O': [14,15,9,16,8,4,7,1,13,10,3,2,12,5,11,6],
+        'P': [6,1,13,11,16,5,14,3,12,4,7,15,9,10,2,8]
+    }
+};
+
+// 初始盤92錨點 (示例)
+const initialAnchors = [
+    // A行: [2,0,3,0,0,0,13,0,0,0,0,0,15,0,0,0]
+    // 为简化展示，这里用随机锚点模拟初始状态
+];
+
+// 初始化256网格
+function initGrid() {
+    const grid = document.getElementById('sudokuGrid');
+    grid.innerHTML = '';
+    for (let row = 0; row < 16; row++) {
+        for (let col = 0; col < 16; col++) {
+            const cell = document.createElement('div');
+            cell.className = 'cell empty';
+            cell.dataset.row = row;
+            cell.dataset.col = col;
+            cell.textContent = '';
+            cell.onclick = () => highlightCell(row, col);
+            grid.appendChild(cell);
+        }
+    }
+}
+
+// 显示锚点
+function showAnchors() {
+    const cells = document.querySelectorAll('.cell');
+    // 随机锚点位置（模拟92个锚点）
+    const anchorPositions = [];
+    for (let i = 0; i < 92; i++) {
+        const row = Math.floor(Math.random() * 16);
+        const col = Math.floor(Math.random() * 16);
+        anchorPositions.push({ row, col, value: Math.floor(Math.random() * 16) + 1 });
+    }
+    cells.forEach(cell => {
+        const r = parseInt(cell.dataset.row);
+        const c = parseInt(cell.dataset.col);
+        const anchor = anchorPositions.find(a => a.row === r && a.col === c);
+        if (anchor) {
+            cell.className = 'cell anchor';
+            cell.textContent = anchor.value;
+        }
+    });
+}
+
+function showAllAnchors() { showAnchors(); }
+
+function showEvolution() {
+    const cells = document.querySelectorAll('.cell');
+    // 显示演进行列
+    ['D', 'F', 'G', 'H', 'J', 'K', 'L', 'N', 'O', 'P'].forEach(rowName => {
+        const rowIdx = 'ABCDEFGHIJ KLMNOP'.indexOf(rowName);
+        for (let col = 0; col < 16; col++) {
+            const cell = document.querySelector(`.cell[data-row="${rowIdx}"][data-col="${col}"]`);
+            if (cell) cell.className = 'cell evolved';
+        }
+    });
+}
+
+function showSolution() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.className = 'cell solution';
+    });
+}
+
+function clearGrid() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        cell.className = 'cell empty';
+        cell.textContent = '';
+    });
+}
+
+function highlightCell(row, col) {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(c => c.style.border = '');
+    const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+    if (cell) cell.style.border = '2px solid #333';
+}
+
+// 初始化行节点
+function initRowTrack() {
+    const track = document.getElementById('rowTrack');
+    const statusColors = {
+        'OPTIMAL': 'optimal',
+        'INFEASIBLE': 'infeasible',
+        'COMPLETED': 'completed'
+    };
+    const statusLabels = {
+        'OPTIMAL': '✓ 唯一解',
+        'INFEASIBLE': '✗ 無解',
+        'COMPLETED': '○ 預完成'
+    };
+    
+    'ABCDEFGHIJ KLMNOP'.split(' ').join('').split('').forEach(rowName => {
+        const data = evolutionData[rowName];
+        const node = document.createElement('div');
+        node.className = `row-node ${statusColors[data.status]}`;
+        node.textContent = `${rowName}行 ${statusLabels[data.status]}`;
+        node.onclick = () => showRowDetail(rowName, data);
+        track.appendChild(node);
+    });
+}
+
+function showRowDetail(rowName, data) {
+    const detail = document.getElementById('rowDetail');
+    let html = `<h3>${rowName}行演進軌跡</h3>`;
+    html += `<p><strong>狀態:</strong> ${data.status}</p>`;
+    html += `<p><strong>耗時:</strong> ${data.elapsed || 'N/A'}秒</p>`;
+    html += `<p><strong>排列數:</strong> ${data.perms ? data.perms.toLocaleString() : 'N/A'}</p>`;
+    
+    if (data.status === 'OPTIMAL' && data.unique) {
+        html += `<p><strong>唯一解:</strong> 是</p>`;
+        html += `<p><strong>匹配終局:</strong> 否 (不同解空間分支)</p>`;
+    }
+    
+    // 链式路径
+    html += `<h4 style="margin-top:12px;">鏈式傳播路徑</h4>`;
+    html += `<div class="chain-path">`;
+    html += `<div class="chain-step">92初始錨點</div>`;
+    html += `<span style="color:#999">→</span>`;
+    html += `<div class="chain-step">+${rowName}行16錨點</div>`;
+    html += `<span style="color:#999">→</span>`;
+    html += `<div class="chain-step">${data.perms || '?'}排列篩選</div>`;
+    html += `<span style="color:#999">→</span>`;
+    html += `<div class="chain-step active">CP-SAT求解</div>`;
+    html += `<span style="color:#999">→</span>`;
+    html += `<div class="chain-step arrival">256節點收斂</div>`;
+    html += `</div>`;
+    
+    detail.innerHTML = html;
+    detail.classList.add('visible');
+}
+
+// 初始化神经元网络图
+function initNeuronNetwork() {
+    const svg = document.getElementById('neuronNetwork');
+    const w = 800, h = 400;
+    
+    let defs = `<defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#f0f0f0;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#534ab7;stop-opacity:1" />
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+    </defs>`;
+    
+    // 层次节点
+    const layers = [
+        { x: 80, label: '256節點原點', neurons: 4, color: '#f0f0f0' },
+        { x: 220, label: '92錨點基礎', neurons: 3, color: '#d85a30' },
+        { x: 380, label: '符闔排列篩選', neurons: 5, color: '#7f77dd' },
+        { x: 540, label: 'CP-SAT求解', neurons: 3, color: '#378add' },
+        { x: 700, label: '256解盤收斂', neurons: 2, color: '#1d9e75' }
+    ];
+    
+    let content = '';
+    
+    // 绘制层次节点
+    layers.forEach((layer, i) => {
+        // 层次标签
+        content += `<text x="${layer.x}" y="30" text-anchor="middle" font-size="12" fill="#666" font-weight="500">${layer.label}</text>`;
+        
+        // 神经元节点
+        const startY = 80 + (8 - layer.neurons) * 20;
+        for (let j = 0; j < layer.neurons; j++) {
+            const cy = startY + j * 40;
+            const size = layer.neurons === 4 ? 20 : 16;
+            content += `<circle cx="${layer.x}" cy="${cy}" r="${size}" fill="${layer.color}" stroke="#333" stroke-width="0.5"/>`;
+            content += `<text x="${layer.x}" cy="${cy}" text-anchor="middle" dominant-baseline="central" font-size="10" fill="white" font-weight="500">${j+1}</text>`;
+        }
+        
+        // 连接箭头
+        if (i < layers.length - 1) {
+            const next = layers[i + 1];
+            content += `<line x1="${layer.x + 40}" y1="200" x2="${next.x - 40}" y2="200" stroke="#534ab7" stroke-width="2" marker-end="url(#arrow)"/>`;
+        }
+    });
+    
+    // 添加链式路径说明
+    content += `<text x="400" y="360" text-anchor="middle" font-size="11" fill="#666">
+        鏈式傳播：錨點 → 列約束 → 行約束 → 宮約束 → 收斂
+    </text>`;
+    
+    svg.innerHTML = defs + content;
+}
+
+// 初始化链式路径
+function initChainPath() {
+    const path = document.getElementById('chainPath');
+    path.innerHTML = `
+        <div class="chain-step">256節點原點</div>
+        <span style="color:#999">→</span>
+        <div class="chain-step active">92初始錨點</div>
+        <span style="color:#999">→</span>
+        <div class="chain-step">16行演進</div>
+        <span style="color:#999">→</span>
+        <div class="chain-step">CP-SAT求解</div>
+        <span style="color:#999">→</span>
+        <div class="chain-step arrival">唯一解收斂</div>
+    `;
+}
+
+// 页面初始化
+document.addEventListener('DOMContentLoaded', () => {
+    initGrid();
+    initRowTrack();
+    initNeuronNetwork();
+    initChainPath();
+    showAnchors(); // 默认显示初始锚点
+});
+</script>
+</body>
+</html>

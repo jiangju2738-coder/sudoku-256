@@ -1,0 +1,29 @@
+SAT 求解器環境檢查報告
+======================================================================
+
+sharpSAT: ❌ 未安裝
+  下載: https://github.com/marcthurley/sharpSAT/releases
+
+Cachet: ❌ 未安裝
+  下載: https://github.com/MeelGroup/Cachet
+
+Kissat: ❌ 未安裝
+  下載: https://sat.inesc-id.pt/~mkissat/
+
+glucose: ❌ 未安裝
+  下載: https://www.labri.fr/perso/lsimon/glucose/
+
+minisat: ❌ 未安裝
+  下載: https://github.com/niklasso/minisat
+
+c2d: ❌ 未安裝
+  下載: https://reasoning.cs.ucla.edu/c2d/
+
+GANAK: ❌ 未安裝
+  下載: https://github.com/meelgroup/GANAK
+
+
+推薦方案:
+1. sharpSAT - 精確計數 (#SAT)
+2. CP-SAT - 已安裝，可直接使用
+3. Kissat - 單解驗證與計數

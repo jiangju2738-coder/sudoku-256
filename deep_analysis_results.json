@@ -1,0 +1,75 @@
+{
+  "problem1": {
+    "total_anchors": 92,
+    "total_match": 86,
+    "match_rate": 0.9347826086956522,
+    "violations_count": 6,
+    "violations": [
+      {
+        "coord": "AF",
+        "expected": 3,
+        "actual": 14,
+        "row": "A",
+        "col": "F"
+      },
+      {
+        "coord": "AK",
+        "expected": 5,
+        "actual": 8,
+        "row": "A",
+        "col": "K"
+      },
+      {
+        "coord": "AS",
+        "expected": 8,
+        "actual": 5,
+        "row": "A",
+        "col": "S"
+      },
+      {
+        "coord": "AI",
+        "expected": 12,
+        "actual": 2,
+        "row": "A",
+        "col": "I"
+      },
+      {
+        "coord": "AO",
+        "expected": 14,
+        "actual": 1,
+        "row": "A",
+        "col": "O"
+      },
+      {
+        "coord": "AQ",
+        "expected": 16,
+        "actual": 9,
+        "row": "A",
+        "col": "Q"
+      }
+    ],
+    "conclusion": "終局解盤與92錨點不匹配"
+  },
+  "problem2": {
+    "backup_total": 20603,
+    "per_row_sizes": {
+      "A": 1229,
+      "B": 1247,
+      "C": 1239,
+      "D": 1246,
+      "E": 1138,
+      "F": 1244,
+      "G": 1218,
+      "H": 1243,
+      "I": 1258,
+      "J": 1357,
+      "K": 1324,
+      "L": 1299,
+      "M": 1429,
+      "N": 1350,
+      "O": 1421,
+      "P": 1361
+    },
+    "conclusion": "篩選標準未知，需要進一步調查"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "version": "V36.0",
+    "timestamp": "2026-05-17T17:06:56.559598",
+    "anchors_count": 114,
+    "sequence": "7 15 3 9",
+    "target_samples": 100
+  },
+  "phases": [
+    {
+      "phase": 1,
+      "phase_name": "锚点约束构建",
+      "constraint_summary": {
+        "total_anchors": 114,
+        "row_constraints": 16,
+        "col_constraints": 16,
+        "box_constraints": 16,
+        "fully_constrained_rows": 3,
+        "fully_constrained_cols": 0,
+        "fully_constrained_boxes": 0,
+        "sequence_positions": 31,
+        "known_density": 0.4453125
+      },
+      "fully_fixed_rows": [
+        2,
+        3,
+        8
+      ],
+      "status": "COMPLETE"
+    },
+    {
+      "phase": 2,
+      "phase_name": "增量采样主循环",
+      "new_solutions_count": 0,
+      "status": "COMPLETE"
+    },
+    {
+      "phase": 3,
+      "phase_name": "空间探索增强",
+      "status": "INSUFFICIENT_SAMPLES",
+      "message": "需要至少2个解进行邻接图分析"
+    },
+    {
+      "status": "NO_SAMPLES"
+    }
+  ],
+  "solutions": [],
+  "metrics": {
+    "total_time": 3.426347494125366,
+    "final_solution_count": 0,
+    "metrics": {
+      "total_solutions": 0,
+      "unique_solutions": 0,
+      "total_iterations": 12502500,
+      "convergence_rate": 0.0,
+      "coverage_estimate": 0.0,
+      "sampling_efficiency": 0.0
+    }
+  }
+}

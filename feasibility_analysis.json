@@ -1,0 +1,105 @@
+{
+  "feasibility": false,
+  "zero_perm_rows": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "constraint_conflict": true,
+  "analysis": {
+    "row_A": {
+      "raw_count": 8731,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_B": {
+      "raw_count": 902,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_C": {
+      "raw_count": 407669,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_D": {
+      "raw_count": 1980,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_E": {
+      "raw_count": 633271,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_F": {
+      "raw_count": 359,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_G": {
+      "raw_count": 2356,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_H": {
+      "raw_count": 4782,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_I": {
+      "raw_count": 164,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_J": {
+      "raw_count": 28984,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_K": {
+      "raw_count": 2972,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_L": {
+      "raw_count": 620,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_M": {
+      "raw_count": 484,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_N": {
+      "raw_count": 10668,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_O": {
+      "raw_count": 5990,
+      "filtered_count": 0,
+      "has_solution": false
+    },
+    "row_P": {
+      "raw_count": 1562,
+      "filtered_count": 0,
+      "has_solution": false
+    }
+  },
+  "conclusion": "INFEASIBLE - 約束衝突導致無法滿足所有約束條件"
+}

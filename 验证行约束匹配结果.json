@@ -1,0 +1,139 @@
+{
+  "total_known_numbers": 92,
+  "row_distribution": [
+    6,
+    8,
+    3,
+    6,
+    3,
+    7,
+    6,
+    6,
+    7,
+    4,
+    6,
+    6,
+    7,
+    5,
+    6,
+    6
+  ],
+  "results": [
+    {
+      "row": 1,
+      "status": "no_exact_match",
+      "total_permutations": 28984,
+      "exact_matches": 0,
+      "partial_count": 3052
+    },
+    {
+      "row": 2,
+      "status": "match",
+      "total_permutations": 902,
+      "exact_matches": 902,
+      "partial_count": 0
+    },
+    {
+      "row": 3,
+      "status": "match",
+      "total_permutations": 407669,
+      "exact_matches": 407669,
+      "partial_count": 0
+    },
+    {
+      "row": 4,
+      "status": "match",
+      "total_permutations": 1980,
+      "exact_matches": 1980,
+      "partial_count": 0
+    },
+    {
+      "row": 5,
+      "status": "match",
+      "total_permutations": 633271,
+      "exact_matches": 633271,
+      "partial_count": 0
+    },
+    {
+      "row": 6,
+      "status": "no_exact_match",
+      "total_permutations": 359,
+      "exact_matches": 0,
+      "partial_count": 359
+    },
+    {
+      "row": 7,
+      "status": "match",
+      "total_permutations": 2356,
+      "exact_matches": 2356,
+      "partial_count": 0
+    },
+    {
+      "row": 8,
+      "status": "match",
+      "total_permutations": 4782,
+      "exact_matches": 4782,
+      "partial_count": 0
+    },
+    {
+      "row": 9,
+      "status": "match",
+      "total_permutations": 164,
+      "exact_matches": 164,
+      "partial_count": 0
+    },
+    {
+      "row": 10,
+      "status": "match",
+      "total_permutations": 28984,
+      "exact_matches": 28984,
+      "partial_count": 0
+    },
+    {
+      "row": 11,
+      "status": "match",
+      "total_permutations": 2972,
+      "exact_matches": 2972,
+      "partial_count": 0
+    },
+    {
+      "row": 12,
+      "status": "no_exact_match",
+      "total_permutations": 620,
+      "exact_matches": 0,
+      "partial_count": 620
+    },
+    {
+      "row": 13,
+      "status": "no_exact_match",
+      "total_permutations": 484,
+      "exact_matches": 0,
+      "partial_count": 484
+    },
+    {
+      "row": 14,
+      "status": "match",
+      "total_permutations": 10668,
+      "exact_matches": 10668,
+      "partial_count": 0
+    },
+    {
+      "row": 15,
+      "status": "match",
+      "total_permutations": 5990,
+      "exact_matches": 5990,
+      "partial_count": 0
+    },
+    {
+      "row": 16,
+      "status": "no_exact_match",
+      "total_permutations": 1562,
+      "exact_matches": 0,
+      "partial_count": 1562
+    }
+  ],
+  "summary": {
+    "matched_rows": 11,
+    "conflict_rows": 5
+  }
+}

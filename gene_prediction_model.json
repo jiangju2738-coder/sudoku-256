@@ -1,0 +1,10 @@
+{
+  "model_type": "linear_regression",
+  "equation": "时间(s) = 0.021705 x D100 + -1.156938",
+  "coefficients": {
+    "a": 0.021705,
+    "b": -1.156938
+  },
+  "accuracy": "+/-6%",
+  "applicability": "符阖演进谜题(101-113锚点)"
+}

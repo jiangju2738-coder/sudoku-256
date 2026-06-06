@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>超級大數獨 256 宮格 × 博弈論 × 融闔系統 — 鏈式閉環神經元知識結構思維導圖</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#060612;font-family:'Segoe UI','Microsoft JhengHei','PingFang SC',sans-serif;overflow:hidden;color:#e0e0e0;user-select:none}
+#app{width:100vw;height:100vh;position:relative}
+svg#mindmap{width:100%;height:100%;cursor:grab;display:block}
+svg#mindmap:active{cursor:grabbing}
+#detail-panel{position:fixed;top:0;right:-440px;width:420px;height:100vh;background:linear-gradient(160deg,#0b0e18 0%,#121828 50%,#0d1220 100%);border-left:1px solid rgba(255,215,0,0.25);padding:28px 24px;overflow-y:auto;transition:right 0.45s cubic-bezier(0.22,1,0.36,1);z-index:100;box-shadow:-6px 0 32px rgba(0,0,0,0.6)}
+#detail-panel.open{right:0}
+#detail-panel h2{font-size:20px;margin-bottom:6px;border-bottom:2px solid rgba(255,215,0,0.5);padding-bottom:10px;line-height:1.4}
+#detail-panel .en-name{font-size:13px;color:#7a8599;margin-bottom:14px;font-style:italic}
+#detail-panel .definition{font-size:14px;line-height:1.8;color:#c8cdd8;margin-bottom:18px;padding:12px 14px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid rgba(255,215,0,0.5)}
+#detail-panel .key-data{margin-bottom:18px}
+#detail-panel .key-data h3{font-size:14px;color:#ffd700;margin-bottom:10px;letter-spacing:0.5px}
+#detail-panel .key-data .data-item{font-size:13px;padding:5px 10px;margin:4px 0;background:rgba(255,215,0,0.06);border-radius:5px;border-left:2px solid rgba(255,215,0,0.3)}
+#detail-panel .related h3{font-size:14px;color:#ffd700;margin-bottom:10px}
+#detail-panel .related .rel-item{font-size:13px;padding:5px 10px;margin:4px 0;cursor:pointer;border-radius:5px;transition:all 0.2s;border-left:2px solid rgba(255,255,255,0.1)}
+#detail-panel .related .rel-item:hover{background:rgba(255,215,0,0.1);border-left-color:#ffd700}
+#close-panel{position:absolute;top:18px;right:18px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.3);color:#ffd700;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+#close-panel:hover{background:rgba(255,215,0,0.2);transform:scale(1.1)}
+#controls{position:fixed;bottom:28px;left:28px;display:flex;flex-direction:column;gap:6px;z-index:50}
+#controls button{width:42px;height:42px;background:rgba(12,15,26,0.92);border:1px solid rgba(255,215,0,0.25);color:#ffd700;border-radius:10px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;backdrop-filter:blur(8px)}
+#controls button:hover{background:rgba(255,215,0,0.12);border-color:rgba(255,215,0,0.5)}
+#legend{position:fixed;bottom:28px;right:28px;background:rgba(10,12,24,0.94);border:1px solid rgba(255,215,0,0.18);border-radius:12px;padding:18px;z-index:50;font-size:12px;max-width:280px;backdrop-filter:blur(8px)}
+#legend h4{color:#ffd700;margin-bottom:10px;font-size:14px;letter-spacing:1px}
+.legend-item{display:flex;align-items:center;gap:10px;margin:5px 0}
+.legend-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px currentColor}
+.legend-line{width:32px;height:3px;border-radius:2px;flex-shrink:0}
+.loop-legend{color:#ffd700;font-weight:600;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,215,0,0.15)}
+.node-group{cursor:pointer}
+.node-group:hover .soma{filter:brightness(1.4)}
+.loop-group{cursor:pointer}
+.loop-group:hover .loop-path{stroke-width:4;opacity:1}
+.loop-path{fill:none;stroke:#ffd700;stroke-width:2.8;stroke-dasharray:10 5;opacity:0.65;filter:url(#glow);transition:stroke-width 0.3s, opacity 0.3s}
+.loop-path-bg{fill:none;stroke:rgba(255,215,0,0.06);stroke-width:16;stroke-linecap:round}
+.intra-conn{fill:none;stroke-linecap:round;opacity:0.4;transition:opacity 0.3s}
+.inter-conn{fill:none;stroke:rgba(255,255,255,0.08);stroke-width:1;stroke-dasharray:5 5;opacity:0.35}
+.center-conn{fill:none;stroke-linecap:round;opacity:0.3;stroke-dasharray:8 5}
+</style>
+</head>
+<body>
+<div id="app">
+<svg id="mindmap" viewBox="0 0 1800 1100" preserveAspectRatio="xMidYMid meet">
+<defs>
+<filter id="glow"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="glow-strong"><feGaussianBlur stdDeviation="6" result="b"/><feComposite in="b" in2="b" operator="over"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<filter id="glow-soft"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<marker id="arrow-gold" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto"><polygon points="0 0, 12 4, 0 8" fill="#ffd700" opacity="0.85"/></marker>
+<marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#42a5f5" opacity="0.5"/></marker>
+<marker id="arrow-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ef5350" opacity="0.5"/></marker>
+<marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#66bb6a" opacity="0.5"/></marker>
+<marker id="arrow-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ab47bc" opacity="0.5"/></marker>
+<marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ffa726" opacity="0.5"/></marker>
+<radialGradient id="grad-center" cx="38%" cy="32%"><stop offset="0%" stop-color="#ffe066"/><stop offset="50%" stop-color="#daa520"/><stop offset="100%" stop-color="#8b6914"/></radialGradient>
+<radialGradient id="grad-c1" cx="38%" cy="32%"><stop offset="0%" stop-color="#64b5f6"/><stop offset="50%" stop-color="#1e88e5"/><stop offset="100%" stop-color="#0d47a1"/></radialGradient>
+<radialGradient id="grad-c2" cx="38%" cy="32%"><stop offset="0%" stop-color="#ef5350"/><stop offset="50%" stop-color="#c62828"/><stop offset="100%" stop-color="#7f0000"/></radialGradient>
+<radialGradient id="grad-c3" cx="38%" cy="32%"><stop offset="0%" stop-color="#81c784"/><stop offset="50%" stop-color="#2e7d32"/><stop offset="100%" stop-color="#0a3d0a"/></radialGradient>
+<radialGradient id="grad-c4" cx="38%" cy="32%"><stop offset="0%" stop-color="#ce93d8"/><stop offset="50%" stop-color="#7b1fa2"/><stop offset="100%" stop-color="#38006b"/></radialGradient>
+<radialGradient id="grad-c5" cx="38%" cy="32%"><stop offset="0%" stop-color="#ffb74d"/><stop offset="50%" stop-color="#e65100"/><stop offset="100%" stop-color="#8c3a00"/></radialGradient>
+<radialGradient id="bg-grad" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#0e1028"/><stop offset="100%" stop-color="#060612"/></radialGradient>
+</defs>
+<!-- Background -->
+<rect width="1800" height="1100" fill="url(#bg-grad)"/>
+<!-- Subtle grid -->
+<pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,215,0,0.025)" stroke-width="0.5"/></pattern>
+<rect width="1800" height="1100" fill="url(#grid)"/>
+<!-- Decorative circles -->
+<circle cx="900" cy="530" r="420" fill="none" stroke="rgba(255,215,0,0.04)" stroke-width="1" stroke-dasharray="3 6"/>
+<circle cx="900" cy="530" r="280" fill="none" stroke="rgba(255,215,0,0.03)" stroke-width="0.5" stroke-dasharray="2 8"/>
+<circle cx="900" cy="530" r="560" fill="none" stroke="rgba(255,215,0,0.02)" stroke-width="0.5" stroke-dasharray="2 10"/>
+
+<g id="viewport">
+<g id="center-conn-layer"></g>
+<g id="connections-layer"></g>
+<g id="inter-conn-layer"></g>
+<g id="loops-layer"></g>
+<g id="nodes-layer"></g>
+</g>
+</svg>
+
+<div id="detail-panel">
+<button id="close-panel" onclick="closePanel()">✕</button>
+<div id="panel-content"></div>
+</div>
+
+<div id="controls">
+<button onclick="zoomIn()" title="放大">+</button>
+<button onclick="zoomOut()" title="縮小">−</button>
+<button onclick="resetView()" title="重置視圖">⌂</button>
+<button onclick="toggleLoops()" title="切換閉環顯示" id="loop-toggle">◈</button>
+</div>
+
+<div id="legend">
+<h4>◈ 圖 例</h4>
+<div class="legend-item"><div class="legend-dot" style="background:#42a5f5;color:#42a5f5"></div>簇1 數獨約束與求解</div>
+<div class="legend-item"><div class="legend-dot" style="background:#ef5350;color:#ef5350"></div>簇2 博弈論核心</div>
+<div class="legend-item"><div class="legend-dot" style="background:#66bb6a;color:#66bb6a"></div>簇3 運籌決策學</div>
+<div class="legend-item"><div class="legend-dot" style="background:#ab47bc;color:#ab47bc"></div>簇4 融闔系統三大架構</div>
+<div class="legend-item"><div class="legend-dot" style="background:#ffa726;color:#ffa726"></div>簇5 前沿交叉</div>
+<div class="loop-legend">閉環反饋路徑</div>
+<div class="legend-item"><div class="legend-line" style="background:linear-gradient(90deg,#ffd700,#ffed4e)"></div>金色脈衝閉環</div>
+<div class="legend-item"><div class="legend-line" style="background:rgba(255,255,255,0.2)"></div>跨簇關聯虛線</div>
+</div>
+</div>
+
+<script>
+// ==================== CONSTANTS ====================
+const CX=900, CY=530;
+const SVG_NS='http://www.w3.org/2000/svg';
+
+// Seeded pseudo-random for consistent dendrite rendering
+let _seed=42;
+function sRand(){_seed=(_seed*16807+0)%2147483647;return(_seed-1)/2147483646}
+
+// ==================== SVG HELPERS ====================
+function el(tag,attrs={}){const e=document.createElementNS(SVG_NS,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);return e}
+
+// ==================== CLUSTER DATA ====================
+const clusters=[
+  {id:'c1',label:'數獨約束與求解',en:'Sudoku Constraints & Solving',color:'#42a5f5',dark:'#0d47a1',grad:'grad-c1',marker:'arrow-blue',
+   cx:300,cy:250,nodes:[
+    {id:'c1n1',label:'256宮格數獨規格',en:'256-Cell Sudoku Specs',r:30,data:'16×16 格，4×4 小宮\n256 格總量，1-16 數字範圍',keyData:['16×16 主格','4×4 小宮','256 格總量','1-16 數字範圍']},
+    {id:'c1n2',label:'約束體系',en:'Constraint System',r:28,data:'行約束256 + 列約束256\n宮格約束256 = 768 總約束',keyData:['行:256','列:256','宮:256','總:768','3.0 約束/格']},
+    {id:'c1n3',label:'填充率35.94%',en:'Fill Rate 35.94%',r:26,data:'92 已知錨點 / 164 未知空格',keyData:['92 錨點','164 空格','35.94% 填充率']},
+    {id:'c1n4',label:'NP完全性',en:'NP-Completeness',r:28,data:'CSP問題，組合爆炸\n搜索空間 10^197',keyData:['CSP問題','組合爆炸','搜索空間 10^197','10^57.9 行排列上界']},
+    {id:'c1n5',label:'約束傳播技術',en:'Constraint Propagation',r:27,data:'弧一致性(AC)\n路徑一致性\nMRV啟發式',keyData:['弧一致性(AC)','路徑一致性','MRV啟發式']},
+    {id:'c1n6',label:'數獨變體',en:'Sudoku Variants',r:25,data:'對角線/殺手/鋸齒/超級數獨(NRC)',keyData:['對角線數獨','殺手數獨','鋸齒數獨','NRC超級數獨']},
+    {id:'c1n7',label:'行瓶頸數據',en:'Row Bottleneck',r:27,data:'I行:僅164種(最強約束)\nC行:407,669種(最大搜索)\n數字10僅1次/數字5有10次\n3行極難/8行困難/4行中等',keyData:['I行:164排列(最強)','C行:407,669排列(最大)','數字10:僅1次(最稀缺)','數字5:10次(最豐富)','3極難/8困難/4中等']}
+  ]},
+  {id:'c2',label:'博弈論核心',en:'Game Theory Core',color:'#ef5350',dark:'#7f0000',grad:'grad-c2',marker:'arrow-red',
+   cx:1500,cy:250,nodes:[
+    {id:'c2n1',label:'囚徒困境',en:"Prisoner's Dilemma",r:30,data:'個體理性 vs 集體理性\n佔優策略均衡\nT > R > P > S',keyData:['T>R>P>S','2R>T+S','佔優策略均衡','個體vs集體理性']},
+    {id:'c2n2',label:'納什均衡',en:'Nash Equilibrium',r:29,data:'無人可單方面偏離獲益\n混合策略均衡存在性\n納什定理(1950)',keyData:['單方面偏離無益','混合策略均衡','納什定理1950']},
+    {id:'c2n3',label:'重複博弈',en:'Repeated Games',r:26,data:'民間定理(Folk Theorem)\n折扣係數 δ∈(0,1)',keyData:['Folk Theorem','δ∈(0,1)','無限重複→合作']},
+    {id:'c2n4',label:'合作進化',en:'Evolution of Cooperation',r:28,data:'TFT策略：善意/報復/寬容/清晰\nAxelrod錦標賽(1984)',keyData:['TFT策略','善意+報復+寬容+清晰','Axelrod錦標賽1984']},
+    {id:'c2n5',label:'收益矩陣',en:'Payoff Matrix',r:25,data:'四元組 {R,S,T,P}\n策略組合→收益映射',keyData:['{R,S,T,P}','策略→收益映射']},
+    {id:'c2n6',label:'元對策',en:'Meta-Games',r:24,data:'關於策略的策略\n遞歸推理層次',keyData:['策略的策略','遞歸推理']},
+    {id:'c2n7',label:'組合博弈論',en:'Combinatorial GT',r:27,data:'Sprague-Grundy定理\nNim等價 / Sudoku Duel',keyData:['Sprague-Grundy','Nim等價','Sudoku Duel']}
+  ]},
+  {id:'c3',label:'運籌決策學',en:'Operations & Decision Science',color:'#66bb6a',dark:'#0a3d0a',grad:'grad-c3',marker:'arrow-green',
+   cx:300,cy:810,nodes:[
+    {id:'c3n1',label:'Minimax策略',en:'Minimax Strategy',r:29,data:'最壞情況下最大化收益\n馮·諾伊曼(1928)',keyData:['最壞→最大','馮·諾伊曼1928','零和博弈最優']},
+    {id:'c3n2',label:'多目標決策',en:'Multi-Objective Decision',r:27,data:'帕累托最優/帕累托前沿\nNSGA-II算法',keyData:['帕累托最優','帕累托前沿','NSGA-II']},
+    {id:'c3n3',label:'決策分類',en:'Decision Classification',r:24,data:'確定性/風險性/不確定性',keyData:['確定性','風險性','不確定性']},
+    {id:'c3n4',label:'期望效用理論',en:'Expected Utility',r:25,data:'概率加權效用最大化\nvNM公理體系',keyData:['概率加權','效用最大化','vNM公理']},
+    {id:'c3n5',label:'不確定性準則',en:'Uncertainty Criteria',r:26,data:'Laplace/Wald/樂觀/Savage',keyData:['Laplace等概率','Wald悲觀','樂觀準則','Savage後悔最小']}
+  ]},
+  {id:'c4',label:'融闔系統三大架構',en:'Ronghe Tri-Architecture',color:'#ab47bc',dark:'#38006b',grad:'grad-c4',marker:'arrow-purple',
+   cx:1500,cy:810,nodes:[
+    {id:'c4n1',label:'五維框架',en:'Point-Line-Plane-Volume-Sphere',r:30,data:'點(0D)=策略選擇 → 線(1D)=博弈序列\n面(2D)=策略空間 → 體(3D)=均衡結構\n球(3D+)=合作演化全局',keyData:['點→策略選擇','線→博弈序列','面→策略空間','體→均衡結構','球→合作演化']},
+    {id:'c4n2',label:'Julia高性能計算',en:'Julia HPC',r:27,data:'Evolutionary.jl / Metaheuristics.jl\n多重分派+類型系統',keyData:['Evolutionary.jl','Metaheuristics.jl','多重分派']},
+    {id:'c4n3',label:'鏈式閉環神經元',en:'Chained Closed-Loop Neuron',r:29,data:'知識圖譜三元組(主-謂-賓)\nCoT→GoT思維鏈→思維圖\n閉環反饋=遞歸連接\n=迭代推理+自我校正',keyData:['三元組(主-謂-賓)','CoT→GoT','遞歸連接','迭代推理+自我校正']},
+    {id:'c4n4',label:'遺傳迭代+精英回溯',en:'Genetic+Elite Backtrack',r:28,data:'精英保留：適應度單調不減\nCEPGA交叉精英保留(2022)\n全局收斂保證',keyData:['適應度單調不減','CEPGA 2022','全局收斂保證','精英→回溯/剪枝']}
+  ]},
+  {id:'c5',label:'前沿交叉',en:'Frontier Intersections',color:'#ffa726',dark:'#8c3a00',grad:'grad-c5',marker:'arrow-orange',
+   cx:900,cy:960,nodes:[
+    {id:'c5n1',label:'Transformer求解CSP',en:'Transformer for CSP',r:28,data:'NeurIPS 2025達99%\nConsFormer 2025跨域泛化',keyData:['NeurIPS 2025: 99%','ConsFormer 2025','跨域泛化','注意力+約束']},
+    {id:'c5n2',label:'SNN數獨求解',en:'SNN Sudoku Solver',r:25,data:'脈衝神經網絡\n優於CNN/DNN/LSTM',keyData:['脈衝神經網絡','優於CNN/DNN/LSTM','生物啟發']},
+    {id:'c5n3',label:'數獨博弈建模',en:'Sudoku Game Modeling',r:27,data:'多階段博弈形式化\nSudoku Duel建模',keyData:['多階段博弈','收益函數','Sudoku Duel']},
+    {id:'c5n4',label:'知識圖譜閉環設計',en:'KG Closed-Loop Design',r:26,data:'MindMap方法\n圖結構推理 / 閉環更新',keyData:['MindMap方法','圖結構推理','閉環更新']},
+    {id:'c5n5',label:'帕累托難度評估',en:'Pareto Difficulty',r:25,data:'多維難度指標×NSGA-II\n前沿上的最優權衡',keyData:['多維難度指標','NSGA-II','最優權衡']}
+  ]}
+];
+
+// ==================== COMPUTE NODE POSITIONS ====================
+const nodeMap={};
+clusters.forEach(c=>{
+  const n=c.nodes.length;
+  // Angle toward center
+  const baseA=Math.atan2(CY-c.cy,CX-c.cx);
+  const spread=Math.PI*0.75;
+  c.nodes.forEach((nd,i)=>{
+    const a=baseA-spread/2+(spread*i/(n-1||1));
+    const dist=120+nd.r*0.8;
+    nd.x=c.cx+Math.cos(a)*dist;
+    nd.y=c.cy+Math.sin(a)*dist;
+    nd.cluster=c.id;nd.color=c.color;nd.dark=c.dark;nd.grad=c.grad;
+    nodeMap[nd.id]=nd;
+  });
+});
+
+// ==================== CLOSED LOOPS ====================
+const closedLoops=[
+  {id:'loop1',label:'⭕ 求解-博弈閉環',desc:'約束→策略邊界→均衡→反饋縮小搜索→回到約束',
+   path:['c1n2','c2n5','c2n2','c1n5','c1n2'],labels:['數獨約束','→收益矩陣','→納什均衡','→約束傳播','↩回饋']},
+  {id:'loop2',label:'⭕ 決策-進化閉環',desc:'Minimax→適應度定義→精英保留→帕累托前沿→反饋決策',
+   path:['c3n1','c4n4','c3n2','c3n1'],labels:['Minimax','→遺傳適應度','→帕累托前沿','↩反饋決策']},
+  {id:'loop3',label:'⭕ 知識-推理閉環',desc:'圖譜→推理→生成新知→回注圖譜',
+   path:['c4n3','c5n4','c5n1','c4n3'],labels:['知識圖譜','→CoT/GoT推理','→Transformer求解','↩知識回注']},
+  {id:'loop4',label:'⭕ 五維升維閉環',desc:'點→線→面→體→球→反饋回點',selfLoop:true,
+   path:['c4n1'],labels:['點→線→面→體→球↩']},
+  {id:'loop5',label:'⭕ 全局反饋大閉環',desc:'數據→博弈建模→決策優化→進化求解→知識沉澱→新數據驅動新循環',
+   path:['c1n1','c5n3','c3n1','c4n4','c5n4','c1n1'],labels:['256宮格數據','→博弈建模','→決策優化','→遺傳進化','→知識沉澱','↩新循環']}
+];
+
+// ==================== INTER-CLUSTER CONNECTIONS ====================
+const interConns=[
+  {from:'c1n2',to:'c2n5',label:'約束↔策略空間'},
+  {from:'c1n4',to:'c2n7',label:'NP完全↔組合博弈'},
+  {from:'c2n4',to:'c3n1',label:'合作進化↔Minimax'},
+  {from:'c3n2',to:'c4n4',label:'帕累托↔精英保留'},
+  {from:'c4n3',to:'c5n4',label:'知識圖譜↔閉環設計'},
+  {from:'c5n1',to:'c1n5',label:'Transformer↔約束傳播'},
+  {from:'c5n3',to:'c2n7',label:'博弈建模↔Sudoku Duel'},
+  {from:'c3n5',to:'c2n3',label:'不確定性↔重複博弈'},
+  {from:'c4n2',to:'c5n2',label:'Julia↔SNN'}
+];
+
+// ==================== RENDERING ====================
+const centerConnLayer=document.getElementById('center-conn-layer');
+const connLayer=document.getElementById('connections-layer');
+const interConnLayer=document.getElementById('inter-conn-layer');
+const loopLayer=document.getElementById('loops-layer');
+const nodesLayer=document.getElementById('nodes-layer');
+
+// --- Draw dendrites ---
+function drawDendrites(cx,cy,r,count,color){
+  const g=el('g',{opacity:'0.3'});
+  for(let i=0;i<count;i++){
+    const a=(Math.PI*2*i/count)+(sRand()-0.5)*0.25;
+    const len=r*(0.3+sRand()*0.45);
+    const x1=cx+Math.cos(a)*r, y1=cy+Math.sin(a)*r;
+    const x2=cx+Math.cos(a)*(r+len), y2=cy+Math.sin(a)*(r+len);
+    g.appendChild(el('line',{x1,y1,x2,y2,stroke:color,'stroke-width':'1.5','stroke-linecap':'round'}));
+    // Branch
+    const ba=a+0.4+sRand()*0.3;
+    const bl=len*0.4;
+    g.appendChild(el('line',{x1:x2,y1:y2,x2:x2+Math.cos(ba)*bl,y2:y2+Math.sin(ba)*bl,stroke:color,'stroke-width':'1','stroke-linecap':'round',opacity:'0.5'}));
+    // Second branch on some
+    if(sRand()>0.5){
+      const ba2=a-0.3-sRand()*0.3;
+      const bl2=len*0.3;
+      g.appendChild(el('line',{x1:x2,y1:y2,x2:x2+Math.cos(ba2)*bl2,y2:y2+Math.sin(ba2)*bl2,stroke:color,'stroke-width':'0.8','stroke-linecap':'round',opacity:'0.4'}));
+    }
+  }
+  return g;
+}
+
+// --- Create neuron node ---
+function createNode(x,y,r,label,color,dark,grad,data,isCenter){
+  const g=el('g',{class:'node-group','data-id':data.id,style:`--glow-color:${color}`});
+  // Dendrites
+  const dCnt=isCenter?20:(r>27?12:8);
+  g.appendChild(drawDendrites(x,y,r,dCnt,color));
+  // Outer pulse ring
+  const outerRing=el('circle',{cx:x,cy:y,r:r+5,fill:'none',stroke:color,'stroke-width':'0.8',opacity:'0.15'});
+  g.appendChild(outerRing);
+  // Soma
+  const soma=el('circle',{cx:x,cy:y,r:r,fill:`url(#${grad})`,stroke:color,'stroke-width':'2',opacity:'0.92',class:'soma'});
+  g.appendChild(soma);
+  // Inner highlight
+  g.appendChild(el('circle',{cx:x-r*0.22,cy:y-r*0.22,r:r*0.32,fill:'rgba(255,255,255,0.12)'}));
+  // Nucleus
+  g.appendChild(el('circle',{cx:x,cy:y,r:isCenter?5:2.5,fill:'rgba(255,255,255,0.35)'}));
+  // Labels
+  if(isCenter){
+    const t1=el('text',{x:y?x:x,y:y-10,style:'font-size:15px;font-weight:700;fill:#fff;text-anchor:middle;pointer-events:none'});
+    t1.textContent='超級大數獨 256 宮格';
+    const t2=el('text',{x:x,y:y+8,style:'font-size:11px;fill:rgba(255,215,0,0.9);text-anchor:middle;pointer-events:none'});
+    t2.textContent='× 博弈論 × 融闔系統';
+    const t3=el('text',{x:x,y:y+24,style:'font-size:9px;fill:rgba(255,215,0,0.6);text-anchor:middle;pointer-events:none'});
+    t3.textContent='鏈式閉環神經元知識結構';
+    g.appendChild(t1);g.appendChild(t2);g.appendChild(t3);
+  } else {
+    // Smart label wrapping
+    const maxChars=Math.floor(r/4);
+    const lines=[];
+    if(label.length<=maxChars+2){lines.push(label)}
+    else{
+      const mid=Math.ceil(label.length/2);
+      let l1=label.slice(0,mid), l2=label.slice(mid);
+      // Try to break at natural points
+      const brkpts=[...l1.matchAll(/[ ×\-\/]/g)].map(m=>m.index);
+      if(brkpts.length){const bp=brkpts[brkpts.length-1]+1;l2=l1.slice(bp)+l2;l1=l1.slice(0,bp)}
+      lines.push(l1,l2);
+    }
+    const fs=r>27?'11px':'10px';
+    const lh=r>27?13:11;
+    lines.forEach((line,i)=>{
+      const t=el('text',{x:x,y:y+(i-(lines.length-1)/2)*lh,style:`font-size:${fs};font-weight:600;fill:#fff;text-anchor:middle;pointer-events:none`});
+      t.textContent=line;g.appendChild(t);
+    });
+  }
+  // Click
+  g.addEventListener('click',e=>{e.stopPropagation();showPanel(data)});
+  g.addEventListener('mouseenter',()=>{
+    const cn=connLayer.querySelectorAll(`[data-from="${data.id}"],[data-to="${data.id}"]`);
+    cn.forEach(c=>c.style.opacity='0.8');
+  });
+  g.addEventListener('mouseleave',()=>{
+    const cn=connLayer.querySelectorAll(`[data-from="${data.id}"],[data-to="${data.id}"]`);
+    cn.forEach(c=>c.style.opacity='');
+  });
+  return g;
+}
+
+// --- Center Node ---
+nodesLayer.appendChild(createNode(CX,CY,62,'','#ffd700','#8b6914','grad-center',
+  {id:'center',label:'超級大數獨 256 宮格 × 博弈論 × 融闔系統',en:'Super Sudoku 256 × Game Theory × Ronghe System',
+   data:'鏈式閉環神經元知識結構思維導圖\n五大主題簇 + 五條閉環反饋路徑',
+   keyData:['256宮格數獨','博弈論核心','運籌決策學','融闔系統','前沿交叉']},true));
+
+// --- Cluster Headers + Sub-nodes + Intra-connections ---
+clusters.forEach(c=>{
+  // Header
+  nodesLayer.appendChild(createNode(c.cx,c.cy,40,c.label,c.color,c.dark,c.grad,
+    {id:c.id,label:c.label,en:c.en,data:'主題簇中心節點',keyData:['簇中心',`${c.nodes.length}個子節點`]},false));
+  // Sub-nodes
+  c.nodes.forEach(n=>{
+    nodesLayer.appendChild(createNode(n.x,n.y,n.r,n.label,n.color,n.dark,n.grad,n,false));
+  });
+  // Intra-connections
+  c.nodes.forEach(n=>{
+    // Curved path from cluster center to sub-node
+    const dx=n.x-c.cx, dy=n.y-c.cy;
+    const dist=Math.sqrt(dx*dx+dy*dy)||1;
+    // Start/end offset by radius
+    const sx=c.cx+dx/dist*42, sy=c.cy+dy/dist*42;
+    const ex=n.x-dx/dist*(n.r+5), ey=n.y-dy/dist*(n.r+5);
+    // Control point: slight perpendicular offset
+    const mx=(sx+ex)/2, my=(sy+ey)/2;
+    const nx=-dy/dist, ny=dx/dist;
+    const curveOff=15*(sRand()-0.5);
+    const cpx=mx+nx*curveOff, cpy=my+ny*curveOff;
+    const p=el('path',{
+      d:`M${sx},${sy} Q${cpx},${cpy} ${ex},${ey}`,
+      class:'intra-conn',stroke:c.color,'stroke-width':'1.6',
+      'marker-end':`url(#${c.marker})`,
+      'data-from':c.id,'data-to':n.id
+    });
+    connLayer.appendChild(p);
+  });
+});
+
+// --- Center to Cluster connections ---
+clusters.forEach(c=>{
+  const dx=c.cx-CX, dy=c.cy-CY;
+  const dist=Math.sqrt(dx*dx+dy*dy)||1;
+  const sx=CX+dx/dist*65, sy=CY+dy/dist*65;
+  const ex=c.cx-dx/dist*45, ey=c.cy-dy/dist*45;
+  const mx=(sx+ex)/2, my=(sy+ey)/2;
+  // Curve away from center
+  const awayX=(mx-CX)/Math.abs(mx-CX||1), awayY=(my-CY)/Math.abs(my-CY||1);
+  const cpx=mx+awayX*35, cpy=my+awayY*25;
+  centerConnLayer.appendChild(el('path',{
+    d:`M${sx},${sy} Q${cpx},${cpy} ${ex},${ey}`,
+    class:'center-conn',stroke:c.color,'stroke-width':'2.8',
+    'marker-end':`url(#${c.marker})`
+  }));
+});
+
+// --- Inter-cluster connections ---
+interConns.forEach(ic=>{
+  const from=nodeMap[ic.from], to=nodeMap[ic.to];
+  if(!from||!to)return;
+  const mx=(from.x+to.x)/2, my=(from.y+to.y)/2;
+  const dx=to.x-from.x, dy=to.y-from.y;
+  // Perpendicular offset
+  const len=Math.sqrt(dx*dx+dy*dy)||1;
+  const nx=-dy/len, ny=dx/len;
+  const off=25;
+  interConnLayer.appendChild(el('path',{
+    d:`M${from.x},${from.y} Q${mx+nx*off},${my+ny*off} ${to.x},${to.y}`,
+    class:'inter-conn'
+  }));
+  // Label
+  const lt=el('text',{x:mx+nx*(off+8),y:my+ny*(off+8)-4,
+    style:'font-size:8px;fill:rgba(255,255,255,0.22);text-anchor:middle;pointer-events:none'});
+  lt.textContent=ic.label;
+  interConnLayer.appendChild(lt);
+});
+
+// ==================== CLOSED LOOPS RENDERING ====================
+let activeLoopId=null;
+let loopsVisible=true;
+
+function buildLoopPath(loop,li){
+  if(loop.selfLoop){
+    // Loop 4: spiral around c4n1 (五維框架 node)
+    const nd=nodeMap['c4n1'];
+    const cx=nd.x, cy=nd.y;
+    const R=75;
+    // Create an elliptical path that goes around the node showing dimensional progression
+    const pts=[];
+    const steps=40;
+    for(let i=0;i<=steps;i++){
+      const t=i/steps*Math.PI*2;
+      const rx=R+Math.sin(t*3)*8; // slightly wavy
+      const ry=R*0.7+Math.cos(t*2)*6;
+      // Rotate by the node's position angle
+      pts.push({x:cx+Math.cos(t)*rx, y:cy+Math.sin(t)*ry});
+    }
+    let d=`M${pts[0].x},${pts[0].y}`;
+    for(let i=1;i<pts.length;i++){
+      d+=` L${pts[i].x},${pts[i].y}`;
+    }
+    d+='Z';
+    return d;
+  }
+
+  // Regular loops: connect nodes with curves
+  const pts=loop.path.map(id=>nodeMap[id]).filter(Boolean);
+  if(pts.length<2)return null;
+
+  // Remove consecutive duplicates
+  const unique=[pts[0]];
+  for(let i=1;i<pts.length;i++){
+    if(pts[i].id!==pts[i-1].id) unique.push(pts[i]);
+  }
+  if(unique.length<2)return null;
+
+  // Build smooth cubic path
+  let d=`M${unique[0].x},${unique[0].y}`;
+  for(let i=1;i<unique.length;i++){
+    const prev=unique[i-1], curr=unique[i];
+    const mx=(prev.x+curr.x)/2, my=(prev.y+curr.y)/2;
+    // Curve away from center
+    const distToC=Math.sqrt((mx-CX)**2+(my-CY)**2)||1;
+    const awayX=(mx-CX)/distToC, awayY=(my-CY)/distToC;
+    const curveAmt=50+li*20;
+    const cpx=mx+awayX*curveAmt, cpy=my+awayY*curveAmt;
+    d+=` Q${cpx},${cpy} ${curr.x},${curr.y}`;
+  }
+  return d;
+}
+
+closedLoops.forEach((loop,li)=>{
+  const pathD=buildLoopPath(loop,li);
+  if(!pathD)return;
+
+  const g=el('g',{class:'loop-group','data-loop':loop.id});
+
+  // Background glow
+  g.appendChild(el('path',{d:pathD,class:'loop-path-bg'}));
+
+  // Main path
+  const mp=el('path',{d:pathD,class:'loop-path',id:`${loop.id}-path`,'marker-end':'url(#arrow-gold)'});
+  g.appendChild(mp);
+
+  // Animated pulse dots
+  for(let d=0;d<3;d++){
+    const dot=el('circle',{r:'4.5',fill:'#ffd700',filter:'url(#glow-strong)',opacity:'0.9'});
+    const anim=el('animateMotion',{dur:`${5+d*0.7}s`,repeatCount:'indefinite',begin:`${d*1.5}s`});
+    const mpath=el('mpath',{href:`#${loop.id}-path`});
+    anim.appendChild(mpath);dot.appendChild(anim);g.appendChild(dot);
+  }
+
+  // Loop label
+  if(loop.selfLoop){
+    const nd=nodeMap['c4n1'];
+    const lt=el('text',{x:nd.x,y:nd.y+95,style:'font-size:10px;fill:#ffd700;text-anchor:middle;pointer-events:none;filter:url(#glow-soft)',opacity:'0.85'});
+    lt.textContent=loop.label;
+    g.appendChild(lt);
+    // Dimension labels around the loop
+    const dims=['點(0D)','線(1D)','面(2D)','體(3D)','球(3D+)'];
+    dims.forEach((dim,di)=>{
+      const a=-Math.PI/2+di*Math.PI*2/dims.length;
+      const dx=nd.x+Math.cos(a)*95, dy=nd.y+Math.sin(a)*70;
+      const dt=el('text',{x:dx,y:dy,style:'font-size:8px;fill:#ffd700;text-anchor:middle;pointer-events:none;opacity:0.7'});
+      dt.textContent=dim;g.appendChild(dt);
+    });
+  } else {
+    const pts=loop.path.map(id=>nodeMap[id]).filter(Boolean);
+    const midIdx=Math.floor(pts.length/2);
+    if(pts[midIdx]){
+      const mp2=pts[midIdx];
+      // Place label offset from the node
+      const distToC=Math.sqrt((mp2.x-CX)**2+(mp2.y-CY)**2)||1;
+      const offX=(mp2.x-CX)/distToC*35, offY=(mp2.y-CY)/distToC*35;
+      const lt=el('text',{x:mp2.x+offX,y:mp2.y+offY-5,
+        style:'font-size:9px;fill:#ffd700;text-anchor:middle;pointer-events:none;filter:url(#glow-soft)',opacity:'0.8'});
+      lt.textContent=loop.label;
+      g.appendChild(lt);
+    }
+    // Edge labels
+    if(loop.labels){
+      for(let i=0;i<pts.length-1;i++){
+        const p1=pts[i],p2=pts[i+1];
+        if(p1.id===p2.id)continue;
+        const lx=(p1.x+p2.x)/2, ly=(p1.y+p2.y)/2;
+        const distToC2=Math.sqrt((lx-CX)**2+(ly-CY)**2)||1;
+        const olx=(lx-CX)/distToC2*25, oly=(ly-CY)/distToC2*25;
+        const et=el('text',{x:lx+olx,y:ly+oly,
+          style:'font-size:7.5px;fill:rgba(255,215,0,0.5);text-anchor:middle;pointer-events:none'});
+        et.textContent=loop.labels[i]||'';
+        g.appendChild(et);
+      }
+    }
+  }
+
+  // Click to highlight
+  g.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(activeLoopId===loop.id){
+      document.querySelectorAll('.loop-group').forEach(lg=>{lg.style.opacity='1';lg.querySelector('.loop-path').style.strokeWidth='2.8'});
+      activeLoopId=null;
+    } else {
+      activeLoopId=loop.id;
+      document.querySelectorAll('.loop-group').forEach(lg=>{
+        if(lg.dataset.loop===loop.id){
+          lg.style.opacity='1';lg.querySelector('.loop-path').style.strokeWidth='4.5';
+        } else {lg.style.opacity='0.08'}
+      });
+    }
+  });
+
+  loopLayer.appendChild(g);
+});
+
+// ==================== DETAIL PANEL ====================
+function showPanel(data){
+  const panel=document.getElementById('detail-panel');
+  const content=document.getElementById('panel-content');
+  let html=`<h2 style="color:${data.color||'#ffd700'}">${data.label||''}</h2>`;
+  if(data.en)html+=`<div class="en-name">${data.en}</div>`;
+  if(data.data)html+=`<div class="definition">${data.data.replace(/\n/g,'<br>')}</div>`;
+  if(data.keyData&&data.keyData.length){
+    html+=`<div class="key-data"><h3>▸ 關鍵數據</h3>`;
+    data.keyData.forEach(d=>{html+=`<div class="data-item">▸ ${d}</div>`});
+    html+=`</div>`;
+  }
+  const related=[];
+  interConns.forEach(ic=>{
+    if(ic.from===data.id&&nodeMap[ic.to])related.push({id:ic.to,label:nodeMap[ic.to].label,conn:ic.label});
+    if(ic.to===data.id&&nodeMap[ic.from])related.push({id:ic.from,label:nodeMap[ic.from].label,conn:ic.label});
+  });
+  if(related.length){
+    html+=`<div class="related"><h3>▸ 關聯節點</h3>`;
+    related.forEach(r=>{html+=`<div class="rel-item" onclick="focusNode('${r.id}')">▸ ${r.label} <span style="color:#666;font-size:11px">(${r.conn})</span></div>`});
+    html+=`</div>`;
+  }
+  const inLoops=closedLoops.filter(l=>l.path.includes(data.id));
+  if(inLoops.length){
+    html+=`<div class="related"><h3>▸ 參與閉環</h3>`;
+    inLoops.forEach(l=>{html+=`<div class="data-item" style="color:#ffd700;border-left-color:#ffd700">${l.label}<br><span style="font-size:11px;color:#999">${l.desc}</span></div>`});
+    html+=`</div>`;
+  }
+  content.innerHTML=html;panel.classList.add('open');
+}
+function closePanel(){document.getElementById('detail-panel').classList.remove('open')}
+function focusNode(id){
+  const nd=nodeMap[id];if(!nd)return;showPanel(nd);
+  const ne=document.querySelector(`[data-id="${id}"]`);
+  if(ne){ne.style.transition='filter 0.2s';ne.style.filter='brightness(2) drop-shadow(0 0 20px #ffd700)';
+  setTimeout(()=>{ne.style.filter=''},1500)}
+}
+
+// ==================== PAN & ZOOM ====================
+const svg=document.getElementById('mindmap');
+let vb={x:0,y:0,w:1800,h:1100};
+let isPanning=false,panStart={x:0,y:0},vbStart={x:0,y:0};
+function updateVB(){svg.setAttribute('viewBox',`${vb.x} ${vb.y} ${vb.w} ${vb.h}`)}
+
+svg.addEventListener('mousedown',e=>{
+  if(e.target.closest('.node-group')||e.target.closest('.loop-group'))return;
+  isPanning=true;panStart={x:e.clientX,y:e.clientY};vbStart={x:vb.x,y:vb.y};
+});
+svg.addEventListener('mousemove',e=>{
+  if(!isPanning)return;
+  const dx=(e.clientX-panStart.x)/svg.clientWidth*vb.w;
+  const dy=(e.clientY-panStart.y)/svg.clientHeight*vb.h;
+  vb.x=vbStart.x-dx;vb.y=vbStart.y-dy;updateVB();
+});
+svg.addEventListener('mouseup',()=>{isPanning=false});
+svg.addEventListener('mouseleave',()=>{isPanning=false});
+svg.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const f=e.deltaY>0?1.08:0.92;
+  const rect=svg.getBoundingClientRect();
+  const mx=vb.x+(e.clientX-rect.left)/rect.width*vb.w;
+  const my=vb.y+(e.clientY-rect.top)/rect.height*vb.h;
+  vb.w*=f;vb.h*=f;
+  vb.x=mx-(mx-vb.x)*f;vb.y=my-(my-vb.y)*f;
+  updateVB();
+},{passive:false});
+
+function zoomIn(){const f=0.82;const cx=vb.x+vb.w/2,cy=vb.y+vb.h/2;vb.w*=f;vb.h*=f;vb.x=cx-vb.w/2;vb.y=cy-vb.h/2;updateVB()}
+function zoomOut(){const f=1.22;const cx=vb.x+vb.w/2,cy=vb.y+vb.h/2;vb.w*=f;vb.h*=f;vb.x=cx-vb.w/2;vb.y=cy-vb.h/2;updateVB()}
+function resetView(){vb={x:0,y:0,w:1800,h:1100};updateVB()}
+
+function toggleLoops(){
+  loopsVisible=!loopsVisible;
+  loopLayer.style.transition='opacity 0.5s';
+  loopLayer.style.opacity=loopsVisible?'1':'0';
+  document.getElementById('loop-toggle').style.color=loopsVisible?'#ffd700':'#666';
+}
+
+// Background click
+svg.addEventListener('click',e=>{
+  if(!e.target.closest('.node-group')&&!e.target.closest('.loop-group')){
+    closePanel();
+    if(activeLoopId){
+      document.querySelectorAll('.loop-group').forEach(lg=>{lg.style.opacity='1';lg.querySelector('.loop-path').style.strokeWidth='2.8'});
+      activeLoopId=null;
+    }
+  }
+});
+
+// ==================== BREATHING ANIMATION ====================
+let phase=0;
+function animate(){
+  phase+=0.015;
+  document.querySelectorAll('.node-group').forEach(g=>{
+    const id=g.dataset.id;
+    if(!id)return;
+    const nd=nodeMap[id];
+    if(!nd)return;
+    const soma=g.querySelector('.soma');
+    if(soma){
+      const op=0.92+Math.sin(phase+nd.x*0.004+nd.y*0.003)*0.04;
+      soma.setAttribute('opacity',op.toFixed(3));
+    }
+    const ring=g.querySelectorAll('circle')[0];
+    if(ring&&ring!==soma){
+      const rop=0.1+Math.sin(phase*1.2+nd.x*0.006)*0.08;
+      ring.setAttribute('opacity',rop.toFixed(3));
+    }
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ==================== FADE IN ====================
+document.getElementById('viewport').style.opacity='0';
+document.getElementById('viewport').style.transition='opacity 1.8s ease-out';
+setTimeout(()=>{document.getElementById('viewport').style.opacity='1'},150);
+</script>
+</body>
+</html>

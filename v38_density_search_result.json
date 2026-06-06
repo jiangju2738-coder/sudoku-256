@@ -1,0 +1,429 @@
+{
+  "timestamp": "2026-05-17 23:11:14",
+  "version": "V38.0",
+  "problem": {
+    "known_digits": 92,
+    "grid_size": 16,
+    "box_size": 4,
+    "constraints": [
+      "row",
+      "col",
+      "box",
+      "fummel",
+      "sequence"
+    ],
+    "special_sequences": [
+      "7-15-3-9"
+    ],
+    "solution_count": 23,
+    "unknown_rows": [
+      "A",
+      "B",
+      "E",
+      "F",
+      "G",
+      "H",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O"
+    ],
+    "fixed_rows": [
+      "C",
+      "D",
+      "I",
+      "P"
+    ],
+    "entropy_distribution": {
+      "E": 19.27,
+      "I": 7.36,
+      "H": 0.968,
+      "A": 0.971,
+      "B": 0.969,
+      "P": 0.83
+    }
+  },
+  "search_progress": [
+    {
+      "iteration": 0,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.012,
+      "efficiency": 0.7
+    },
+    {
+      "iteration": 1,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.0245,
+      "efficiency": 0.702
+    },
+    {
+      "iteration": 2,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.037500000000000006,
+      "efficiency": 0.704
+    },
+    {
+      "iteration": 3,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.051000000000000004,
+      "efficiency": 0.706
+    },
+    {
+      "iteration": 4,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.065,
+      "efficiency": 0.708
+    },
+    {
+      "iteration": 5,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.0795,
+      "efficiency": 0.71
+    },
+    {
+      "iteration": 6,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.0945,
+      "efficiency": 0.712
+    },
+    {
+      "iteration": 7,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.11,
+      "efficiency": 0.714
+    },
+    {
+      "iteration": 8,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.126,
+      "efficiency": 0.716
+    },
+    {
+      "iteration": 9,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.14250000000000002,
+      "efficiency": 0.718
+    },
+    {
+      "iteration": 10,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.15950000000000003,
+      "efficiency": 0.72
+    },
+    {
+      "iteration": 11,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.17700000000000005,
+      "efficiency": 0.722
+    },
+    {
+      "iteration": 12,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.19500000000000006,
+      "efficiency": 0.724
+    },
+    {
+      "iteration": 13,
+      "density": "L4",
+      "skill": "constraint_propagation",
+      "coverage": 0.21350000000000008,
+      "efficiency": 0.726
+    },
+    {
+      "iteration": 14,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.23250000000000007,
+      "efficiency": 0.728
+    },
+    {
+      "iteration": 15,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.25200000000000006,
+      "efficiency": 0.73
+    },
+    {
+      "iteration": 16,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.2720000000000001,
+      "efficiency": 0.732
+    },
+    {
+      "iteration": 17,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.2925000000000001,
+      "efficiency": 0.734
+    },
+    {
+      "iteration": 18,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.3135000000000001,
+      "efficiency": 0.736
+    },
+    {
+      "iteration": 19,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.33500000000000013,
+      "efficiency": 0.738
+    },
+    {
+      "iteration": 20,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.35700000000000015,
+      "efficiency": 0.74
+    },
+    {
+      "iteration": 21,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.37950000000000017,
+      "efficiency": 0.742
+    },
+    {
+      "iteration": 22,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.4025000000000002,
+      "efficiency": 0.744
+    },
+    {
+      "iteration": 23,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.4260000000000002,
+      "efficiency": 0.746
+    },
+    {
+      "iteration": 24,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.45000000000000023,
+      "efficiency": 0.748
+    },
+    {
+      "iteration": 25,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.47450000000000025,
+      "efficiency": 0.75
+    },
+    {
+      "iteration": 26,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.4995000000000003,
+      "efficiency": 0.752
+    },
+    {
+      "iteration": 27,
+      "density": "L4",
+      "skill": "lookahead",
+      "coverage": 0.5250000000000002,
+      "efficiency": 0.754
+    },
+    {
+      "iteration": 28,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.5510000000000003,
+      "efficiency": 0.756
+    },
+    {
+      "iteration": 29,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.5775000000000002,
+      "efficiency": 0.758
+    },
+    {
+      "iteration": 30,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.6045000000000003,
+      "efficiency": 0.76
+    },
+    {
+      "iteration": 31,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.6320000000000002,
+      "efficiency": 0.762
+    },
+    {
+      "iteration": 32,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.6600000000000003,
+      "efficiency": 0.764
+    },
+    {
+      "iteration": 33,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.6885000000000002,
+      "efficiency": 0.766
+    },
+    {
+      "iteration": 34,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.7175000000000002,
+      "efficiency": 0.768
+    },
+    {
+      "iteration": 35,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.7470000000000002,
+      "efficiency": 0.77
+    },
+    {
+      "iteration": 36,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.7770000000000002,
+      "efficiency": 0.772
+    },
+    {
+      "iteration": 37,
+      "density": "L4",
+      "skill": "mac",
+      "coverage": 0.8075000000000002,
+      "efficiency": 0.7739999999999999
+    },
+    {
+      "iteration": 38,
+      "density": "L5",
+      "skill": "learning",
+      "coverage": 0.4192500000000001,
+      "efficiency": 0.7749999999999999
+    },
+    {
+      "iteration": 39,
+      "density": "L5",
+      "skill": "lookahead",
+      "coverage": 0.4350000000000001,
+      "efficiency": 0.7759999999999999
+    },
+    {
+      "iteration": 40,
+      "density": "L5",
+      "skill": "lookahead",
+      "coverage": 0.4510000000000001,
+      "efficiency": 0.7769999999999999
+    },
+    {
+      "iteration": 41,
+      "density": "L5",
+      "skill": "lookahead",
+      "coverage": 0.4672500000000001,
+      "efficiency": 0.7779999999999999
+    },
+    {
+      "iteration": 42,
+      "density": "L5",
+      "skill": "lookahead",
+      "coverage": 0.4837500000000001,
+      "efficiency": 0.7789999999999999
+    },
+    {
+      "iteration": 43,
+      "density": "L5",
+      "skill": "lookahead",
+      "coverage": 0.5005000000000002,
+      "efficiency": 0.7799999999999999
+    },
+    {
+      "iteration": 44,
+      "density": "L5",
+      "skill": "mac",
+      "coverage": 0.5175000000000001,
+      "efficiency": 0.7809999999999999
+    },
+    {
+      "iteration": 45,
+      "density": "L5",
+      "skill": "mac",
+      "coverage": 0.5347500000000001,
+      "efficiency": 0.7819999999999999
+    },
+    {
+      "iteration": 46,
+      "density": "L5",
+      "skill": "mac",
+      "coverage": 0.5522500000000001,
+      "efficiency": 0.7829999999999999
+    },
+    {
+      "iteration": 47,
+      "density": "L5",
+      "skill": "mac",
+      "coverage": 0.5700000000000001,
+      "efficiency": 0.7839999999999999
+    },
+    {
+      "iteration": 48,
+      "density": "L5",
+      "skill": "mac",
+      "coverage": 0.5880000000000001,
+      "efficiency": 0.7849999999999999
+    },
+    {
+      "iteration": 49,
+      "density": "L5",
+      "skill": "mac",
+      "coverage": 0.6062500000000002,
+      "efficiency": 0.7859999999999999
+    }
+  ],
+  "coverage_matrix_summary": {
+    "total_cells": 3000,
+    "completed": 2,
+    "running": 0,
+    "pending": 2998,
+    "total_coverage": 0.6062500000000002,
+    "average_efficiency": 0.7859999999999999,
+    "active_region": [
+      [
+        9,
+        10
+      ],
+      [
+        9,
+        10
+      ],
+      4,
+      5
+    ]
+  },
+  "skill_retrieval_summary": {
+    "total_retrievals": 50,
+    "skill_distribution": {
+      "constraint_propagation": 14,
+      "lookahead": 19,
+      "mac": 16,
+      "learning": 1
+    },
+    "available_skills": [
+      

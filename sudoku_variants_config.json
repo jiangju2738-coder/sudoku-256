@@ -1,0 +1,249 @@
+{
+  "x_sudoku": {
+    "variant_type": "x_sudoku",
+    "diagonals": {
+      "main": {
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ],
+          [
+            4,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            6,
+            6
+          ],
+          [
+            7,
+            7
+          ],
+          [
+            8,
+            8
+          ],
+          [
+            9,
+            9
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            11,
+            11
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            15,
+            15
+          ]
+        ],
+        "must_be_alldiff": true
+      },
+      "anti": {
+        "cells": [
+          [
+            0,
+            15
+          ],
+          [
+            1,
+            14
+          ],
+          [
+            2,
+            13
+          ],
+          [
+            3,
+            12
+          ],
+          [
+            4,
+            11
+          ],
+          [
+            5,
+            10
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            7
+          ],
+          [
+            9,
+            6
+          ],
+          [
+            10,
+            5
+          ],
+          [
+            11,
+            4
+          ],
+          [
+            12,
+            3
+          ],
+          [
+            13,
+            2
+          ],
+          [
+            14,
+            1
+          ],
+          [
+            15,
+            0
+          ]
+        ],
+        "must_be_alldiff": true
+      }
+    },
+    "description": "X Sudoku: 主副對角線必須包含 1-16 所有數字且不重複"
+  },
+  "killer_sudoku": {
+    "variant_type": "killer_sudoku",
+    "cages": [
+      {
+        "cage_id": "CAGE_01",
+        "cells": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "target_sum": 6,
+        "must_be_unique": true,
+        "cell_count": 3
+      },
+      {
+        "cage_id": "CAGE_02",
+        "cells": [
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "target_sum": 10,
+        "must_be_unique": true,
+        "cell_count": 4
+      },
+      {
+        "cage_id": "CAGE_03",
+        "cells": [
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "target_sum": 7,
+        "must_be_unique": true,
+        "cell_count": 3
+      },
+      {
+        "cage_id": "CAGE_04",
+        "cells": [
+          [
+            0,
+            4
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            5
+          ]
+        ],
+        "target_sum": 8,
+        "must_be_unique": true,
+        "cell_count": 3
+      }
+    ],
+    "cage_count": 4,
+    "description": "Killer Sudoku: Cage 內數字求和等於目標值且 Cage 內不重複"
+  },
+  "x_fingerprint_summary": {
+    "row_mean": 0.0,
+    "col_mean": 0.109375,
+    "box_mean": 0.0,
+    "total_fitness": 0.044296875
+  },
+  "killer_fingerprint_summary": {
+    "row_mean": 0.0,
+    "col_mean": 0.08984375,
+    "box_mean": 0.0,
+    "total_fitness": 0.06434375
+  }
+}

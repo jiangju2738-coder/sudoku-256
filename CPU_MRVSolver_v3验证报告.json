@@ -1,0 +1,10 @@
+{
+  "puzzle_file": "test_puzzle_v3_valid.json",
+  "clues": 98,
+  "solver": "MRV + Backtrack",
+  "num_solutions": 0,
+  "time_sec": 60.0004,
+  "nodes": 7823628,
+  "nodes_per_sec": 130393.0,
+  "success": false
+}

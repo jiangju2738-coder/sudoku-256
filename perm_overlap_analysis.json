@@ -1,0 +1,288 @@
+{
+  "timestamp": "2026-05-16T03:38:03.376496",
+  "sudoku_data": {
+    "known_digits_count": 92,
+    "fill_rate": 35.9
+  },
+  "fuhe_permutations": {
+    "total": 1111494,
+    "per_row": {
+      "1": 8731,
+      "2": 902,
+      "3": 407669,
+      "4": 1980,
+      "5": 633271,
+      "6": 359,
+      "7": 2356,
+      "8": 4782,
+      "9": 164,
+      "10": 28984,
+      "11": 2972,
+      "12": 620,
+      "13": 484,
+      "14": 10668,
+      "15": 5990,
+      "16": 1562
+    }
+  },
+  "filtering_analysis": [
+    {
+      "row": 1,
+      "total": 8731,
+      "valid": 0,
+      "filtered_out": 8731,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 2,
+      "total": 902,
+      "valid": 0,
+      "filtered_out": 902,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 3,
+      "total": 407669,
+      "valid": 0,
+      "filtered_out": 407669,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 4,
+      "total": 1980,
+      "valid": 0,
+      "filtered_out": 1980,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 5,
+      "total": 633271,
+      "valid": 0,
+      "filtered_out": 633271,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 6,
+      "total": 359,
+      "valid": 0,
+      "filtered_out": 359,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 7,
+      "total": 2356,
+      "valid": 0,
+      "filtered_out": 2356,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 8,
+      "total": 4782,
+      "valid": 0,
+      "filtered_out": 4782,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 9,
+      "total": 164,
+      "valid": 0,
+      "filtered_out": 164,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 10,
+      "total": 28984,
+      "valid": 0,
+      "filtered_out": 28984,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 11,
+      "total": 2972,
+      "valid": 0,
+      "filtered_out": 2972,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 12,
+      "total": 620,
+      "valid": 0,
+      "filtered_out": 620,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 13,
+      "total": 484,
+      "valid": 0,
+      "filtered_out": 484,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 14,
+      "total": 10668,
+      "valid": 0,
+      "filtered_out": 10668,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 15,
+      "total": 5990,
+      "valid": 0,
+      "filtered_out": 5990,
+      "retention_rate": 0.0
+    },
+    {
+      "row": 16,
+      "total": 1562,
+      "valid": 1562,
+      "filtered_out": 0,
+      "retention_rate": 100.0
+    }
+  ],
+  "cross_row_overlap": {
+    "total_unique_permutations": 1562,
+    "unique_to_one_row": 1562,
+    "shared_by_multiple_rows": 0,
+    "shared_details": []
+  },
+  "original_overlap": {
+    "analysis_type": "filtered_perms",
+    "note": "基於排列過濾結果，非實際求解終盤",
+    "per_row_overlap": [
+      {
+        "row": 1,
+        "valid_perms": 0,
+        "original_perms": 8731,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 2,
+        "valid_perms": 0,
+        "original_perms": 902,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 3,
+        "valid_perms": 0,
+        "original_perms": 407669,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 4,
+        "valid_perms": 0,
+        "original_perms": 1980,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 5,
+        "valid_perms": 0,
+        "original_perms": 633271,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 6,
+        "valid_perms": 0,
+        "original_perms": 359,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 7,
+        "valid_perms": 0,
+        "original_perms": 2356,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 8,
+        "valid_perms": 0,
+        "original_perms": 4782,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 9,
+        "valid_perms": 0,
+        "original_perms": 164,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 10,
+        "valid_perms": 0,
+        "original_perms": 28984,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 11,
+        "valid_perms": 0,
+        "original_perms": 2972,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 12,
+        "valid_perms": 0,
+        "original_perms": 620,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 13,
+        "valid_perms": 0,
+        "original_perms": 484,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 14,
+        "valid_perms": 0,
+        "original_perms": 10668,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 15,
+        "valid_perms": 0,
+        "original_perms": 5990,
+        "all_in_original": false,
+        "overlap_rate": 0.0
+      },
+      {
+        "row": 16,
+        "valid_perms": 1562,
+        "original_perms": 1562,
+        "all_in_original": true,
+        "overlap_rate": 100.0
+      }
+    ]
+  },
+  "empty_rows": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "conclusion": {
+    "status": "infeasible",
+    "empty_row_count": 15,
+    "total_valid_perms": 1562
+  }
+}

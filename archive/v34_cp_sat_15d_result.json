@@ -1,0 +1,688 @@
+{
+  "version": "V34.1",
+  "timestamp": "2026-05-17 16:34:27",
+  "constraint_15d": {
+    "count": 15,
+    "names": [
+      "L1_row",
+      "L2_col",
+      "L3_box",
+      "L4_diag_main",
+      "L5_diag_anti",
+      "L6_cage_a",
+      "L7_cage_b",
+      "L8_row_a_fixed",
+      "L9_row_b_perm",
+      "L10_first_box_cd",
+      "L11_band_top",
+      "L12_col_band_left",
+      "L13_center_box",
+      "L14_symmetric",
+      "L15_knight"
+    ]
+  },
+  "first_box_analysis": {
+    "sequence_7_15_3_9_count": 23,
+    "unique_first_4_patterns": 22,
+    "results": [
+      {
+        "solution_index": 0,
+        "first_box": [
+          9,
+          6,
+          3,
+          10,
+          11,
+          12,
+          16,
+          4,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          9,
+          6,
+          3,
+          10
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 1,
+        "first_box": [
+          4,
+          1,
+          3,
+          16,
+          10,
+          12,
+          15,
+          13,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          4,
+          1,
+          3,
+          16
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 2,
+        "first_box": [
+          11,
+          1,
+          3,
+          10,
+          10,
+          12,
+          14,
+          4,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          11,
+          1,
+          3,
+          10
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 3,
+        "first_box": [
+          2,
+          13,
+          3,
+          1,
+          4,
+          12,
+          2,
+          13,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          2,
+          13,
+          3,
+          1
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 4,
+        "first_box": [
+          4,
+          13,
+          3,
+          1,
+          11,
+          12,
+          2,
+          4,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          4,
+          13,
+          3,
+          1
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 5,
+        "first_box": [
+          13,
+          2,
+          3,
+          7,
+          10,
+          12,
+          13,
+          5,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          13,
+          2,
+          3,
+          7
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 6,
+        "first_box": [
+          7,
+          9,
+          3,
+          8,
+          7,
+          12,
+          16,
+          14,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          7,
+          9,
+          3,
+          8
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 7,
+        "first_box": [
+          13,
+          6,
+          3,
+          1,
+          11,
+          12,
+          8,
+          14,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          13,
+          6,
+          3,
+          1
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 8,
+        "first_box": [
+          1,
+          8,
+          3,
+          2,
+          2,
+          12,
+          5,
+          1,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          1,
+          8,
+          3,
+          2
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 9,
+        "first_box": [
+          15,
+          13,
+          3,
+          10,
+          11,
+          12,
+          2,
+          13,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          15,
+          13,
+          3,
+          10
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 10,
+        "first_box": [
+          13,
+          16,
+          3,
+          4,
+          1,
+          12,
+          13,
+          10,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          13,
+          16,
+          3,
+          4
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 11,
+        "first_box": [
+          13,
+          1,
+          3,
+          16,
+          1,
+          12,
+          4,
+          7,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          13,
+          1,
+          3,
+          16
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 12,
+        "first_box": [
+          1,
+          6,
+          3,
+          8,
+          10,
+          12,
+          4,
+          14,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          1,
+          6,
+          3,
+          8
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 13,
+        "first_box": [
+          4,
+          11,
+          3,
+          2,
+          16,
+          12,
+          8,
+          11,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          4,
+          11,
+          3,
+          2
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 14,
+        "first_box": [
+          2,
+          16,
+          3,
+          6,
+          2,
+          12,
+          5,
+          8,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          2,
+          16,
+          3,
+          6
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 15,
+        "first_box": [
+          13,
+          2,
+          3,
+          15,
+          13,
+          12,
+          8,
+          16,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          13,
+          2,
+          3,
+          15
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 16,
+        "first_box": [
+          10,
+          9,
+          3,
+          11,
+          16,
+          12,
+          2,
+          4,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          10,
+          9,
+          3,
+          11
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 17,
+        "first_box": [
+          7,
+          16,
+          3,
+          11,
+          13,
+          12,
+          7,
+          16,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          7,
+          16,
+          3,
+          11
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 18,
+        "first_box": [
+          8,
+          1,
+          3,
+          10,
+          14,
+          12,
+          11,
+          16,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          8,
+          1,
+          3,
+          10
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 19,
+        "first_box": [
+          11,
+          9,
+          3,
+          1,
+          8,
+          12,
+          7,
+          5,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          11,
+          9,
+          3,
+          1
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 20,
+        "first_box": [
+          11,
+          2,
+          3,
+          15,
+          16,
+          12,
+          4,
+          10,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          11,
+          2,
+          3,
+          15
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 21,
+        "first_box": [
+          11,
+          9,
+          3,
+          1,
+          14,
+          12,
+          5,
+          15,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          11,
+          9,
+          3,
+          1
+        ],
+        "sequence_7_15_3_9_found": true
+      },
+      {
+        "solution_index": 22,
+        "first_box": [
+          9,
+          11,
+          3,
+          7,
+          5,
+          12,
+          11,
+          4,
+          7,
+          15,
+          3,
+          9,
+          11,
+          4,
+          13,
+          7
+        ],
+        "first_4_pattern": [
+          9,
+          11,
+          3,
+          7
+        ],
+        "sequence_7_15_3_9_found": true
+      }
+    ]
+  },
+  "cp_sat_unique_test": {
+    "anchor_count": 55,
+    "status": "INFEASIBLE",
+    "solutions_found": 0,
+    "is_unique": false
+  },
+  "conclusions": [
+    "15 維約束定義完成：15 維",
+    "序列「7 15 3 9」在首宮：23/23 個解",
+    "首行前 4 列模式：22 種不同模式",
+    "CP-SAT 唯一性測試：狀態=INFEASIBLE, 找到 0 個解",
+    "注意：V29 結果只存 first_box，完整 15D 驗證需完整網格數據",
+    "下一步：從 V29 生成完整 16×16 網格或擴展 CP-SAT 模型"
+  ]
+}

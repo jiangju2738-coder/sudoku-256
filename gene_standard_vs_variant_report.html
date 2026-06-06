@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基因指纹100D - 标准数独 vs 自由变体分析报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e8e8e8;
+            line-height: 1.8;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00d9ff;
+        }
+        h3 { font-size: 1.2em; margin: 20px 0 10px; color: #00ff88; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        th {
+            background: rgba(0, 217, 255, 0.2);
+            font-weight: 600;
+        }
+        tr:hover { background: rgba(255,255,255,0.05); }
+        .highlight { color: #00ff88; font-weight: bold; }
+        .warning { color: #ff6b6b; }
+        .info { color: #4ecdc4; }
+        .card {
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #00d9ff;
+        }
+        .card-standard { border-left-color: #00ff88; }
+        .card-variant { border-left-color: #ff6b6b; }
+        .card-solution { border-left-color: #4ecdc4; }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .badge-standard { background: rgba(0, 255, 136, 0.2); color: #00ff88; }
+        .badge-variant { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+        .badge-solution { background: rgba(78, 205, 196, 0.2); color: #4ecdc4; }
+        ul { margin-left: 25px; margin: 10px 0; }
+        li { margin: 8px 0; }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00d9ff;
+        }
+        .metric-label { font-size: 0.9em; color: #888; margin-top: 5px; }
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(0,217,255,0.1), rgba(0,255,136,0.1));
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .axis-label { font-size: 0.8em; color: #888; }
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: #4ecdc4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>基因指纹100D维度分析报告</h1>
+        <p style="text-align: center; color: #888; margin-bottom: 30px;">标准数独 vs 自由变体分类研究 | 符闔排列256数独系统</p>
+
+        <!-- 分类统计 -->
+        <h2>一、8盘分类统计结果</h2>
+        <div class="metric-grid">
+            <div class="metric-box">
+                <div class="metric-value">4</div>
+                <div class="metric-label">标准数独谜题</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">0</div>
+                <div class="metric-label">纯自由变体谜题</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">4</div>
+                <div class="metric-label">完全解盘</div>
+            </div>
+        </div>
+
+        <!-- 详细分类表 -->
+        <h2>二、基因指纹分类详情</h2>
+        <table>
+            <tr>
+                <th>盘名</th>
+                <th>行锚点范围</th>
+                <th>D91均衡度</th>
+                <th>D92填充率</th>
+                <th>D93锁定度</th>
+                <th>D100评分</th>
+                <th>类型</th>
+            </tr>
+            <tr>
+                <td>initial_puzzle (初始盘)</td>
+                <td>3-8</td>
+                <td>0.3556</td>
+                <td>35.94%</td>
+                <td>0.00%</td>
+                <td>63.67</td>
+                <td><span class="badge badge-variant">自由变体</span></td>
+            </tr>
+            <tr>
+                <td>final_solution (终局盘)</td>
+                <td>16-16</td>
+                <td>1.0000</td>
+                <td>100.00%</td>
+                <td>100.00%</td>
+                <td>100.00</td>
+                <td><span class="badge badge-solution">解盘</span></td>
+            </tr>
+            <tr>
+                <td>v75_puzzle (演进加E)</td>
+                <td>3-16</td>
+                <td>0.1213</td>
+                <td>41.02%</td>
+                <td>6.25%</td>
+                <td>59.89</td>
+                <td><span class="badge badge-variant">自由变体</span></td>
+            </tr>
+            <tr>
+                <td>v75_solution (E解盘)</td>
+                <td>16-16</td>
+                <td>1.0000</td>
+                <td>100.00%</td>
+                <td>100.00%</td>
+                <td>100.00</td>
+                <td><span class="badge badge-solution">解盘</span></td>
+            </tr>
+            <tr>
+                <td>v76_puzzle (演进加I)</td>
+                <td>3-16</td>
+                <td>0.1115</td>
+                <td>39.45%</td>
+                <td>6.25%</td>
+                <td>58.60</td>
+                <td><span class="badge badge-variant">自由变体</span></td>
+            </tr>
+            <tr>
+                <td>v76_solution (I解盘)</td>
+                <td>16-16</td>
+                <td>1.0000</td>
+                <td>100.00%</td>
+                <td>100.00%</td>
+                <td>100.00</td>
+                <td><span class="badge badge-solution">解盘</span></td>
+            </tr>
+            <tr>
+                <td>v74_puzzle (演进算盘)</td>
+                <td>3-16</td>
+                <td>0.1301</td>
+                <td>44.14%</td>
+                <td>6.25%</td>
+                <td>62.15</td>
+                <td><span class="badge badge-variant">自由变体</span></td>
+            </tr>
+            <tr>
+                <td>v74_solution (V74解盘)</td>
+                <td>16-16</td>
+                <td>1.0000</td>
+                <td>100.00%</td>
+                <td>100.00%</td>
+                <td>100.00</td>
+                <td><span class="badge badge-solution">解盘</span></td>
+            </tr>
+        </table>
+
+        <!-- 基因指纹判据体系 -->
+        <h2>三、标准数独 vs 自由变体基因指纹判据体系</h2>
+
+        <div class="card card-standard">
+            <h3>判据1：综闔博弈均衡度 (D91)</h3>
+            <ul>
+                <li><code>D91 > 0.5</code> : <span class="highlight">标准数独特征</span> - 行间约束均衡，无主导行</li>
+                <li><code>D91 ≤ 0.5</code> : <span class="warning">自由变体特征</span> - 存在主导行，约束不均匀</li>
+            </ul>
+        </div>
+
+        <div class="card card-standard">
+            <h3>判据2：五维线锁定度 (D93)</h3>
+            <ul>
+                <li><code>D93 = 0</code> : <span class="highlight">标准数独</span> - 仅行列宫三重约束</li>
+                <li><code>D93 > 0</code> : <span class="warning">自由变体</span> - 存在额外约束维度（如X数独对角线、Killer数独Cage等）</li>
+            </ul>
+        </div>
+
+        <div class="card card-standard">
+            <h3>判据3：基因综合评分 (D100)</h3>
+            <ul>
+                <li><code>D100 &lt; 65</code> : 强约束谜题（演进谜题，存在主导行）</li>
+                <li><code>D100 ≥ 65</code> : 标准谜题（初始盘，约束相对均衡）</li>
+                <li><code>D100 = 100</code> : 完全解盘（16行全部锁定）</li>
+            </ul>
+        </div>
+
+        <!-- 各盘详细分析 -->
+        <h2>四、各盘详细分析</h2>
+
+        <div class="card card-variant">
+            <h3>1. 初始盘 (initial_puzzle)</h3>
+            <table>
+                <tr><td>行锚点范围</td><td>3-8 (差异5个)</td></tr>
+                <tr><td>D91均衡度</td><td>0.3556 (偏低)</td></tr>
+                <tr><td>D93锁定度</td><td>0.0000 (无额外维度)</td></tr>
+                <tr><td>D100评分</td><td>63.67 (接近标准)</td></tr>
+            </table>
+            <p><strong>分析：</strong> 虽 <code>D93 = 0</code>（无额外维度约束），但 <code>D91 &lt; 0.5</code>（存在行约束不均匀）。</p>
+            <p>属于"类标准数独但具有不均匀分布"的<strong>过渡态</strong>，行锚点分布范围3-8，存在明显差异。</p>
+        </div>
+
+        <div class="card card-variant">
+            <h3>2. 演进谜题 (v74/v75/v76 puzzle)</h3>
+            <table>
+                <tr><td>行锚点范围</td><td>3-16 (差异13个) ★ 极端不均匀</td></tr>
+                <tr><td>D91均衡度</td><td>≈0.12 (极低)</td></tr>
+                <tr><td>D93锁定度</td><td>6.25% (单行锁定)</td></tr>
+                <tr><td>D100评分</td><td>≈60 (强约束)</td></tr>
+            </table>
+            <p><strong>典型的自由变体特征：</strong></p>
+            <ul>
+                <li>存在主导行（I行/E行/C行 100%约束，其他行仅3-8锚点）</li>
+                <li>额外锁定维度（行终局排列约束，D93 = 6.25%）</li>
+                <li>属于"行锁定型自由变体"，类似X数独的对角线约束但作用于行级</li>
+            </ul>
+        </div>
+
+        <div class="card card-solution">
+            <h3>3. 解盘 (final_solution / v74/v75/v76 solution)</h3>
+            <table>
+                <tr><td>行锚点范围</td><td>16-16 (完全锁定)</td></tr>
+                <tr><td>D91均衡度</td><td>1.0000 (完全均衡)</td></tr>
+                <tr><td>D93锁定度</td><td>100.00% (全维度闭环)</td></tr>
+                <tr><td>D100评分</td><td>100.00 (完美)</td></tr>
+            </table>
+            <p>完全闭合格式，所有16行均16锚点锁定。不属于谜题类别，而是约束满足结果。</p>
+        </div>
+
+        <!-- 核心结论 -->
+        <div class="conclusion-box">
+            <h2>五、核心结论</h2>
+            
+            <h3>1. 符闔数独的本质分类</h3>
+            <p>符闔排列数独系统<strong>本质上是自由变体数独</strong>，原因如下：</p>
+            <ul>
+                <li><strong>行级约束增强</strong>：每行需从特定的符闔排列集合中选择（A行8,731个、I行164个、C行656,777个等）</li>
+                <li><strong>排列集合约束</strong>：相当于在标准数独行约束基础上，增加了"行必须属于某排列集合"的额外约束</li>
+                <li><strong>非标准分布</strong>：各自行排列数量差异极大（164 vs 656,777），导致约束强度极度不均匀</li>
+            </ul>
+
+            <h3>2. 演进谜题的自由变体特征</h3>
+            <ul>
+                <li>单行完全锁定（100%）+ 其他行部分锁定（18.75%-50%）→ 典型的"主导者-参与者"博弈结构</li>
+                <li>额外排列约束维度（D93 > 0）→ 超出标准数独的行列宫三重约束</li>
+                <li>基因评分58-62分 → 属于强约束自由变体谜题</li>
+            </ul>
+
+            <h3>3. 初始盘的特殊性</h3>
+            <p>初始盘92锚点是"边界案例"：</p>
+            <ul>
+                <li><code>D93 = 0</code> → 无显式的额外维度约束（看似标准数独）</li>
+                <li><code>D91 = 0.36</code> → 存在行约束不均匀（自由变体特征）</li>
+                <li><strong>结论</strong>：初始盘是标准数独与自由变体的过渡态，具有自由变体的不均匀性但未引入显式额外约束</li>
+            </ul>
+
+            <h3>4. 与其他自由变体的对比</h3>
+            <table>
+                <tr><th>变体类型</th><th>额外约束</th><th>类似符闔数独</th></tr>
+                <tr><td>X数独</td><td>两条对角线</td><td>否（作用于对角线而非行）</td></tr>
+                <tr><td>Killer数独</td><td>Cage求和</td><td>否（作用于区域和而非行）</td></tr>
+                <tr><td>字母数独</td><td>字母排列</td><td>部分（也是排列约束）</td></tr>
+                <tr><td>符闔数独</td><td>行级排列集合</td><td>自创类型</td></tr>
+            </table>
+
+            <h3>5. 最终判定</h3>
+            <p>根据基因指纹100D维度分析：</p>
+            <ul>
+                <li><strong>符闔数独不是标准数独</strong> - 存在行级排列集合约束（自由变体特征）</li>
+                <li><strong>符闔数独是独特的自由变体</strong> - 约束作用于行级排列集合，而非传统对角线/区域/求和</li>
+                <li><strong>演进谜题是典型的行锁定型自由变体</strong> - 单行100%锁定 + 排列约束</li>
+                <li><strong>初始盘是过渡态</strong> - 具有不均匀性但无显式额外约束</li>
+            </ul>
+        </div>
+
+        <!-- 下一步研究方向 -->
+        <h2>六、进一步深化研究方向</h2>
+        <div class="card">
+            <ul>
+                <li><strong>基因聚类分析</strong>：使用PCA/t-SNE对100D基因降维，可视化不同变体的聚类分布</li>
+                <li><strong>基因编辑逆向设计</strong>：根据目标基因指纹逆向设计谜题，控制解空间大小</li>
+                <li><strong>跨变体映射</strong>：将符闔数独基因映射到X数独、Killer数独等，寻找普适性规律</li>
+                <li><strong>收敛预测模型</strong>：基于基因指纹预测谜题的可解性和求解耗时</li>
+                <li><strong>基因进化追踪</strong>：追踪92→101→105→113锚点的基因演化轨迹</li>
+            </ul>
+        </div>
+
+        <p style="text-align: center; color: #666; margin-top: 40px; padding: 20px;">
+            报告生成时间：2026-06-01 | 数据来源：V77_gene_fingerprint_100D_report.json | 符闔排列256数独系统
+        </p>
+    </div>
+</body>
+</html>

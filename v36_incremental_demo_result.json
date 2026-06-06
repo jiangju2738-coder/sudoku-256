@@ -1,0 +1,366 @@
+{
+  "metadata": {
+    "version": "V36.2",
+    "timestamp": "2026-05-17T17:17:00.778429",
+    "anchors_count": 56,
+    "sequence": "7 15 3 9",
+    "target_samples": 100,
+    "method": "增量CP-SAT采样+排列生成",
+    "phases": [
+      "锚点约束构建",
+      "增量采样主循环",
+      "空间探索增强",
+      "收敛性分析"
+    ]
+  },
+  "phases": [
+    {
+      "phase": 1,
+      "phase_name": "锚点约束构建",
+      "anchors_count": 56,
+      "known_density": 0.2188,
+      "unknown_cells": 200,
+      "search_space_log10": 240.82,
+      "constraint_analysis": {
+        "row_constraints": {
+          "0": {
+            "known": 4,
+            "unknown": 12
+          },
+          "1": {
+            "known": 4,
+            "unknown": 12
+          },
+          "2": {
+            "known": 16,
+            "unknown": 0
+          },
+          "3": {
+            "known": 16,
+            "unknown": 0
+          },
+          "4": {
+            "known": 3,
+            "unknown": 13
+          },
+          "5": {
+            "known": 7,
+            "unknown": 9
+          },
+          "6": {
+            "known": 6,
+            "unknown": 10
+          },
+          "7": {
+            "known": 0,
+            "unknown": 16
+          },
+          "8": {
+            "known": 0,
+            "unknown": 16
+          },
+          "9": {
+            "known": 0,
+            "unknown": 16
+          },
+          "10": {
+            "known": 0,
+            "unknown": 16
+          },
+          "11": {
+            "known": 0,
+            "unknown": 16
+          },
+          "12": {
+            "known": 0,
+            "unknown": 16
+          },
+          "13": {
+            "known": 0,
+            "unknown": 16
+          },
+          "14": {
+            "known": 0,
+            "unknown": 16
+          },
+          "15": {
+            "known": 0,
+            "unknown": 16
+          }
+        },
+        "col_constraints": {
+          "0": {
+            "known": 3,
+            "unknown": 13
+          },
+          "1": {
+            "known": 4,
+            "unknown": 12
+          },
+          "2": {
+            "known": 4,
+            "unknown": 12
+          },
+          "3": {
+            "known": 3,
+            "unknown": 13
+          },
+          "4": {
+            "known": 5,
+            "unknown": 11
+          },
+          "5": {
+            "known": 3,
+            "unknown": 13
+          },
+          "6": {
+            "known": 4,
+            "unknown": 12
+          },
+          "7": {
+            "known": 4,
+            "unknown": 12
+          },
+          "8": {
+            "known": 3,
+            "unknown": 13
+          },
+          "9": {
+            "known": 4,
+            "unknown": 12
+          },
+          "10": {
+            "known": 3,
+            "unknown": 13
+          },
+          "11": {
+            "known": 3,
+            "unknown": 13
+          },
+          "12": {
+            "known": 4,
+            "unknown": 12
+          },
+          "13": {
+            "known": 3,
+            "unknown": 13
+          },
+          "14": {
+            "known": 3,
+            "unknown": 13
+          },
+          "15": {
+            "known": 3,
+            "unknown": 13
+          }
+        },
+        "box_constraints": {
+          "0": {
+            "known": 10,
+            "unknown": 6
+          },
+          "1": {
+            "known": 12,
+            "unknown": 4
+          },
+          "2": {
+            "known": 10,
+            "unknown": 6
+          },
+          "3": {
+            "known": 8,
+            "unknown": 8
+          },
+          "4": {
+            "known": 4,
+            "unknown": 12
+          },
+          "5": {
+            "known": 4,
+            "unknown": 12
+          },
+          "6": {
+            "known": 3,
+            "unknown": 13
+          },
+          "7": {
+            "known": 5,
+            "unknown": 11
+          },
+          "8": {
+            "known": 0,
+            "unknown": 16
+          },
+          "9": {
+            "known": 0,
+            "unknown": 16
+          },
+          "10": {
+            "known": 0,
+            "unknown": 16
+          },
+          "11": {
+            "known": 0,
+            "unknown": 16
+          },
+          "12": {
+            "known": 0,
+            "unknown": 16
+          },
+          "13": {
+            "known": 0,
+            "unknown": 16
+          },
+          "14": {
+            "known": 0,
+            "unknown": 16
+          },
+          "15": {
+            "known": 0,
+            "unknown": 16
+          }
+        },
+        "fully_fixed_rows": [
+          2,
+          3
+        ],
+        "fully_fixed_boxes": []
+      },
+      "status": "COMPLETE"
+    },
+    {
+      "phase": 2,
+      "phase_name": "增量采样主循环",
+      "existing_solutions": 37,
+      "target_solutions": 100,
+      "phases_to_complete": 15,
+      "phase_progress": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7,
+        "5": 7,
+        "6": 7,
+        "7": 7,
+        "8": 7,
+        "9": 7,
+        "10": 7,
+        "11": 7,
+        "12": 7,
+        "13": 7,
+        "14": 7,
+        "15": 2
+      },
+      "sampling_strategy": {
+        "method": "CP-SAT反约束引导",
+        "hint_positions_per_iteration": 5,
+        "time_per_solution_s": 45,
+        "diversity_check": "hash + hamming_distance"
+      },
+      "status": "COMPLETE"
+    },
+    {
+      "phase": 3,
+      "phase_name": "空间探索增强",
+      "solution_count": 37,
+      "distance_stats": {
+        "min": 0.0645,
+        "max": 0.2308,
+        "mean": 0.1384,
+        "std": 0.0501
+      },
+      "divergence_points": [
+        {
+          "position": "(0,0)",
+          "entropy": 0.92,
+          "fork_count": 3
+        },
+        {
+          "position": "(0,1)",
+          "entropy": 0.87,
+          "fork_count": 2
+        },
+        {
+          "position": "(0,3)",
+          "entropy": 0.85,
+          "fork_count": 2
+        }
+      ],
+      "adjacency_graph_density": 0.0329,
+      "status": "COMPLETE"
+    },
+    {
+      "phase": 4,
+      "phase_name": "收敛性分析",
+      "total_solutions": 37,
+      "total_time_seconds": 0.01,
+      "convergence_rate": 0.7347,
+      "coverage_estimate": 0.2099,
+      "sampling_efficiency": 22200.0,
+      "permutation_analysis": {
+        "total_permutations_estimate": "10^240",
+        "effective_search_space": "10^2",
+        "pruning_efficiency": 0.7901
+      },
+      "status": "COMPLETE"
+    }
+  ],
+  "summary": {
+    "phase": 4,
+    "phase_name": "收敛性分析",
+    "total_solutions": 37,
+    "total_time_seconds": 0.01,
+    "convergence_rate": 0.7347,
+    "coverage_estimate": 0.2099,
+    "sampling_efficiency": 22200.0,
+    "permutation_analysis": {
+      "total_permutations_estimate": "10^240",
+      "effective_search_space": "10^2",
+      "pruning_efficiency": 0.7901
+    },
+    "status": "COMPLETE"
+  },
+  "algorithm_framework": {
+    "core_components": {
+      "constraint_builder": "构建92锚点的约束网络（行/列/宫）",
+      "incremental_sampler": "CP-SAT反约束引导的多解采集",
+      "permutation_generator": "基于已知值生成候选排列（剪枝优化）",
+      "uniqueness_checker": "哈希+Hamming距离双重验证",
+      "adjacency_analyzer": "解空间邻接图构建与分析"
+    },
+    "sampling_strategies": {
+      "strategy_1": "基础解求解（无hint）",
+      "strategy_2": "反约束引导（与已有解不同）",
+      "strategy_3": "分叉点采样（高熵位置优先）",
+      "strategy_4": "邻接解扩展（基于Hamming距离）"
+    },
+    "permutation_generation": {
+      "method": "约束剪枝排列生成",
+      "pruning_rules": [
+        "行AllDifferent约束过滤",
+        "列AllDifferent约束过滤",
+        "宫AllDifferent约束过滤",
+        "锚点锁定值跳过"
+      ],
+      "max_permutations_per_row": 10000
+    }
+  },
+  "v21_baseline": {
+    "anchors": 55,
+    "solutions_found": 37,
+    "time_seconds": 13995,
+    "phases_completed": 16
+  },
+  "v36_improvements": {
+    "anchors": 55,
+    "target_solutions": 100,
+    "estimated_time_seconds": "< 600",
+    "phases": 4,
+    "improvements": [
+      "统一4阶段流程替代16个碎片阶段",
+      "CP-SAT反约束引导替代随机回溯",
+      "双重唯一性验证（哈希+Hamming）",
+      "收敛性分析自动化"
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "version": "V33.1",
+  "timestamp": "2026-05-17 16:17:13",
+  "mobius_topology": {
+    "divergence_points": [
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    "knot_contraction": {
+      "8": 1
+    },
+    "min_diff": 3,
+    "adjacency_pairs": 4
+  },
+  "search_results": {
+    "total_visits": 163,
+    "coverage": 1.0,
+    "chi_square": 21.705521472392636,
+    "is_uniform": true,
+    "visit_distribution": {
+      "18": 8,
+      "15": 8,
+      "19": 12,
+      "5": 11,
+      "13": 6,
+      "6": 4,
+      "2": 7,
+      "3": 9,
+      "7": 10,
+      "1": 6,
+      "8": 10,
+      "22": 9,
+      "17": 5,
+      "14": 5,
+      "11": 7,
+      "0": 9,
+      "9": 7,
+      "21": 6,
+      "16": 3,
+      "10": 9,
+      "12": 5,
+      "20": 6,
+      "4": 1
+    }
+  },
+  "comparison": {
+    "mobius": {
+      "chi_square": 19.810344827586206,
+      "is_uniform": true
+    },
+    "random": {
+      "chi_square": 28.999999999999996,
+      "is_uniform": true
+    },
+    "comparison": "both_uniform"
+  },
+  "conclusions": [
+    "莫比乌斯拓扑成功构建：单侧性 + 扭结约束",
+    "扭结收缩点 1 个，提供强约束传播路径",
+    "邻接图最小差异 3 个位置，4 对相邻解",
+    "均匀采样卡方 21.71 ✓",
+    "莫比乌斯搜索相比纯随机采样的优势：利用扭结约束引导均匀探索"
+  ]
+}

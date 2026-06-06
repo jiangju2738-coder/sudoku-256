@@ -1,0 +1,9 @@
+{
+  "puzzle_file": "test_puzzle_handcrafted.json",
+  "clues": 40,
+  "solver": "MRV + Backtrack",
+  "success": true,
+  "time_sec": 0.0194,
+  "nodes": 859,
+  "nodes_per_sec": 44189.0
+}

@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "version": "V36.1",
+    "timestamp": "2026-05-17T17:08:23.506299",
+    "anchors_count": 114,
+    "sequence": "7 15 3 9",
+    "target_samples": 20,
+    "method": "CP-SAT多解采集"
+  },
+  "summary": {
+    "total_solutions": 0,
+    "total_time_seconds": 0.03,
+    "avg_time_per_solution": 0
+  },
+  "solutions": []
+}

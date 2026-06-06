@@ -1,0 +1,4 @@
+  File "D:\2026\WPF_Sudoku\Sudoku_256\V79_evolution_final.py", line 202
+    if initial_puzzle(chr(ord('A') + r)][c] == 0 and r != target_row_idx:
+                                       ^
+SyntaxError: closing parenthesis ']' does not match opening parenthesis '('

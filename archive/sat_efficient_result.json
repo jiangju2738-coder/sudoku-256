@@ -1,0 +1,6 @@
+{
+  "num_variables": 1115590,
+  "num_clauses": 17908538,
+  "file_size": 291177411,
+  "output_file": "sudoku_dimacs.cnf"
+}

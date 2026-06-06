@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-05-14 11:25:59",
+  "config": {
+    "known_digits": 92,
+    "fuhh_permutations": 1111494
+  },
+  "single_solution": true,
+  "solutions_collected": 1,
+  "symmetry_analysis": {
+    "samples": 1,
+    "status": "need_more_samples"
+  },
+  "constraint_relaxation": {
+    "unknown_cells": 164,
+    "with_fuhh_log10": 176.9857243518105,
+    "standard_log10": 197.47567715557167,
+    "latin_square_log10": 197.0753281926843,
+    "fuhh_constraint_strength": 0.10375937481971087
+  }
+}

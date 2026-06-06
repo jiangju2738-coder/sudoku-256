@@ -1,0 +1,1032 @@
+{
+  "title": "「7 15 3 9」超級數獨 - 92錨點詳細備註解答",
+  "timestamp": "2026-05-18T01:27:00+08:00",
+  "grid_size": 16,
+  "box_size": 4,
+  "total_anchors": 114,
+  "anchors_by_row": {
+    "行1 (A)": {
+      "count": 4,
+      "status": "○ 4/16",
+      "anchors": [
+        {
+          "row": 1,
+          "col": 3,
+          "value": 3,
+          "label": "A3=3"
+        },
+        {
+          "row": 1,
+          "col": 6,
+          "value": 12,
+          "label": "A6=12"
+        },
+        {
+          "row": 1,
+          "col": 8,
+          "value": 5,
+          "label": "A8=5"
+        },
+        {
+          "row": 1,
+          "col": 12,
+          "value": 14,
+          "label": "A12=14"
+        }
+      ],
+      "highlight_anchors": []
+    },
+    "行2 (B)": {
+      "count": 4,
+      "status": "○ 4/16",
+      "anchors": [
+        {
+          "row": 2,
+          "col": 2,
+          "value": 12,
+          "label": "B2=12"
+        },
+        {
+          "row": 2,
+          "col": 5,
+          "value": 3,
+          "label": "B5=3"
+        },
+        {
+          "row": 2,
+          "col": 7,
+          "value": 9,
+          "label": "B7=9"
+        },
+        {
+          "row": 2,
+          "col": 9,
+          "value": 6,
+          "label": "B9=6"
+        }
+      ],
+      "highlight_anchors": []
+    },
+    "行3 (C)": {
+      "count": 16,
+      "status": "✓ 完全固定",
+      "anchors": [
+        {
+          "row": 3,
+          "col": 1,
+          "value": 7,
+          "label": "C1=7"
+        },
+        {
+          "row": 3,
+          "col": 2,
+          "value": 15,
+          "label": "C2=15"
+        },
+        {
+          "row": 3,
+          "col": 3,
+          "value": 3,
+          "label": "C3=3 ⚠️"
+        },
+        {
+          "row": 3,
+          "col": 4,
+          "value": 9,
+          "label": "C4=9"
+        },
+        {
+          "row": 3,
+          "col": 5,
+          "value": 11,
+          "label": "C5=11"
+        },
+        {
+          "row": 3,
+          "col": 6,
+          "value": 12,
+          "label": "C6=12 ⚠️"
+        },
+        {
+          "row": 3,
+          "col": 7,
+          "value": 6,
+          "label": "C7=6"
+        },
+        {
+          "row": 3,
+          "col": 8,
+          "value": 5,
+          "label": "C8=5 ⚠️"
+        },
+        {
+          "row": 3,
+          "col": 9,
+          "value": 10,
+          "label": "C9=10"
+        },
+        {
+          "row": 3,
+          "col": 10,
+          "value": 2,
+          "label": "C10=2"
+        },
+        {
+          "row": 3,
+          "col": 11,
+          "value": 1,
+          "label": "C11=1"
+        },
+        {
+          "row": 3,
+          "col": 12,
+          "value": 14,
+          "label": "C12=14 ⚠️"
+        },
+        {
+          "row": 3,
+          "col": 13,
+          "value": 13,
+          "label": "C13=13"
+        },
+        {
+          "row": 3,
+          "col": 14,
+          "value": 16,
+          "label": "C14=16 ⚠️"
+        },
+        {
+          "row": 3,
+          "col": 15,
+          "value": 4,
+          "label": "C15=4"
+        },
+        {
+          "row": 3,
+          "col": 16,
+          "value": 8,
+          "label": "C16=8"
+        }
+      ],
+      "highlight_anchors": [
+        "C3=3 ⚠️",
+        "C6=12 ⚠️",
+        "C8=5 ⚠️",
+        "C12=14 ⚠️",
+        "C14=16 ⚠️"
+      ]
+    },
+    "行4 (D)": {
+      "count": 16,
+      "status": "✓ 完全固定",
+      "anchors": [
+        {
+          "row": 4,
+          "col": 1,
+          "value": 11,
+          "label": "D1=11"
+        },
+        {
+          "row": 4,
+          "col": 2,
+          "value": 4,
+          "label": "D2=4"
+        },
+        {
+          "row": 4,
+          "col": 3,
+          "value": 13,
+          "label": "D3=13"
+        },
+        {
+          "row": 4,
+          "col": 4,
+          "value": 7,
+          "label": "D4=7 ⚠️"
+        },
+        {
+          "row": 4,
+          "col": 5,
+          "value": 16,
+          "label": "D5=16"
+        },
+        {
+          "row": 4,
+          "col": 6,
+          "value": 8,
+          "label": "D6=8"
+        },
+        {
+          "row": 4,
+          "col": 7,
+          "value": 1,
+          "label": "D7=1"
+        },
+        {
+          "row": 4,
+          "col": 8,
+          "value": 9,
+          "label": "D8=9 ⚠️"
+        },
+        {
+          "row": 4,
+          "col": 9,
+          "value": 3,
+          "label": "D9=3 ⚠️"
+        },
+        {
+          "row": 4,
+          "col": 10,
+          "value": 15,
+          "label": "D10=15"
+        },
+        {
+          "row": 4,
+          "col": 11,
+          "value": 2,
+          "label": "D11=2"
+        },
+        {
+          "row": 4,
+          "col": 12,
+          "value": 6,
+          "label": "D12=6"
+        },
+        {
+          "row": 4,
+          "col": 13,
+          "value": 5,
+          "label": "D13=5"
+        },
+        {
+          "row": 4,
+          "col": 14,
+          "value": 14,
+          "label": "D14=14"
+        },
+        {
+          "row": 4,
+          "col": 15,
+          "value": 10,
+          "label": "D15=10"
+        },
+        {
+          "row": 4,
+          "col": 16,
+          "value": 12,
+          "label": "D16=12"
+        }
+      ],
+      "highlight_anchors": [
+        "D4=7 ⚠️",
+        "D8=9 ⚠️",
+        "D9=3 ⚠️"
+      ]
+    },
+    "行5 (E)": {
+      "count": 3,
+      "status": "○ 3/16",
+      "anchors": [
+        {
+          "row": 5,
+          "col": 5,
+          "value": 13,
+          "label": "E5=13"
+        },
+        {
+          "row": 5,
+          "col": 10,
+          "value": 5,
+          "label": "E10=5"
+        },
+        {
+          "row": 5,
+          "col": 13,
+          "value": 4,
+          "label": "E13=4"
+        }
+      ],
+      "highlight_anchors": []
+    },
+    "行6 (F)": {
+      "count": 7,
+      "status": "○ 7/16",
+      "anchors": [
+        {
+          "row": 6,
+          "col": 2,
+          "value": 8,
+          "label": "F2=8"
+        },
+        {
+          "row": 6,
+          "col": 5,
+          "value": 15,
+          "label": "F5=15"
+        },
+        {
+          "row": 6,
+          "col": 7,
+          "value": 4,
+          "label": "F7=4"
+        },
+        {
+          "row": 6,
+          "col": 8,
+          "value": 3,
+          "label": "F8=3"
+        },
+        {
+          "row": 6,
+          "col": 11,
+          "value": 10,
+          "label": "F11=10"
+        },
+        {
+          "row": 6,
+          "col": 14,
+          "value": 16,
+          "label": "F14=16 ⚠️"
+        },
+        {
+          "row": 6,
+          "col": 15,
+          "value": 12,
+          "label": "F15=12"
+        }
+      ],
+      "highlight_anchors": [
+        "F14=16 ⚠️"
+      ]
+    },
+    "行7 (G)": {
+      "count": 6,
+      "status": "○ 6/16",
+      "anchors": [
+        {
+          "row": 7,
+          "col": 1,
+          "value": 14,
+          "label": "G1=14"
+        },
+        {
+          "row": 7,
+          "col": 3,
+          "value": 4,
+          "label": "G3=4"
+        },
+        {
+          "row": 7,
+          "col": 4,
+          "value": 6,
+          "label": "G4=6"
+        },
+        {
+          "row": 7,
+          "col": 10,
+          "value": 9,
+          "label": "G10=9"
+        },
+        {
+          "row": 7,
+          "col": 13,
+          "value": 15,
+          "label": "G13=15"
+        },
+        {
+          "row": 7,
+          "col": 16,
+          "value": 2,
+          "label": "G16=2"
+        }
+      ],
+      "highlight_anchors": []
+    },
+    "行8 (H)": {
+      "count": 6,
+      "status": "○ 6/16",
+      "anchors": [
+        {
+          "row": 8,
+          "col": 2,
+          "value": 13,
+          "label": "H2=13"
+        },
+        {
+          "row": 8,
+          "col": 6,
+          "value": 5,
+          "label": "H6=5"
+        },
+        {
+          "row": 8,
+          "col": 8,
+          "value": 9,
+          "label": "H8=9 ⚠️"
+        },
+        {
+          "row": 8,
+          "col": 12,
+          "value": 11,
+          "label": "H12=11"
+        },
+        {
+          "row": 8,
+          "col": 14,
+          "value": 7,
+          "label": "H14=7"
+        },
+        {
+          "row": 8,
+          "col": 15,
+          "value": 1,
+          "label": "H15=1"
+        }
+      ],
+      "highlight_anchors": [
+        "H8=9 ⚠️"
+      ]
+    },
+    "行9 (I)": {
+      "count": 16,
+      "status": "✓ 完全固定",
+      "anchors": [
+        {
+          "row": 9,
+          "col": 1,
+          "value": 13,
+          "label": "I1=13"
+        },
+        {
+          "row": 9,
+          "col": 2,
+          "value": 1,
+          "label": "I2=1 ⚠️"
+        },
+        {
+          "row": 9,
+          "col": 3,
+          "value": 10,
+          "label": "I3=10"
+        },
+        {
+          "row": 9,
+          "col": 4,
+          "value": 2,
+          "label": "I4=2"
+        },
+        {
+          "row": 9,
+          "col": 5,
+          "value": 8,
+          "label": "I5=8"
+        },
+        {
+          "row": 9,
+          "col": 6,
+          "value": 11,
+          "label": "I6=11"
+        },
+        {
+          "row": 9,
+          "col": 7,
+          "value": 16,
+          "label": "I7=16"
+        },
+        {
+          "row": 9,
+          "col": 8,
+          "value": 7,
+          "label": "I8=7"
+        },
+        {
+          "row": 9,
+          "col": 9,
+          "value": 14,
+          "label": "I9=14"
+        },
+        {
+          "row": 9,
+          "col": 10,
+          "value": 4,
+          "label": "I10=4"
+        },
+        {
+          "row": 9,
+          "col": 11,
+          "value": 5,
+          "label": "I11=5"
+        },
+        {
+          "row": 9,
+          "col": 12,
+          "value": 12,
+          "label": "I12=12"
+        },
+        {
+          "row": 9,
+          "col": 13,
+          "value": 9,
+          "label": "I13=9"
+        },
+        {
+          "row": 9,
+          "col": 14,
+          "value": 6,
+          "label": "I14=6"
+        },
+        {
+          "row": 9,
+          "col": 15,
+          "value": 3,
+          "label": "I15=3"
+        },
+        {
+          "row": 9,
+          "col": 16,
+          "value": 15,
+          "label": "I16=15"
+        }
+      ],
+      "highlight_anchors": [
+        "I2=1 ⚠️"
+      ]
+    },
+    "行10 (J)": {
+      "count": 4,
+      "status": "○ 4/16",
+      "anchors": [
+        {
+          "row": 10,
+          "col": 2,
+          "value": 5,
+          "label": "J2=5"
+        },
+        {
+          "row": 10,
+          "col": 6,
+          "value": 14,
+          "label": "J6=14"
+        },
+        {
+          "row": 10,
+          "col": 10,
+          "value": 8,
+          "label": "J10=8"
+        },
+        {
+          "row": 10,
+          "col": 12,
+          "value": 1,
+          "label": "J12=1"
+        }
+      ],
+      "highlight_anchors": []
+    },
+    "行11 (K)": {
+      "count": 6,
+      "status": "○ 6/16",
+      "anchors": [
+        {
+          "row": 11,
+          "col": 1,
+          "value": 1,
+          "label": "K1=1 ⚠️"
+        },
+        {
+          "row": 11,
+          "col": 3,
+          "value": 6,
+          "label": "K3=6"
+        },
+        {
+          "row": 11,
+          "col": 5,
+          "value": 10,
+          "label": "K5=10"
+        },
+        {
+          "row": 11,
+          "col": 8,
+          "value": 13,
+          "label": "K8=13"
+        },
+        {
+          "row": 11,
+          "col": 11,
+          "value": 9,
+          "label": "K11=9"
+        },
+        {
+          "row": 11,
+          "col": 14,
+          "value": 11,
+          "label": "K14=11"
+        }
+      ],
+      "highlight_anchors": [
+        "K1=1 ⚠️"
+      ]
+    },
+    "行12 (L)": {
+      "count": 6,
+      "status": "○ 6/16",
+      "anchors": [
+        {
+          "row": 12,
+          "col": 4,
+          "value": 4,
+          "label": "L4=4"
+        },
+        {
+          "row": 12,
+          "col": 6,
+          "value": 16,
+          "label": "L6=16"
+        },
+        {
+          "row": 12,
+          "col": 7,
+          "value": 14,
+          "label": "L7=14"
+        },
+        {
+          "row": 12,
+          "col": 9,
+          "value": 3,
+          "label": "L9=3 ⚠️"
+        },
+        {
+          "row": 12,
+          "col": 11,
+          "value": 12,
+          "label": "L11=12"
+        },
+        {
+          "row": 12,
+          "col": 13,
+          "value": 7,
+          "label": "L13=7"
+        }
+      ],
+      "highlight_anchors": [
+        "L9=3 ⚠️"
+      ]
+    },
+    "行13 (M)": {
+      "count": 7,
+      "status": "○ 7/16",
+      "anchors": [
+        {
+          "row": 13,
+          "col": 1,
+          "value": 15,
+          "label": "M1=15"
+        },
+        {
+          "row": 13,
+          "col": 5,
+          "value": 12,
+          "label": "M5=12"
+        },
+        {
+          "row": 13,
+          "col": 9,
+          "value": 5,
+          "label": "M9=5"
+        },
+        {
+          "row": 13,
+          "col": 10,
+          "value": 14,
+          "label": "M10=14"
+        },
+        {
+          "row": 13,
+          "col": 12,
+          "value": 8,
+          "label": "M12=8"
+        },
+        {
+          "row": 13,
+          "col": 15,
+          "value": 11,
+          "label": "M15=11"
+        },
+        {
+          "row": 13,
+          "col": 16,
+          "value": 6,
+          "label": "M16=6"
+        }
+      ],
+      "highlight_anchors": []
+    },
+    "行14 (N)": {
+      "count": 5,
+      "status": "○ 5/16",
+      "anchors": [
+        {
+          "row": 14,
+          "col": 3,
+          "value": 9,
+          "label": "N3=9"
+        },
+        {
+          "row": 14,
+          "col": 6,
+          "value": 6,
+          "label": "N6=6"
+        },
+        {
+          "row": 14,
+          "col": 9,
+          "value": 13,
+          "label": "N9=13"
+        },
+        {
+          "row": 14,
+          "col": 12,
+          "value": 15,
+          "label": "N12=15"
+        },
+        {
+          "row": 14,
+          "col": 16,
+          "value": 10,
+          "label": "N16=10"
+        }
+      ],
+      "highlight_anchors": []
+    },
+    "行15 (O)": {
+      "count": 6,
+      "status": "○ 6/16",
+      "anchors": [
+        {
+          "row": 15,
+          "col": 2,
+          "value": 1,
+          "label": "O2=1 ⚠️"
+        },
+        {
+          "row": 15,
+          "col": 5,
+          "value": 9,
+          "label": "O5=9"
+        },
+        {
+          "row": 15,
+          "col": 8,
+          "value": 15,
+          "label": "O8=15"
+        },
+        {
+          "row": 15,
+          "col": 11,
+          "value": 7,
+          "label": "O11=7"
+        },
+        {
+          "row": 15,
+          "col": 13,
+          "value": 16,
+          "label": "O13=16"
+        },
+        {
+          "row": 15,
+          "col": 14,
+          "value": 3,
+          "label": "O14=3"
+        }
+      ],
+      "highlight_anchors": [
+        "O2=1 ⚠️"
+      ]
+    },
+    "行16 (P)": {
+      "count": 2,
+      "status": "○ 2/16",
+      "anchors": [
+        {
+          "row": 16,
+          "col": 3,
+          "value": 2,
+          "label": "P3=2"
+        },
+        {
+          "row": 16,
+          "col": 7,
+          "value": 5,
+          "label": "P7=5"
+        }
+      ],
+      "highlight_anchors": []
+    }
+  },
+  "column_conflicts": [
+    {
+      "col": 2,
+      "value": 1,
+      "positions": [
+        "I列2",
+        "O列2"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列2中，值1出現在第I, O行，違反列AllDifferent約束"
+    },
+    {
+      "col": 3,
+      "value": 3,
+      "positions": [
+        "A列3",
+        "C列3"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列3中，值3出現在第A, C行，違反列AllDifferent約束"
+    },
+    {
+      "col": 6,
+      "value": 12,
+      "positions": [
+        "A列6",
+        "C列6"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列6中，值12出現在第A, C行，違反列AllDifferent約束"
+    },
+    {
+      "col": 8,
+      "value": 5,
+      "positions": [
+        "A列8",
+        "C列8"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列8中，值5出現在第A, C行，違反列AllDifferent約束"
+    },
+    {
+      "col": 8,
+      "value": 9,
+      "positions": [
+        "D列8",
+        "H列8"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列8中，值9出現在第D, H行，違反列AllDifferent約束"
+    },
+    {
+      "col": 9,
+      "value": 3,
+      "positions": [
+        "D列9",
+        "L列9"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列9中，值3出現在第D, L行，違反列AllDifferent約束"
+    },
+    {
+      "col": 12,
+      "value": 14,
+      "positions": [
+        "A列12",
+        "C列12"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列12中，值14出現在第A, C行，違反列AllDifferent約束"
+    },
+    {
+      "col": 14,
+      "value": 16,
+      "positions": [
+        "C列14",
+        "F列14"
+      ],
+      "conflict_type": "列重複",
+      "explanation": "列14中，值16出現在第C, F行，違反列AllDifferent約束"
+    }
+  ],
+  "box_conflicts": [
+    {
+      "box": "宮[1,1]",
+      "value": 3,
+      "positions": [
+        "A列3",
+        "C列3"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 0)中，值3出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[1,1]",
+      "value": 7,
+      "positions": [
+        "C列1",
+        "D列4"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 0)中，值7出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[1,2]",
+      "value": 5,
+      "positions": [
+        "A列8",
+        "C列8"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 1)中，值5出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[1,2]",
+      "value": 9,
+      "positions": [
+        "B列7",
+        "D列8"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 1)中，值9出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[1,2]",
+      "value": 12,
+      "positions": [
+        "A列6",
+        "C列6"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 1)中，值12出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[1,3]",
+      "value": 2,
+      "positions": [
+        "C列10",
+        "D列11"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 2)中，值2出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[1,3]",
+      "value": 6,
+      "positions": [
+        "B列9",
+        "D列12"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 2)中，值6出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[1,3]",
+      "value": 14,
+      "positions": [
+        "A列12",
+        "C列12"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(0, 2)中，值14出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[3,1]",
+      "value": 1,
+      "positions": [
+        "I列2",
+        "K列1"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(2, 0)中，值1出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[3,2]",
+      "value": 14,
+      "positions": [
+        "J列6",
+        "L列7"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(2, 1)中，值14出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[3,2]",
+      "value": 16,
+      "positions": [
+        "I列7",
+        "L列6"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(2, 1)中，值16出現在多個位置，違反宫AllDifferent約束"
+    },
+    {
+      "box": "宮[3,3]",
+      "value": 12,
+      "positions": [
+        "I列12",
+        "L列11"
+      ],
+      "conflict_type": "宮重複",
+      "explanation": "宮(2, 2)中，值12出現在多個位置，違反宫AllDifferent約束"
+    }
+  ],
+  "summary": "\n╔══════════════════════════════════════════════════════════════════╗\n║              92錨點約束衝突診斷報告                                ║\n╠══════════════════════════════════════════════════════════════════╣\n║  狀態: INFEASIBLE (不可滿足)                                      ║\n║  原因: 數據層面硬衝突，非搜索深度問題                              ║\n╠══════════════════════════════════════════════════════════════════╣\n║  衝突統計:                                                        ║\n║  • 列衝突:  8 個 (涉及 7 列)               ║\n║  • 宮衝突: 12 個 (涉及多個4×4宫格)              ║\n╠══════════════════════════════════════════════════════════════════╣\n║  關鍵發現:                                                        ║\n║  1. 行C、行D、行I 為完全固定行 (各16個錨點)                        ║\n║  2. 列衝突主要來自 C行與A行、D行與H行、I行與K/O行的重複             ║\n║  3. 即使移除宫约束，列約束本身已不可滿足                           ║\n║  4. CP-SAT測試驗證: 行+列約束下仍為INFEASIBLE (0.00秒)            ║\n╠══════════════════════════════════════════════════════════════════╣\n║  結論: 55錨點與92錨點是兩碼事                                     ║\n║  55錨點配置: OPTIMAL, 唯一解, 0.142秒                            ║\n║  92錨點配置: INFEASIBLE, 數據層面硬衝突                          ║\n║  兩者約束集合互斥，解空間不相交，無相关性                           ║\n╚══════════════════════════════════════════════════════════════════╝\n"
+}

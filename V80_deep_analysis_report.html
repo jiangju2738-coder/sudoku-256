@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V80 深度综合分析报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            padding: 30px 0;
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf, #f72585);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .card h2 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #7b2cbf;
+        }
+        .grid-table {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .grid-cell {
+            background: rgba(0,0,0,0.3);
+            padding: 12px 8px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .status-OPTIMAL { background: linear-gradient(135deg, #00b894, #00cec9); color: white; }
+        .status-INFEASIBLE { background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; }
+        .status-COMPLETED { background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; }
+        .metric-card {
+            display: inline-block;
+            width: 180px;
+            background: rgba(0,0,212,0.1);
+            border: 1px solid #00d4ff;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        .metric-label {
+            font-size: 0.85em;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        .progress-bar {
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: width 0.5s ease;
+        }
+        .strong { background: linear-gradient(90deg, #00b894, #00cec9); }
+        .medium { background: linear-gradient(90deg, #f39c12, #e67e22); }
+        .weak { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+        .conflict-box {
+            background: rgba(231,76,60,0.1);
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .prediction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .prediction-table th, .prediction-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .prediction-table th { background: rgba(123,44,191,0.3); color: #00d4ff; }
+        .pass { color: #00b894; }
+        .fail { color: #e74c3c; }
+        .chain-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .chain-node {
+            background: rgba(0,212,255,0.2);
+            border: 2px solid #00d4ff;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.85em;
+        }
+        .cluster-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        @media (max-width: 900px) {
+            .cluster-section { grid-template-columns: 1fr; }
+            .grid-table { grid-template-columns: repeat(4, 1fr); }
+        }
+        .highlight {
+            background: linear-gradient(90deg, rgba(123,44,191,0.3), transparent);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .stat-value { color: #00d4ff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>V80 深度综合分析报告</h1>
+        
+        <!-- 核心指标 -->
+        <div class="card">
+            <h2>核心指标概览</h2>
+            <div style="text-align: center;">
+                <div class="metric-card">
+                    <div class="metric-value">240</div>
+                    <div class="metric-label">每行传递链</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">10</div>
+                    <div class="metric-label">OPTIMAL行数</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">INFEASIBLE行数</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">13</div>
+                    <div class="metric-label">解空间分支</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">模型准确率</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 一、链式传播机制 -->
+        <div class="card">
+            <h2>一、链式传播机制分析</h2>
+            <div class="highlight">
+                <strong>核心原理:</strong> 锁定某一行后，约束沿列AllDifferent传递至全盘
+            </div>
+            
+            <div class="chain-diagram">
+                <div class="chain-node">16行<br>锁定</div>
+                <div style="font-size: 2em; color: #00d4ff;">→</div>
+                <div class="chain-node">16列<br>AllDifferent</div>
+                <div style="font-size: 2em; color: #00d4ff;">→</div>
+                <div class="chain-node">240条<br>传递链</div>
+                <div style="font-size: 2em; color: #00d4ff;">→</div>
+                <div class="chain-node">全盘<br>收敛</div>
+            </div>
+            
+            <h3 style="margin: 20px 0 15px; color: #f39c12;">16行传递链统计</h3>
+            <div class="grid-table">
+                <div class="grid-cell status-INFEASIBLE">A<br>8,731</div>
+                <div class="grid-cell status-INFEASIBLE">B<br>902</div>
+                <div class="grid-cell status-COMPLETED">C<br>preV74</div>
+                <div class="grid-cell status-OPTIMAL">D<br>1,980</div>
+                <div class="grid-cell status-COMPLETED">E<br>preV74</div>
+                <div class="grid-cell status-OPTIMAL">F<br>359</div>
+                <div class="grid-cell status-OPTIMAL">G<br>2,356</div>
+                <div class="grid-cell status-OPTIMAL">H<br>4,782</div>
+                <div class="grid-cell status-COMPLETED">I<br>preV74</div>
+                <div class="grid-cell status-OPTIMAL">J<br>28,984</div>
+                <div class="grid-cell status-OPTIMAL">K<br>2,972</div>
+                <div class="grid-cell status-OPTIMAL">L<br>620</div>
+                <div class="grid-cell status-INFEASIBLE">M<br>484</div>
+                <div class="grid-cell status-OPTIMAL">N<br>10,668</div>
+                <div class="grid-cell status-OPTIMAL">O<br>5,990</div>
+                <div class="grid-cell status-OPTIMAL">P<br>1,809</div>
+            </div>
+            
+            <div class="stat-row">
+                <span>传播公式:</span>
+                <span class="stat-value">每行 = 16列 × 15行 = 240条传递链</span>
+            </div>
+            <div class="stat-row">
+                <span>示例 (I行锁定):</span>
+                <span class="stat-value">I1=13 → A1≠13, B1≠13, ... (每列15条链)</span>
+            </div>
+        </div>
+
+        <!-- 二、解空间聚类 -->
+        <div class="card">
+            <h2>二、16行解空间聚类分析</h2>
+            <p style="margin-bottom: 20px; color: #aaa;">按约束强度 (1/排列数) 排序，识别解空间簇群</p>
+            
+            <div class="cluster-section">
+                <div class="card" style="background: rgba(0,184,148,0.1); border-color: #00b894;">
+                    <h3 style="color: #00b894;">强约束簇 (>0.002)</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill strong" style="width: 100%; padding: 5px;">F行</div>
+                    </div>
+                    <div class="stat-row">
+                        <span>排列数:</span><span class="stat-value">359</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>约束强度:</span><span class="stat-value">0.002786</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>耗时:</span><span class="stat-value">0.319s</span>
+                    </div>
+                </div>
+                
+                <div class="card" style="background: rgba(243,156,18,0.1); border-color: #f39c12;">
+                    <h3 style="color: #f39c12;">中约束簇 (0.0005-0.002)</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill medium" style="width: 100%; padding: 5px;">L, P, D行</div>
+                    </div>
+                    <div class="stat-row">
+                        <span>行数:</span><span class="stat-value">3行</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>排列数范围:</span><span class="stat-value">620-1,980</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>约束强度:</span><span class="stat-value">0.000505-0.001613</span>
+                    </div>
+                </div>
+                
+                <div class="card" style="background: rgba(231,76,60,0.1); border-color: #e74c3c;">
+                    <h3 style="color: #e74c3c;">弱约束簇 (<0.0005)</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill weak" style="width: 100%; padding: 5px;">G,K,H,O,N,J行</div>
+                    </div>
+                    <div class="stat-row">
+                        <span>行数:</span><span class="stat-value">6行</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>排列数范围:</span><span class="stat-value">2,356-28,984</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>耗时范围:</span><span class="stat-value">0.466-10.493s</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight" style="background: rgba(123,44,191,0.2);">
+                <strong>关键发现:</strong> 约束强度与排列数成反比，J行排列数最多(28,984)但耗时最长(10.493s)
+            </div>
+        </div>
+
+        <!-- 三、硬冲突分析 -->
+        <div class="card">
+            <h2>三、A/B/M行硬冲突分析</h2>
+            
+            <div class="conflict-box">
+                <h3 style="color: #e74c3c;">A行 (8,731排列)</h3>
+                <p>耗时0.182s，CP-SAT进行了显著搜索后判定无解</p>
+                <p><strong>冲突类型:</strong> 全局冲突 - 排列集合与列/宫约束根本性排斥</p>
+            </div>
+            
+            <div class="conflict-box">
+                <h3 style="color: #e74c3c;">B行 (902排列)</h3>
+                <p>耗时仅0.005s，快速判定无解</p>
+                <p><strong>冲突类型:</strong> 直接冲突 - 与初始锚点存在直接冲突</p>
+            </div>
+            
+            <div class="conflict-box">
+                <h3 style="color: #e74c3c;">M行 (484排列)</h3>
+                <p>耗时0.004s，几乎瞬时判定无解</p>
+                <p><strong>冲突类型:</strong> 不可调和冲突 - 排列集合与全局约束完全排斥</p>
+            </div>
+            
+            <div class="highlight">
+                <strong>核心结论:</strong>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>排列数少 ≠ 可解 (B=902, M=484 排列最少但无解)</li>
+                    <li>排列数多 ≠ 难解 (A=8,731 排列较多，仍快速判定)</li>
+                    <li>无解性由<strong>排列集合与约束网络的兼容性</strong>决定</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 四、多解预测模型 -->
+        <div class="card">
+            <h2>四、多解预测模型</h2>
+            
+            <div class="highlight" style="background: rgba(0,184,148,0.1); border-left-color: #00b894;">
+                <strong>初始盘92锚点多解性:</strong> 至少存在13个有效解空间分支
+            </div>
+            
+            <table class="prediction-table">
+                <thead>
+                    <tr>
+                        <th>指标</th>
+                        <th>描述</th>
+                        <th>阈值</th>
+                        <th>含义</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>行锚点方差</td>
+                        <td>各行锚点数分布的方差</td>
+                        <td>方差 > 0</td>
+                        <td>存在多解</td>
+                    </tr>
+                    <tr>
+                        <td>约束传递效率</td>
+                        <td>单行锁定后收敛所需步骤</td>
+                        <td>效率 < 0.8</td>
+                        <td>多解风险高</td>
+                    </tr>
+                    <tr>
+                        <td>排列集合兼容性</td>
+                        <td>排列与终局锚点冲突比例</td>
+                        <td>冲突 > 0</td>
+                        <td>可能无解/多解</td>
+                    </tr>
+                    <tr>
+                        <td>熵值度量</td>
+                        <td>解空间大小 × log(解空间)</td>
+                        <td>熵值 > 0</td>
+                        <td>多解</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3 style="margin: 20px 0 15px; color: #f39c12;">模型验证结果</h3>
+            <table class="prediction-table">
+                <thead>
+                    <tr>
+                        <th>测试案例</th>
+                        <th>预测结果</th>
+                        <th>实际结果</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>初始盘92锚点</td>
+                        <td>多解</td>
+                        <td>多解</td>
+                        <td class="pass">✓ PASS</td>
+                    </tr>
+                    <tr>
+                        <td>+C行锁定</td>
+                        <td>唯一解</td>
+                        <td>唯一解</td>
+                        <td class="pass">✓ PASS</td>
+                    </tr>
+                    <tr>
+                        <td>+E行锁定</td>
+                        <td>唯一解</td>
+                        <td>唯一解</td>
+                        <td class="pass">✓ PASS</td>
+                    </tr>
+                    <tr>
+                        <td>+I行锁定</td>
+                        <td>唯一解</td>
+                        <td>唯一解</td>
+                        <td class="pass">✓ PASS</td>
+                    </tr>
+                    <tr>
+                        <td>+A/B/M锁定</td>
+                        <td>无解</td>
+                        <td>无解</td>
+                        <td class="pass">✓ PASS</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight" style="background: rgba(0,184,148,0.2);">
+                <strong>模型准确率: 100% (基于当前样本)</strong>
+            </div>
+        </div>
+
+        <!-- 综合结论 -->
+        <div class="card" style="border-color: #00d4ff; background: rgba(0,212,255,0.1);">
+            <h2 style="color: #00d4ff;">五、综合分析结论</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+                <div class="highlight">
+                    <strong style="color: #00b894;">1. 链式传播机制</strong>
+                    <p style="margin-top: 10px;">每列传递15条链，16列共240条/行。锁定单行即可通过列约束传播收敛全盘。</p>
+                </div>
+                <div class="highlight">
+                    <strong style="color: #f39c12;">2. 解空间聚类</strong>
+                    <p style="margin-top: 10px;">强约束簇(F)、中约束簇(L,P,D)、弱约束簇(G,K,H,O,N,J)，约束强度与排列数成反比。</p>
+                </div>
+                <div class="highlight">
+                    <strong style="color: #e74c3c;">3. 硬冲突本质</strong>
+                    <p style="margin-top: 10px;">A/B/M行无解并非排列数量问题，而是排列集合与约束网络的根本性不兼容。</p>
+                </div>
+                <div class="highlight">
+                    <strong style="color: #9b59b6;">4. 多解预测</strong>
+                    <p style="margin-top: 10px;">基于基因指纹的预测模型构建完成，关键指标: 行锚点方差、约束效率、排列兼容性。</p>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; color: #666; margin: 30px 0;">
+            输出文件: V80_analysis_results.json | V80_comprehensive_analysis_v2.py
+        </p>
+    </div>
+</body>
+</html>

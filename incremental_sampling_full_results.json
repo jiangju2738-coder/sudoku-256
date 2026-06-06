@@ -1,0 +1,67 @@
+{
+  "experiment_timestamp": "2026-05-17 01:32:21",
+  "test_rates": [
+    0.1,
+    0.15,
+    0.2,
+    0.25
+  ],
+  "results": {
+    "0.1": {
+      "solution_count": 3,
+      "diversity_score": 0.057291666666666664,
+      "sampling_time": 1.552515983581543,
+      "tree_depth": 4,
+      "branching_factors": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        0.0
+      ],
+      "solutions_sampled": 3
+    },
+    "0.15": {
+      "solution_count": 1,
+      "diversity_score": 1.0,
+      "sampling_time": 1.7762362957000732,
+      "tree_depth": 4,
+      "branching_factors": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        0.0
+      ],
+      "solutions_sampled": 1
+    },
+    "0.2": {
+      "solution_count": 1,
+      "diversity_score": 1.0,
+      "sampling_time": 1.7307343482971191,
+      "tree_depth": 4,
+      "branching_factors": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        0.0
+      ],
+      "solutions_sampled": 1
+    },
+    "0.25": {
+      "solution_count": 1,
+      "diversity_score": 1.0,
+      "sampling_time": 2.015740156173706,
+      "tree_depth": 4,
+      "branching_factors": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        0.0
+      ],
+      "solutions_sampled": 1
+    }
+  }
+}

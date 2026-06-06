@@ -1,0 +1,41 @@
+{
+  "version": "V33.3",
+  "timestamp": "2026-05-17 16:17:15",
+  "sample_expansion": {
+    "original_count": 23,
+    "new_by_permutation": 0,
+    "new_by_divergence": 0,
+    "total_count": 23,
+    "new_solutions_preview": []
+  },
+  "solution_space_graph": {
+    "n_solutions": 23,
+    "min_diff": 3,
+    "adjacency_pairs": 4,
+    "diff_distribution": {
+      "6": 151,
+      "4": 19,
+      "5": 79,
+      "3": 4
+    }
+  },
+  "chain_analysis": {
+    "longest_chain_length": 1,
+    "longest_chain": [
+      0
+    ],
+    "closed_chain_found": false,
+    "closed_chain": null,
+    "topology": {
+      "found": false,
+      "reason": "no chain longer than 1 found"
+    }
+  },
+  "conclusions": [
+    "样本扩大至 23 个解",
+    "最小首宫差异: 3 个位置",
+    "邻接对数: 4",
+    "最长链长度: 1",
+    "闭环结构: ✗ 未找到"
+  ]
+}

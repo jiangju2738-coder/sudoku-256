@@ -1,0 +1,474 @@
+{
+  "quantum_state": {
+    "global_state": "conflict",
+    "row_states": {
+      "conflict": 4,
+      "collapsed": 12
+    },
+    "total_collapse_events": 20,
+    "collapsed_rows": 12,
+    "conflict_rows": 4,
+    "average_entropy": 0.0
+  },
+  "compatibility_analysis": {
+    "unknown_rows": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "unknown_row_count": 16,
+    "incompatible_pairs": [],
+    "incompatible_count": 0,
+    "moderate_pairs": [
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        0,
+        7
+      ],
+      [
+        0,
+        15
+      ],
+      [
+        1,
+        11
+      ],
+      [
+        1,
+        12
+      ],
+      [
+        1,
+        14
+      ],
+      [
+        2,
+        7
+      ],
+      [
+        2,
+        9
+      ],
+      [
+        2,
+        15
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        3,
+        7
+      ],
+      [
+        4,
+        14
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        5,
+        13
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        6,
+        10
+      ],
+      [
+        6,
+        11
+      ],
+      [
+        6,
+        13
+      ],
+      [
+        6,
+        15
+      ],
+      [
+        7,
+        15
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        8,
+        13
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        9,
+        11
+      ],
+      [
+        9,
+        12
+      ],
+      [
+        9,
+        13
+      ],
+      [
+        9,
+        14
+      ],
+      [
+        9,
+        15
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        10,
+        13
+      ],
+      [
+        10,
+        14
+      ],
+      [
+        11,
+        12
+      ],
+      [
+        11,
+        13
+      ],
+      [
+        11,
+        14
+      ],
+      [
+        11,
+        15
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        12,
+        14
+      ],
+      [
+        14,
+        15
+      ]
+    ],
+    "moderate_count": 42,
+    "average_compatibility": 0.6098779776936027,
+    "constraint_edges": [
+      [
+        0,
+        3,
+        "moderate"
+      ],
+      [
+        0,
+        4,
+        "moderate"
+      ],
+      [
+        0,
+        5,
+        "moderate"
+      ],
+      [
+        0,
+        7,
+        "moderate"
+      ],
+      [
+        0,
+        15,
+        "moderate"
+      ],
+      [
+        1,
+        11,
+        "moderate"
+      ],
+      [
+        1,
+        12,
+        "moderate"
+      ],
+      [
+        1,
+        14,
+        "moderate"
+      ],
+      [
+        2,
+        7,
+        "moderate"
+      ],
+      [
+        2,
+        9,
+        "moderate"
+      ],
+      [
+        2,
+        15,
+        "moderate"
+      ],
+      [
+        3,
+        4,
+        "moderate"
+      ],
+      [
+        3,
+        5,
+        "moderate"
+      ],
+      [
+        3,
+        7,
+        "moderate"
+      ],
+      [
+        4,
+        14,
+        "moderate"
+      ],
+      [
+        5,
+        6,
+        "moderate"
+      ],
+      [
+        5,
+        7,
+        "moderate"
+      ],
+      [
+        5,
+        13,
+        "moderate"
+      ],
+      [
+        6,
+        7,
+        "moderate"
+      ],
+      [
+        6,
+        10,
+        "moderate"
+      ],
+      [
+        6,
+        11,
+        "moderate"
+      ],
+      [
+        6,
+        13,
+        "moderate"
+      ],
+      [
+        6,
+        15,
+        "moderate"
+      ],
+      [
+        7,
+        15,
+        "moderate"
+      ],
+      [
+        8,
+        9,
+        "moderate"
+      ],
+      [
+        8,
+        13,
+        "moderate"
+      ],
+      [
+        9,
+        10,
+        "moderate"
+      ],
+      [
+        9,
+        11,
+        "moderate"
+      ],
+      [
+        9,
+        12,
+        "moderate"
+      ],
+      [
+        9,
+        13,
+        "moderate"
+      ],
+      [
+        9,
+        14,
+        "moderate"
+      ],
+      [
+        9,
+        15,
+        "moderate"
+      ],
+      [
+        10,
+        11,
+        "moderate"
+      ],
+      [
+        10,
+        13,
+        "moderate"
+      ],
+      [
+        10,
+        14,
+        "moderate"
+      ],
+      [
+        11,
+        12,
+        "moderate"
+      ],
+      [
+        11,
+        13,
+        "moderate"
+      ],
+      [
+        11,
+        14,
+        "moderate"
+      ],
+      [
+        11,
+        15,
+        "moderate"
+      ],
+      [
+        12,
+        13,
+        "moderate"
+      ],
+      [
+        12,
+        14,
+        "moderate"
+      ],
+      [
+        14,
+        15,
+        "moderate"
+      ]
+    ],
+    "recommendations": [
+      "所有未知行均相容，搜索空间连通性良好"
+    ]
+  },
+  "solve_history": [
+    {
+      "step": 1,
+      "timestamp": 1779026848.3266923,
+      "actions": [
+        "column_exchange_pruning",
+        "quantum_collapse_update"
+      ],
+      "column_conflicts": 16,
+      "pruning": {
+        "swaps_attempted": 50,
+        "swaps_successful": 0,
+        "space_reduction": 0.627906976744186
+      },
+      "global_state": "conflict",
+      "conflict": true
+    }
+  ],
+  "column_pruning_patterns": {
+    "success": {},
+    "failure": {
+      "1-14": 50,
+      "1-2": 50,
+      "1-15": 50,
+      "1-5": 50,
+      "1-13": 50,
+      "1-9": 50,
+      "1-12": 50,
+      "14-2": 50,
+      "14-15": 50,
+      "14-5": 50,
+      "14-13": 50,
+      "14-9": 50,
+      "14-12": 50,
+      "2-15": 50,
+      "2-5": 50,
+      "2-13": 50,
+      "2-9": 50,
+      "2-12": 50,
+      "15-5": 50,
+      "15-13": 50,
+      "15-9": 50,
+      "15-12": 50,
+      "5-13": 50,
+      "5-9": 50,
+      "5-12": 50,
+      "13-9": 50,
+      "13-12": 50,
+      "9-12": 50
+    }
+  }
+}

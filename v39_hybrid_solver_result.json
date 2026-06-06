@@ -1,0 +1,13 @@
+{
+  "status": "CpSolverStatus.OPTIMAL",
+  "time_seconds": 0.411,
+  "nash_detected": false,
+  "skill_mapping": {
+    "constraint_propagation": "CP-SAT presolve",
+    "lookahead": "CP-SAT branch and bound",
+    "backjumping": "CP-SAT conflict analysis",
+    "learning": "CP-SAT clause learning",
+    "restart": "CP-SAT Luby restart",
+    "heuristic": "CP-SAT variable selection"
+  }
+}

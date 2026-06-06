@@ -1,0 +1,559 @@
+{
+  "timestamp": "2026-05-17 22:08:33",
+  "column_conflict_analysis": {
+    "anchor_conflicts": {},
+    "column_analysis": {
+      "0": {
+        "fixed_count": 4,
+        "fixed_values": [
+          1,
+          13,
+          14,
+          15
+        ],
+        "remaining_possible": 16
+      },
+      "1": {
+        "fixed_count": 6,
+        "fixed_values": [
+          1,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "remaining_possible": 16
+      },
+      "2": {
+        "fixed_count": 6,
+        "fixed_values": [
+          2,
+          3,
+          4,
+          6,
+          9,
+          14
+        ],
+        "remaining_possible": 16
+      },
+      "3": {
+        "fixed_count": 4,
+        "fixed_values": [
+          2,
+          4,
+          6,
+          13
+        ],
+        "remaining_possible": 16
+      },
+      "4": {
+        "fixed_count": 7,
+        "fixed_values": [
+          3,
+          4,
+          7,
+          9,
+          12,
+          13,
+          15
+        ],
+        "remaining_possible": 16
+      },
+      "5": {
+        "fixed_count": 7,
+        "fixed_values": [
+          1,
+          2,
+          5,
+          6,
+          11,
+          12,
+          16
+        ],
+        "remaining_possible": 16
+      },
+      "6": {
+        "fixed_count": 5,
+        "fixed_values": [
+          1,
+          4,
+          5,
+          9,
+          14
+        ],
+        "remaining_possible": 16
+      },
+      "7": {
+        "fixed_count": 5,
+        "fixed_values": [
+          3,
+          5,
+          8,
+          9,
+          15
+        ],
+        "remaining_possible": 16
+      },
+      "8": {
+        "fixed_count": 4,
+        "fixed_values": [
+          5,
+          6,
+          13,
+          14
+        ],
+        "remaining_possible": 16
+      },
+      "9": {
+        "fixed_count": 1,
+        "fixed_values": [
+          5
+        ],
+        "remaining_possible": 16
+      },
+      "10": {
+        "fixed_count": 1,
+        "fixed_values": [
+          12
+        ],
+        "remaining_possible": 16
+      },
+      "11": {
+        "fixed_count": 3,
+        "fixed_values": [
+          14,
+          15,
+          16
+        ],
+        "remaining_possible": 16
+      },
+      "12": {
+        "fixed_count": 1,
+        "fixed_values": [
+          4
+        ],
+        "remaining_possible": 16
+      },
+      "13": {
+        "fixed_count": 1,
+        "fixed_values": [
+          10
+        ],
+        "remaining_possible": 16
+      },
+      "14": {
+        "fixed_count": 0,
+        "fixed_values": [],
+        "remaining_possible": 16
+      },
+      "15": {
+        "fixed_count": 0,
+        "fixed_values": [],
+        "remaining_possible": 16
+      }
+    },
+    "total_anchor_conflicts": 0
+  },
+  "quantum_state_analysis": {
+    "global_state": "部分坍缩",
+    "row_states": {
+      "0": {
+        "row_label": "Row A",
+        "state": "部分坍缩",
+        "anchor_count": 4,
+        "anchor_density": 0.25,
+        "permutation_status": "8731个排列",
+        "entropy": 13.091931186216529,
+        "is_fummel": false
+      },
+      "1": {
+        "row_label": "Row B",
+        "state": "部分坍缩",
+        "anchor_count": 4,
+        "anchor_density": 0.25,
+        "permutation_status": "902个排列",
+        "entropy": 9.81698362325538,
+        "is_fummel": false
+      },
+      "2": {
+        "row_label": "Row C",
+        "state": "部分坍缩",
+        "anchor_count": 5,
+        "anchor_density": 0.3125,
+        "permutation_status": "407669个排列",
+        "entropy": 18.637038729897906,
+        "is_fummel": true
+      },
+      "3": {
+        "row_label": "Row D",
+        "state": "部分坍缩",
+        "anchor_count": 4,
+        "anchor_density": 0.25,
+        "permutation_status": "1980个排列",
+        "entropy": 10.951284714966972,
+        "is_fummel": true
+      },
+      "4": {
+        "row_label": "Row E",
+        "state": "部分坍缩",
+        "anchor_count": 5,
+        "anchor_density": 0.3125,
+        "permutation_status": "633271个排列",
+        "entropy": 19.272463488606753,
+        "is_fummel": false
+      },
+      "5": {
+        "row_label": "Row F",
+        "state": "部分坍缩",
+        "anchor_count": 4,
+        "anchor_density": 0.25,
+        "permutation_status": "359个排列",
+        "entropy": 8.487840033823051,
+        "is_fummel": false
+      },
+      "6": {
+        "row_label": "Row G",
+        "state": "部分坍缩",
+        "anchor_count": 3,
+        "anchor_density": 0.1875,
+        "permutation_status": "2356个排列",
+        "entropy": 11.20212382383046,
+        "is_fummel": false
+      },
+      "7": {
+        "row_label": "Row H",
+        "state": "部分坍缩",
+        "anchor_count": 3,
+        "anchor_density": 0.1875,
+        "permutation_status": "4782个排列",
+        "entropy": 12.223398414711628,
+        "is_fummel": false
+      },
+      "8": {
+        "row_label": "Row I",
+        "state": "部分坍缩",
+        "anchor_count": 4,
+        "anchor_density": 0.25,
+        "permutation_status": "164个排列",
+        "entropy": 7.357552004618084,
+        "is_fummel": true
+      },
+      "9": {
+        "row_label": "Row J",
+        "state": "部分坍缩",
+        "anchor_count": 1,
+        "anchor_density": 0.0625,
+        "permutation_status": "28984个排列",
+        "entropy": 14.822969090453288,
+        "is_fummel": false
+      },
+      "10": {
+        "row_label": "Row K",
+        "state": "部分坍缩",
+        "anchor_count": 2,
+        "anchor_density": 0.125,
+        "permutation_status": "2972个排列",
+        "entropy": 11.537218400538595,
+        "is_fummel": false
+      },
+      "11": {
+        "row_label": "Row L",
+        "state": "部分坍缩",
+        "anchor_count": 4,
+        "anchor_density": 0.25,
+        "permutation_status": "620个排列",
+        "entropy": 9.276124405274238,
+        "is_fummel": false
+      },
+      "12": {
+        "row_label": "Row M",
+        "state": "部分坍缩",
+        "anchor_count": 3,
+        "anchor_density": 0.1875,
+        "permutation_status": "484个排列",
+        "entropy": 8.918863237274595,
+        "is_fummel": false
+      },
+      "13": {
+        "row_label": "Row N",
+        "state": "部分坍缩",
+        "anchor_count": 4,
+        "anchor_density": 0.25,
+        "permutation_status": "10668个排列",
+        "entropy": 13.381002109550925,
+        "is_fummel": false
+      },
+      "14": {
+        "row_label": "Row O",
+        "state": "部分坍缩",
+        "anchor_count": 3,
+        "anchor_density": 0.1875,
+        "permutation_status": "5990个排列",
+        "entropy": 12.548340287676147,
+        "is_fummel": false
+      },
+      "15": {
+        "row_label": "Row P",
+        "state": "部分坍缩",
+        "anchor_count": 2,
+        "anchor_density": 0.125,
+        "permutation_status": "1562个排列",
+        "entropy": 10.60917873814198,
+        "is_fummel": true
+      }
+    },
+    "state_distribution": {
+      "collapsed": 0,
+      "partial": 16,
+      "superposition": 0,
+      "conflict": 0
+    }
+  },
+  "compatibility_analysis": {
+    "unknown_rows": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "unknown_count": 16,
+    "matrix_shape": [
+      16,
+      16
+    ],
+    "incompatible_pairs": [
+      [
+        0,
+        3,
+        0.0
+      ],
+      [
+        0,
+        4,
+        0.16
+      ],
+      [
+        0,
+        5,
+        0.0
+      ],
+      [
+        0,
+        7,
+        0.0
+      ],
+      [
+        0,
+        15,
+        0.0
+      ],
+      [
+        1,
+        11,
+        0.0
+      ],
+      [
+        1,
+        12,
+        0.0
+      ],
+      [
+        1,
+        14,
+        0.06
+      ],
+      [
+        2,
+        7,
+        0.19
+      ],
+      [
+        2,
+        9,
+        0.14
+      ],
+      [
+        2,
+        15,
+        0.12
+      ],
+      [
+        3,
+        4,
+        0.0
+      ],
+      [
+        3,
+        5,
+        0.0
+      ],
+      [
+        3,
+        7,
+        0.0
+      ],
+      [
+        4,
+        14,
+        0.1
+      ],
+      [
+        5,
+        6,
+        0.14
+      ],
+      [
+        5,
+        7,
+        0.0
+      ],
+      [
+        5,
+        13,
+        0.0
+      ],
+      [
+        6,
+        7,
+        0.0
+      ],
+      [
+        6,
+        10,
+        0.0
+      ],
+      [
+        6,
+        11,
+        0.0
+      ],
+      [
+        6,
+        13,
+        0.0
+      ],
+      [
+        6,
+        15,
+        0.0
+      ],
+      [
+        7,
+        15,
+        0.0
+      ],
+      [
+        8,
+        9,
+        0.0
+      ],
+      [
+        8,
+        13,
+        0.14
+      ],
+      [
+        9,
+        10,
+        0.12
+      ],
+      [
+        9,
+        11,
+        0.0
+      ],
+      [
+        9,
+        12,
+        0.0
+      ],
+      [
+        9,
+        13,
+        0.0
+      ],
+      [
+        9,
+        14,
+        0.0
+      ],
+      [
+        9,
+        15,
+        0.0
+      ],
+      [
+        10,
+        11,
+        0.0
+      ],
+      [
+        10,
+        13,
+        0.0
+      ],
+      [
+        10,
+        14,
+        0.15
+      ],
+      [
+        11,
+        12,
+        0.0
+      ],
+      [
+        11,
+        13,
+        0.0
+      ],
+      [
+        11,
+        14,
+        0.0
+      ],
+      [
+        11,
+        15,
+        0.0
+      ],
+      [
+        12,
+        13,
+        0.08
+      ],
+      [
+        12,
+        14,
+        0.27
+      ],
+      [
+        12,
+        15,
+        0.28
+      ],
+      [
+        14,
+        15,
+        0.0
+      ]
+    ],
+    "average_compatibility": 0.4574166666666667
+  },
+  "recommendations": [
+    "发现 43 对不相容行，搜索空间可能分裂"
+  ]
+}

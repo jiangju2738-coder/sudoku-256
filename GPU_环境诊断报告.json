@@ -1,0 +1,14 @@
+{
+  "cuda_available": false,
+  "cupy_available": true,
+  "gpu_detected": false,
+  "gpu_count": 0,
+  "gpu_name": null,
+  "cuda_version": "12.90",
+  "driver_version": null,
+  "recommendations": [
+    "🔴 驱动版本不足 - 请升级NVIDIA驱动至CUDA 12.x支持版本",
+    "   下载: https://www.nvidia.com/Download/index.aspx",
+    "安装或重新安装NVIDIA驱动"
+  ]
+}

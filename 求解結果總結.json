@@ -1,0 +1,44 @@
+{
+  "project": "超級大數獨 16×16",
+  "completion_time": "2026-05-13 18:33:20",
+  "statistics": {
+    "solution_count": 100,
+    "grid_size": 16,
+    "box_size": 4,
+    "row_constraints_files": 16,
+    "row_constraints_loaded": 8,
+    "total_permutation_patterns": 26853,
+    "initial_known_cells": 0
+  },
+  "output_files": {
+    "html_visualization": "超級大數獨_求解結果.html",
+    "json_results": "求解結果.json",
+    "solver_script": "solve_super_sudoku_full.py"
+  },
+  "row_constraints_summary": {
+    "A1": 4794,
+    "A2": 902,
+    "A3": 2057,
+    "A4": 0,
+    "A5": 0,
+    "A6": 0,
+    "A7": 2356,
+    "A8": 4782,
+    "A9": 164,
+    "A10": 9613,
+    "A11": 2185,
+    "A12": 0,
+    "A13": 0,
+    "A14": 0,
+    "A15": 0,
+    "A16": 0
+  },
+  "five_dim_framework": {
+    "point_dimension": "256 個單元格獨立約束分析",
+    "line_dimension": "16 行 + 16 列 = 32 條線約束",
+    "face_dimension": "16 個 4×4 宮格",
+    "body_dimension": "16 行排列群體約束",
+    "sphere_dimension": "全局狀態空間探索",
+    "spacetime_dimension": "求解過程時空映射"
+  }
+}

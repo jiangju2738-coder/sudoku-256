@@ -1,0 +1,12 @@
+{
+  "arbitration_framework": {
+    "principle": "D - 混合仲裁",
+    "level1_anchors": "最高優先級（不可變更）",
+    "level2_fummel": "符闔排列優先級",
+    "level3_boxes": "宮約束可調整",
+    "level4_sequence": "序列約束"
+  },
+  "test_results": {
+    "scenario1_standard": {
+      "status": "INFEASIBLE",
+      "status_code": 

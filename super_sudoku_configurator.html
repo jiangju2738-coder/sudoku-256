@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超级大数独配置器 - 16×16 符阖排列</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 0.9em;
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+        }
+        
+        .sudoku-board {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .board-title {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+        
+        .board-stats {
+            font-size: 0.85em;
+            color: #888;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 2px;
+            background: #333;
+            padding: 3px;
+            border-radius: 6px;
+        }
+        
+        .grid-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
+            font-weight: 500;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: rgba(255,255,255,0.08);
+            color: #e8e8e8;
+        }
+        
+        .grid-cell:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+        
+        .grid-cell.known {
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #000;
+            font-weight: 700;
+        }
+        
+        .grid-cell.selected {
+            outline: 3px solid #7b2cbf;
+            outline-offset: -3px;
+        }
+        
+        .grid-cell.error {
+            background: rgba(255, 71, 87, 0.3);
+            color: #ff4757;
+        }
+        
+        /* 4×4宫格边框 */
+        .grid-cell:nth-child(4n) {
+            margin-right: 4px;
+        }
+        
+        .grid-cell:nth-child(n+129):nth-child(-n+160),
+        .grid-cell:nth-child(n+257):nth-child(-n+288) {
+            margin-bottom: 4px;
+        }
+        
+        /* 行分隔 */
+        .grid-cell:nth-child(-n+16),
+        .grid-cell:nth-child(n+17):nth-child(-n+32),
+        .grid-cell:nth-child(n+33):nth-child(-n+48),
+        .grid-cell:nth-child(n+49):nth-child(-n+64) {
+            margin-bottom: 2px;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .panel-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .panel-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(180deg, #00d4ff, #7b2cbf);
+            border-radius: 2px;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        .control-label {
+            display: block;
+            font-size: 0.85em;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #e8e8e8;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #00c853, #009624);
+            color: #fff;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 200, 83, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+            color: #fff;
+        }
+        
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn-row .btn {
+            flex: 1;
+        }
+        
+        .value-picker {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 10px;
+        }
+        
+        .value-btn {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            border-radius: 6px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
+            color: #e8e8e8;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .value-btn:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+        
+        .value-btn.selected-value {
+            border-color: #7b2cbf;
+            background: rgba(123, 44, 191, 0.3);
+        }
+        
+        .value-btn.clear-value {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+        }
+        
+        .constraint-info {
+            font-size: 0.85em;
+            color: #888;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .status-ready {
+            background: rgba(0, 200, 83, 0.2);
+            color: #00c853;
+        }
+        
+        .status-solving {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .status-complete {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+        
+        .status-error {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+        }
+        
+        .spinner {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .solution-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .solution-title {
+            font-size: 1em;
+            color: #00d4ff;
+            margin-bottom: 10px;
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 2px;
+            font-size: 0.7em;
+        }
+        
+        .solution-cell {
+            padding: 4px 2px;
+            text-align: center;
+            background: rgba(255,255,255,0.08);
+            border-radius: 2px;
+        }
+        
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loading-content {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top-color: #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        .fuhh-info {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(123, 44, 191, 0.1);
+            border-radius: 6px;
+        }
+        
+        .fuhh-info strong {
+            color: #b388ff;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .panel {
+                flex: 1;
+                min-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎮 超级大数独配置器</h1>
+            <p class="subtitle">16×16 符阖排列约束 | 链式深度搜索求解</p>
+        </header>
+        
+        <div class="main-grid">
+            <div class="sudoku-board">
+                <div class="board-header">
+                    <div class="board-title">📊 数独网格</div>
+                    <div class="board-stats">
+                        <span id="stats-known">已知: 0</span> | 
+                        <span id="stats-empty">未知: 256</span> | 
+                        <span id="stats-progress">进度: 0%</span>
+                    </div>
+                </div>
+                
+                <div class="grid-container" id="sudoku-grid">
+                    <!-- 16×16 格子由 JavaScript 生成 -->
+                </div>
+                
+                <div class="fuhh-info">
+                    <strong>🔮 符阖排列约束:</strong> 
+                    每行必须从对应的符阖排列集合中选择 | 
+                    行、列、4×4宫格均不能重复 | 
+                    点击格子后选择数值进行配置
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="panel">
+                    <div class="panel-title">🎯 值选择器</div>
+                    <div class="control-group">
+                        <label class="control-label">当前选中格子: <span id="selected-cell">无</span></label>
+                    </div>
+                    <div class="value-picker" id="value-picker">
+                        <!-- 1-16 值按钮由 JavaScript 生成 -->
+                    </div>
+                    <div class="btn-row" style="margin-top: 10px;">
+                        <button class="btn btn-danger btn-block" onclick="clearSelectedCell()">
+                            🗑️ 清除
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <div class="panel-title">⚙️ 配置操作</div>
+                    <div class="btn-row">
+                        <button class="btn btn-secondary" onclick="loadInitialPuzzle()">
+                            📂 加载初始
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearAll()">
+                            🔄 重置
+                        </button>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="exportConfig()">
+                            💾 导出配置
+                        </button>
+                        <button class="btn btn-secondary" onclick="importConfig()">
+                            📥 导入配置
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <div class="panel-title">
+                        🚀 求解器
+                        <span id="solver-status" class="status-indicator status-ready">就绪</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">求解方法</label>
+                        <select id="solver-method" style="width: 100%; padding: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #e8e8e8; border-radius: 6px;">
+                            <option value="cpsat">CP-SAT (OR-Tools)</option>
+                            <option value="chain-dfs">链式深度搜索</option>
+                            <option value="dlx">DLX 精确覆盖</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">最大解数: <span id="max-solutions">5</span></label>
+                        <input type="range" id="max-solutions-slider" min="1" max="50" value="5" style="width: 100%;" oninput="document.getElementById('max-solutions').textContent = this.value">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">超时限制: <span id="timeout-value">60</span>秒</label>
+                        <input type="range" id="timeout-slider" min="10" max="300" value="60" style="width: 100%;" oninput="document.getElementById('timeout-value').textContent = this.value">
+                    </div>
+                    
+                    <div class="btn-row">
+                        <button class="btn btn-success btn-block" onclick="startSolving()">
+                            ▶️ 开始求解
+                        </button>
+                    </div>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="solver-progress"></div>
+                    </div>
+                    
+                    <div id="solver-results" class="solution-display" style="display: none;">
+                        <div class="solution-title" id="solution-title"></div>
+                        <div class="solution-grid" id="solution-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 加载覆盖层 -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3 id="loading-text">正在处理...</h3>
+        </div>
+    </div>
+    
+    <!-- 隐藏的 file input for import -->
+    <input type="file" id="config-import" accept=".json" style="display: none;" onchange="handleImport(this)">
+    
+    <script>
+        // ==================== API 配置 ====================
+        const API_BASE = 'http://127.0.0.1:5001/api';
+        const GRID_SIZE = 16;
+        const BOX_SIZE = 4;
+        
+        let grid = [];
+        let selectedCell = null;
+        let initialPuzzle = null;
+        let fuhhPermutations = null;
+        
+        // ==================== API 工具 ====================
+        async function apiGet(endpoint) {
+            const res = await fetch(`${API_BASE}${endpoint}`);
+            return res.json();
+        }
+        
+        async function apiPost(endpoint, data) {
+            const res = await fetch(`${API_BASE}${endpoint}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            return res.json();
+        }
+        
+        // ==================== 初始化 ====================
+        async function initGrid() {
+            const container = document.getElementById('sudoku-grid');
+            container.innerHTML = '';
+            
+            for (let row = 0; row < GRID_SIZE; row++) {
+                grid[row] = [];
+                for (let col = 0; col < GRID_SIZE; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+                    cell.textContent = '';
+                    cell.onclick = () => selectCell(row, col);
+                    container.appendChild(cell);
+                    grid[row][col] = {
+                        element: cell,
+                        value: null,
+                        isKnown: false
+                    };
+                }
+            }
+            
+            updateStats();
+        }
+        
+        function initValuePicker() {
+            const container = document.getElementById('value-picker');
+            container.innerHTML = '';
+            
+            for (let val = 1; val <= 16; val++) {
+                const btn = document.createElement('button');
+                btn.className = 'value-btn';
+                btn.textContent = val <= 9 ? val : String.fromCharCode(64 + val);
+                btn.onclick = () => setValue(val);
+                container.appendChild(btn);
+            }
+            
+            const clearBtn = document.createElement('button');
+            clearBtn.className = 'value-btn clear-value';
+            clearBtn.textContent = '✕';
+            clearBtn.onclick = () => clearSelectedCell();
+            container.appendChild(clearBtn);
+        }
+        
+        // ==================== 选择与编辑 ====================
+        function selectCell(row, col) {
+            document.querySelectorAll('.grid-cell.selected').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+            
+            const cell = grid[row][col];
+            cell.element.classList.add('selected');
+            selectedCell = {row, col};
+            
+            document.getElementById('selected-cell').textContent = 
+                `第${row + 1}行, 第${col + 1}列 (值: ${cell.value || '未知'})`;
+            
+            highlightRelated(row, col);
+        }
+        
+        function highlightRelated(row, col) {
+            document.querySelectorAll('.grid-cell').forEach(cell => {
+                cell.style.background = '';
+            });
+            
+            const baseColor = 'rgba(123, 44, 191, 0.2)';
+            
+            for (let c = 0; c < GRID_SIZE; c++) {
+                grid[row][c].element.style.background = baseColor;
+            }
+            for (let r = 0; r < GRID_SIZE; r++) {
+                grid[r][col].element.style.background = baseColor;
+            }
+            const boxRow = Math.floor(row / BOX_SIZE) * BOX_SIZE;
+            const boxCol = Math.floor(col / BOX_SIZE) * BOX_SIZE;
+            for (let r = boxRow; r < boxRow + BOX_SIZE; r++) {
+                for (let c = boxCol; c < boxCol + BOX_SIZE; c++) {
+                    grid[r][c].element.style.background = baseColor;
+                }
+            }
+        }
+        
+        function setValue(value) {
+            if (!selectedCell) return;
+            
+            const {row, col} = selectedCell;
+            grid[row][col].value = value;
+            grid[row][col].isKnown = true;
+            grid[row][col].element.textContent = value <= 9 ? value : String.fromCharCode(55 + value);
+            grid[row][col].element.classList.add('known');
+            
+            updateStats();
+        }
+        
+        function clearSelectedCell() {
+            if (!selectedCell) return;
+            
+            const {row, col} = selectedCell;
+            grid[row][col].value = null;
+            grid[row][col].isKnown = false;
+            grid[row][col].element.textContent = '';
+            grid[row][col].element.classList.remove('known');
+            
+            updateStats();
+        }
+        
+        function updateStats() {
+            let known = 0;
+            let empty = 0;
+            
+            for (let row = 0; row < GRID_SIZE; row++) {
+                for (let col = 0; col < GRID_SIZE; col++) {
+                    if (grid[row][col].isKnown) {
+                        known++;
+                    } else {
+                        empty++;
+                    }
+                }
+            }
+            
+            const progress = (known / (GRID_SIZE * GRID_SIZE)) * 100;
+            
+            document.getElementById('stats-known').textContent = `已知: ${known}`;
+            document.getElementById('stats-empty').textContent = `未知: ${empty}`;
+            document.getElementById('stats-progress').textContent = `进度: ${progress.toFixed(1)}%`;
+        }
+        
+        // ==================== 配置操作 ====================
+        function clearAll() {
+            if (!confirm('确定要清空所有配置吗？')) return;
+            
+            for (let row = 0; row < GRID_SIZE; row++) {
+                for (let col = 0; col < GRID_SIZE; col++) {
+                    grid[row][col].value = null;
+                    grid[row][col].isKnown = false;
+                    grid[row][col].element.textContent = '';
+                    grid[row][col].element.classList.remove('known', 'selected');
+                }
+            }
+            
+            selectedCell = null;
+            document.getElementById('selected-cell').textContent = '无';
+            updateStats();
+        }
+        
+        async function loadInitialPuzzle() {
+            showLoading(true, '正在加载初始题目...');
+            
+            try {
+                // 从后端获取初始题目
+                const data = await apiGet('/initial-puzzle');
+                initialPuzzle = data;
+                
+                clearAll();
+                
+                for (let row = 0; row < GRID_SIZE; row++) {
+                    for (let col = 0; col < GRID_SIZE; col++) {
+                        const val = data[row][col];
+                        if (val !== 0) {
+                            grid[row][col].value = val;
+                            grid[row][col].isKnown = true;
+                            grid[row][col].element.textContent = val <= 9 ? val : String.fromCharCode(55 + val);
+                            grid[row][col].element.classList.add('known');
+                        }
+                    }
+                }
+                
+                updateStats();
+            } catch (err) {
+                alert('加载失败: ' + err.message + '\n请确保后端服务正在运行 (python backend_api.py)');
+            }
+            
+            showLoading(false);
+        }
+        
+        async function exportConfig() {
+            const knownDigits = [];
+            for (let row = 0; row < GRID_SIZE; row++) {
+                for (let col = 0; col < GRID_SIZE; col++) {
+                    if (grid[row][col].isKnown) {
+                        knownDigits.push({
+                            row: row + 1,
+                            col: col + 1,
+                            value: grid[row][col].value
+                        });
+                    }
+                }
+            }
+            
+            try {
+                const result = await apiPost('/export-config', {
+                    grid: getGridValues()
+                });
+                
+                if (result.success) {
+                    // 同时下载本地副本
+                    const config = {
+                        grid_size: GRID_SIZE,
+                        box_size: BOX_SIZE,
+                        known_digits: knownDigits,
+                        exported_at: new Date().toISOString()
+                    };
+                    const blob = new Blob([JSON.stringify(config, null, 2)], {type: 'application/json'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'sudoku_config.json';
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    alert(`配置已导出到后端: ${result.file}\n同时下载了本地副本`);
+                } else {
+                    alert('导出失败: ' + result.error);
+                }
+            } catch (err) {
+                // 备用：本地导出
+                const config = {
+                    grid_size: GRID_SIZE,
+                    box_size: BOX_SIZE,
+                    known_digits: knownDigits,
+                    exported_at: new Date().toISOString()
+                };
+                const blob = new Blob([JSON.stringify(config, null, 2)], {type: 'application/json'});
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'sudoku_config.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                alert('后端不可用，已本地导出配置!');
+            }
+        }
+        
+        function importConfig() {
+            document.getElementById('config-import').click();
+        }
+        
+        function handleImport(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const config = JSON.parse(e.target.result);
+                    
+                    clearAll();
+                    
+                    config.known_digits.forEach(kd => {
+                        const row = kd.row - 1;
+                        const col = kd.col - 1;
+                        const value = kd.value;
+                        
+                        grid[row][col].value = value;
+                        grid[row][col].isKnown = true;
+                        grid[row][col].element.textContent = value <= 9 ? value : String.fromCharCode(55 + value);
+                        grid[row][col].element.classList.add('known');
+                    });
+                    
+                    updateStats();
+                    alert(`成功导入 ${config.known_digits.length} 个已知数字!`);
+                } catch (err) {
+                    alert('导入失败: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            input.value = '';
+        }
+        
+        // ==================== 获取当前网格值 ====================
+        function getGridValues() {
+            const values = [];
+            for (let row = 0; row < GRID_SIZE; row++) {
+                const rowVals = [];
+                for (let col = 0; col < GRID_SIZE; col++) {
+                    rowVals.push(grid[row][col].value || 0);
+                }
+                values.push(rowVals);
+            }
+            return values;
+        }
+        
+        // ==================== 验证配置 ====================
+        async function validateConfig() {
+            try {
+                const result = await apiPost('/validate', {
+                    grid: getGridValues()
+                });
+                
+                if (!result.valid) {
+                    showValidationErrors(result.errors);
+                }
+                
+                return result.valid;
+            } catch (err) {
+                console.warn('验证服务不可用，跳过验证');
+                return true;
+            }
+        }
+        
+        function showValidationErrors(errors) {
+            let msg = '配置验证发现以下问题:\n\n';
+            errors.forEach((e, i) => {
+                msg += `${i + 1}. ${e}\n`;
+            });
+            if (!confirm(msg + '\n是否继续求解？')) {
+                return false;
+            }
+            return true;
+        }
+        
+        // ==================== 求解 ====================
+        function showLoading(show, text = '正在处理...') {
+            const overlay = document.getElementById('loading-overlay');
+            const loadingText = document.getElementById('loading-text');
+            
+            if (show) {
+                loadingText.textContent = text;
+                overlay.classList.add('active');
+            } else {
+                overlay.classList.remove('active');
+            }
+        }
+        
+        function updateSolverStatus(status, text) {
+            const indicator = document.getElementById('solver-status');
+            indicator.className = 'status-indicator';
+            
+            switch (status) {
+                case 'ready': indicator.classList.add('status-ready'); break;
+                case 'solving': indicator.classList.add('status-solving'); break;
+                case 'complete': indicator.classList.add('status-complete'); break;
+                case 'error': indicator.classList.add('status-error'); break;
+            }
+            
+            if (text) {
+                indicator.innerHTML = text;
+            }
+        }
+        
+        function updateProgress(percent) {
+            document.getElementById('solver-progress').style.width = percent + '%';
+        }
+        
+        function displaySolution(solution, statusText, timeText) {
+            const display = document.getElementById('solver-results');
+            const title = document.getElementById('solution-title');
+            const container = document.getElementById('solution-grid');
+            
+            display.style.display = 'block';
+            title.textContent = `🎯 ${statusText} (${timeText})`;
+            container.innerHTML = '';
+            
+            solution.forEach(row => {
+                row.forEach(value => {
+                    const cell = document.createElement('div');
+                    cell.className = 'solution-cell';
+                    cell.textContent = value <= 9 ? value : String.fromCharCode(55 + value);
+                    cell.style.background = value <= 9 
+                        ? 'rgba(255,255,255,0.15)' 
+                        : 'rgba(123, 44, 191, 0.4)';
+                    container.appendChild(cell);
+                });
+            });
+        }
+        
+        async function startSolving() {
+            const method = document.getElementById('solver-method').value;
+            const maxSolutions = parseInt(document.getElementById('max-solutions-slider').value);
+            const timeout = parseInt(document.getElementById('timeout-slider').value);
+            
+            // 验证配置
+            const knownCount = parseInt(document.getElementById('stats-known').textContent.match(/\d+/)[0]);
+            if (knownCount === 0) {
+                alert('请先配置至少一些已知数字!');
+                return;
+            }
+            
+            // 验证配置有效性
+            const valid = await validateConfig();
+            if (!valid) return;
+            
+            showLoading(true, '正在求解...');
+            updateSolverStatus('solving', '<div class="spinner"></div> 求解中');
+            updateProgress(0);
+            
+            // 准备求解请求
+            const gridValues = getGridValues();
+            
+            try {
+                const result = await apiPost('/solve', {
+                    grid: gridValues,
+                    method: method === 'chain-dfs' ? 'backtrack' : 'cpsat',
+                    max_solutions: maxSolutions,
+                    timeout: timeout
+                });
+                
+                updateProgress(100);
+                
+                if (result.success) {
+                    const solCount = result.total_count || result.solutions?.length || 0;
+                    const statusMsg = result.status === 'optimal' ? '最优解已找到' : 
+                                      result.status === 'completed' ? '搜索完成' : 
+                                      result.status === 'timeout' ? '超时' : '求解完成';
+                    
+                    if (result.solutions && result.solutions.length > 0) {
+                        displaySolution(result.solutions[0], 
+                            `找到 ${solCount} 个解中的第 1 个 | ${statusMsg}`,
+                            `${result.time_seconds}秒`);
+                        
+                        if (result.total_count > 1) {
+                            displaySolution(result.solutions[0], 
+                                `共找到 ${result.total_count} 个解 | ${statusMsg}`,
+                                `${result.time_seconds}秒`);
+                        }
+                    } else {
+                        document.getElementById('solver-results').style.display = 'block';
+                        document.getElementById('solution-title').textContent = 
+                            `⚠️ 未找到解 (${statusMsg}, ${result.time_seconds}秒)`;
+                        document.getElementById('solution-grid').innerHTML = '';
+                    }
+                    
+                    updateSolverStatus('complete', `✓ ${statusMsg}`);
+                } else {
+                    alert('求解失败: ' + (result.error || '未知错误'));
+                    updateSolverStatus('error', '✗ 求解失败');
+                }
+            } catch (err) {
+                console.error('求解错误:', err);
+                alert('无法连接到后端 API\n请确保运行: python backend_api.py\n\n错误: ' + err.message);
+                updateSolverStatus('error', '✗ 连接失败');
+            }
+            
+            showLoading(false);
+        }
+        
+        // ==================== 获取符阖排列信息 ====================
+        async function loadPermutationInfo() {
+            try {
+                const perms = await apiGet('/permutations');
+                fuhhPermutations = perms;
+                
+                let infoText = '符闔排列摘要:\n';
+                for (const [key, val] of Object.entries(perms)) {
+                    infoText += `${key}: ${val.count} 排列\n`;
+                }
+                console.log(infoText);
+            } catch (err) {
+                console.warn('无法加载符闔排列信息');
+            }
+        }
+        
+        // ==================== 初始化 ====================
+        document.addEventListener('DOMContentLoaded', async () => {
+            initGrid();
+            initValuePicker();
+            updateSolverStatus('ready', '✓ 就绪');
+            
+            // 尝试连接后端
+            try {
+                const status = await apiGet('/status');
+                updateSolverStatus('ready', `✓ 已连接 (${status.permutations_loaded} 排列加载)`);
+                await loadPermutationInfo();
+                console.log('后端 API 连接成功');
+            } catch (err) {
+                updateSolverStatus('ready', '⚠ 后端未连接 (请运行 python backend_api.py)');
+                console.warn('后端 API 未连接，部分功能受限');
+            }
+            
+            console.log(`超级大数独配置器已就绪 | 网格: ${GRID_SIZE}×${GRID_SIZE}, 宫格: ${BOX_SIZE}×${BOX_SIZE}`);
+        });
+    </script>
+</body>
+</html>
