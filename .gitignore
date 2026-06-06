@@ -1,0 +1,19 @@
+# Permutation data (generated from XLSX, too large for git)
+A*_permutations.json
+
+# Solver output
+result_*.json
+extraction_report.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
