@@ -1,0 +1,4 @@
+# 256 數獨求解器 - 開發依賴
+pytest>=8.0
+pytest-timeout>=2.0
+ortools>=9.10
