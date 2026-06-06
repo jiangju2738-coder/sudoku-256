@@ -23,6 +23,7 @@
   - `github-actions-ci`（新建）：CI 最佳實踐
   - `sudoku256-solver`（更新）：加入 CI Testing 段落
   - `xlsx-permutation-extractor`（更新）：加入 gitignore / CI skip 說明
+- `docs/retrospective.md`：專案整理經驗與心得（目錄結構、大檔案管理、CI 遞進建立、測試策略、Skills 沉澱、求解 pipeline）
 
 ### CI 歷史
 | 日期 | Commit | 結果 | 備註 |
