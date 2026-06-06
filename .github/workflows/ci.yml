@@ -18,6 +18,7 @@ on:
       - 'tests/**'
       - 'requirements.txt'
       - 'README.md'
+      - 'CHANGELOG.md'
       - '.github/workflows/**'
   pull_request:
     branches: [master, main]
@@ -28,6 +29,7 @@ on:
       - 'tests/**'
       - 'requirements.txt'
       - 'README.md'
+      - 'CHANGELOG.md'
       - '.github/workflows/**'
 
 permissions:
