@@ -17,6 +17,7 @@ on:
       - 'extract_perms.py'
       - 'tests/**'
       - 'requirements.txt'
+      - 'README.md'
       - '.github/workflows/**'
   pull_request:
     branches: [master, main]
@@ -26,6 +27,7 @@ on:
       - 'extract_perms.py'
       - 'tests/**'
       - 'requirements.txt'
+      - 'README.md'
       - '.github/workflows/**'
 
 permissions:
